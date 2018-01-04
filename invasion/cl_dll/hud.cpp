@@ -760,4 +760,9 @@ float CHud::GetSensitivity( void )
 	return m_flMouseSensitivity;
 }
 
-
+#if defined ( HLINVASION_CLIENT_DLL )
+bool UTIL_IsPlayerDrivingTank()
+{
+	return gHUD.m_HudTank.m_iPlayerInTank == true;
+}
+#endif //  defined ( HLINVASION_CLIENT_DLL )

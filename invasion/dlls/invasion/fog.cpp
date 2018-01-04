@@ -16,6 +16,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "player.h"
+#include "fog.h"
 
 extern int gmsgFog;
 
@@ -25,34 +26,7 @@ int	g_bFogUpdate;
 //---------------------------------------------------------
 // classe de l'entité dans les maps bsp
 
-
-
-class CTriggerFog : public CPointEntity
-{
-public:
-
-	void	Spawn		( void );
-
-	void	KeyValue	( KeyValueData *pkvd );
-	void	Use			( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-
-
-	virtual int	Save	( CSave &save );
-	virtual int	Restore	( CRestore &restore );
-
-	static	TYPEDESCRIPTION m_SaveData[];
-
-	float	m_flminDist;
-	float	m_flmaxDist;
-	float	m_flFadeInTime;
-	float	m_flFadeOutTime;
-
-	int		m_bActive;
-};
-
 LINK_ENTITY_TO_CLASS( trigger_fog, CTriggerFog );
-
-
 
 TYPEDESCRIPTION CTriggerFog::m_SaveData[] =
 {
@@ -61,11 +35,9 @@ TYPEDESCRIPTION CTriggerFog::m_SaveData[] =
 	DEFINE_FIELD( CTriggerFog, m_flFadeInTime, FIELD_FLOAT ),
 	DEFINE_FIELD( CTriggerFog, m_flFadeOutTime, FIELD_FLOAT ),
 	DEFINE_FIELD( CTriggerFog, m_bActive, FIELD_INTEGER ),
+	DEFINE_FIELD( CTriggerFog, m_fogdensity, FIELD_SHORT ),
 };
-#if 1
 IMPLEMENT_SAVERESTORE(CTriggerFog, CPointEntity);
-#endif
-
 
 void CTriggerFog :: Spawn( void )
 {
@@ -75,6 +47,7 @@ void CTriggerFog :: Spawn( void )
 	m_bActive = 0;
 
 	g_bFogUpdate = 0;
+	m_fogdensity = 0;
 }
 
 void CTriggerFog :: KeyValue( KeyValueData *pkvd )
@@ -133,6 +106,8 @@ void CTriggerFog :: Use ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 			WRITE_COORD ( pev->rendercolor.y );
 			WRITE_COORD ( pev->rendercolor.z );
 
+			WRITE_SHORT(m_fogdensity);
+
 		MESSAGE_END();
 
 		m_bActive = m_bActive == 1 ? 0 : 1;
@@ -153,35 +128,46 @@ void CTriggerFog :: Use ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 			WRITE_COORD ( pev->rendercolor.y );
 			WRITE_COORD ( pev->rendercolor.z );
 
+			WRITE_SHORT( m_fogdensity );
+
 		MESSAGE_END();
 	}
 }
 
-#if 0
-//------------------------------------------
-// sauvegarde et restauration
-
-
-int CTriggerFog::Save( CSave &save )
+void CTriggerFog::Activate()
 {
-	if ( !CPointEntity::Save(save) )
-		return 0;
+	CPointEntity::Activate();
 
-	return save.WriteFields( "CTriggerFog", this, m_SaveData, ARRAYSIZE(m_SaveData) );
+	ApplySteamPipeFogDensityFix();
+
+	if (m_bActive)
+		g_bFogUpdate = 1;
 }
 
-int CTriggerFog::Restore( CRestore &restore )
+void CTriggerFog::ApplySteamPipeFogDensityFix()
 {
-	if ( !CPointEntity::Restore(restore) )
-		return 0;
-
-	int status = restore.ReadFields( "CTriggerFog", this, m_SaveData, ARRAYSIZE(m_SaveData) );
-
-	//-----------------------
-
-	g_bFogUpdate = 1;		// force le rafraichissement des donnees client
-
-	//----------------------
-	return status;
+	if (FStrEq(STRING(gpGlobals->mapname), "l4m5"))
+	{
+		if (FStrEq(STRING(pev->targetname), "fog_gaz_fuck"))
+			m_fogdensity = 25;
+		else if (FStrEq(STRING(pev->targetname), "fog_gaz_fuck2"))
+			m_fogdensity = 8;
+	}
+	else if (FStrEq(STRING(gpGlobals->mapname), "l4m6") && FStrEq(STRING(pev->targetname), "new_fogue"))
+		m_fogdensity = 8;
+	else if (FStrEq(STRING(gpGlobals->mapname), "l4m7") && FStrEq(STRING(pev->targetname), "autofog2"))
+		m_fogdensity = 6;
+	else if (FStrEq(STRING(gpGlobals->mapname), "l5m1") && FStrEq(STRING(pev->targetname), "fuckfog"))
+		m_fogdensity = 8;
+	else if (FStrEq(STRING(gpGlobals->mapname), "l5m2"))
+	{
+		if (FStrEq(STRING(pev->targetname), "fuckfog"))
+			m_fogdensity = 6;
+		else if (FStrEq(STRING(pev->targetname), "newfog"))
+			m_fogdensity = 6;
+	}
+	else if (FStrEq(STRING(gpGlobals->mapname), "l5m3"))
+		m_fogdensity = 6;
+	else
+		m_fogdensity = 0;
 }
-#endif

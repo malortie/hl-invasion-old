@@ -83,6 +83,10 @@ CM16 g_M16;
 CSuperGun g_SuperGun;
 #endif // defined ( HLINVASION_CLIENT_DLL )
 
+#if defined ( HLINVASION_CLIENT_DLL )
+extern bool UTIL_IsPlayerDrivingTank();
+#endif //  defined ( HLINVASION_CLIENT_DLL )
+
 /*
 ======================
 AlertMessage
@@ -339,6 +343,12 @@ Handles weapon firing, reloading, etc.
 */
 void CBasePlayerWeapon::ItemPostFrame( void )
 {
+#if defined ( HLINVASION_CLIENT_DLL )
+	// Do not update weapons while driving the tank.
+	if (UTIL_IsPlayerDrivingTank())
+		return;
+#endif
+
 	if ((m_fInReload) && (m_pPlayer->m_flNextAttack <= 0.0))
 	{
 #if 0 // FIXME, need ammo on client to make this work right

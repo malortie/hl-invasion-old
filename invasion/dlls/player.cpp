@@ -40,6 +40,7 @@
 #if defined ( HLINVASION_DLL )
 // modif de Julien
 #include "radiomsg.h"
+#include "fog.h"
 #endif // defined ( HLINVASION_DLL )
 
 #if defined ( HLINVASION_DLL )
@@ -4746,9 +4747,17 @@ void CBasePlayer :: UpdateClientData( void )
 	{
 		g_bFogUpdate = 0;
 
-		CBaseEntity *pFog = NULL;
-		pFog = UTIL_FindEntityByClassname( NULL, "trigger_fog" );
-		pFog->Use ( this, this, USE_ON, 18686 );
+		// Find the first active fog entity and turn it on.
+		BOOL continueSearch = TRUE;
+		CTriggerFog *pFog = NULL;
+		while ((pFog = (CTriggerFog*)UTIL_FindEntityByClassname(pFog, "trigger_fog")) != NULL && continueSearch == TRUE)
+		{
+			if (pFog->IsActive()) 
+			{
+				pFog->Use(this, this, USE_ON, 18686);
+				continueSearch = FALSE;
+			}
+		}
 	}
 #endif // defined ( HLINVASION_DLL )
 

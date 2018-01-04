@@ -2308,6 +2308,7 @@ enum m16_e
 	M16_RELOAD,
 	M16_DEPLOY,
 	M16_FIRE1,
+	M16_LAUNCH
 };
 
 void EV_FireM16(event_args_t *args)
@@ -2374,7 +2375,7 @@ void EV_FireM162(event_args_t *args)
 
 	if (EV_IsLocal(idx))
 	{
-		// gEngfuncs.pEventAPI->EV_WeaponAnimation(MP5_LAUNCH, 2);
+		gEngfuncs.pEventAPI->EV_WeaponAnimation(M16_LAUNCH, 2);
 		V_PunchAxis(0, -10);
 	}
 

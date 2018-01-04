@@ -406,9 +406,9 @@ void W_Precache(void)
 	// common world objects
 	UTIL_PrecacheOther( "item_suit" );
 	UTIL_PrecacheOther( "item_battery" );
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+#if defined ( HLINVASION_DLL )
 	UTIL_PrecacheOther("item_healthkit");	// modif de Julien
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+#endif // defined ( HLINVASION_DLL )
 	UTIL_PrecacheOther( "item_antidote" );
 	UTIL_PrecacheOther( "item_security" );
 	UTIL_PrecacheOther( "item_longjump" );
@@ -429,7 +429,7 @@ void W_Precache(void)
 	UTIL_PrecacheOther( "ammo_9mmAR" );
 	UTIL_PrecacheOther( "ammo_ARgrenades" );
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+#if defined ( HLINVASION_DLL )
 	// modif. de Julien
 	//m16
 	UTIL_PrecacheOtherWeapon( "weapon_m16" );
@@ -459,7 +459,7 @@ void W_Precache(void)
 
 
 	//fin modif.
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+#endif // defined ( HLINVASION_DLL )
 
 #if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// python
@@ -467,7 +467,7 @@ void W_Precache(void)
 	UTIL_PrecacheOther( "ammo_357" );
 #endif
 	
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
+#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD ) && !defined ( HLINVASION_DLL )
 	// gauss
 	UTIL_PrecacheOtherWeapon( "weapon_gauss" );
 	UTIL_PrecacheOther( "ammo_gaussclip" );
@@ -479,18 +479,16 @@ void W_Precache(void)
 	UTIL_PrecacheOther( "ammo_rpgclip" );
 #endif
 
-#if !defined ( HLINVASION_DLL ) && !defined ( HLINVASION_CLIENT_DLL )
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
+#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD ) && !defined ( HLINVASION_DLL )
 	// crossbow
 	UTIL_PrecacheOtherWeapon( "weapon_crossbow" );
 	UTIL_PrecacheOther( "ammo_crossbow" );
 #endif
 
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
+#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD ) && !defined ( HLINVASION_DLL )
 	// egon
 	UTIL_PrecacheOtherWeapon( "weapon_egon" );
 #endif
-#endif // !defined ( HLINVASION_DLL ) && !defined ( HLINVASION_CLIENT_DLL )
 
 	// tripmine
 	UTIL_PrecacheOtherWeapon( "weapon_tripmine" );
@@ -503,17 +501,15 @@ void W_Precache(void)
 	// hand grenade
 	UTIL_PrecacheOtherWeapon("weapon_handgrenade");
 
-#if !defined ( HLINVASION_DLL ) && !defined ( HLINVASION_CLIENT_DLL )
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
+#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD ) && !defined ( HLINVASION_DLL )
 	// squeak grenade
 	UTIL_PrecacheOtherWeapon( "weapon_snark" );
 #endif
 
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
+#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD ) && !defined ( HLINVASION_DLL )
 	// hornetgun
 	UTIL_PrecacheOtherWeapon( "weapon_hornetgun" );
 #endif
-#endif // !defined ( HLINVASION_DLL ) && !defined ( HLINVASION_CLIENT_DLL )
 
 
 #if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
@@ -620,7 +616,7 @@ void W_Precache(void)
 	
 	PRECACHE_SOUND ("items/weapondrop1.wav");// weapon falls to the ground
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+#if defined ( HLINVASION_DLL )
 	PRECACHE_SOUND("sentences/blip.wav");// modif de Julien
 	PRECACHE_SOUND("buttons/blip2.wav");// modif de Julien
 #endif
@@ -851,6 +847,12 @@ BOOL CanAttack( float attack_time, float curtime, BOOL isPredicted )
 
 void CBasePlayerWeapon::ItemPostFrame( void )
 {
+#if defined ( HLINVASION_DLL )
+	// Do not update weapons while driving the tank.
+	if (m_pPlayer->m_iDrivingTank == TRUE) 
+		return;
+#endif
+
 	if ((m_fInReload) && ( m_pPlayer->m_flNextAttack <= UTIL_WeaponTimeBase() ) )
 	{
 		// complete the reload. 
@@ -869,11 +871,8 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 	{
 		m_flLastFireTime = 0.0f;
 	}
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
-	if ((m_pPlayer->pev->button & IN_ATTACK2) && CanAttack( m_flNextSecondaryAttack, gpGlobals->time, UseDecrement() ) && m_pPlayer->m_iDrivingTank==FALSE )
-#else
+
 	if ((m_pPlayer->pev->button & IN_ATTACK2) && CanAttack( m_flNextSecondaryAttack, gpGlobals->time, UseDecrement() ) )
-#endif
 	{
 		if ( pszAmmo2() && !m_pPlayer->m_rgAmmo[SecondaryAmmoIndex()] )
 		{
@@ -884,11 +883,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 		SecondaryAttack();
 		m_pPlayer->pev->button &= ~IN_ATTACK2;
 	}
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
-	else if ((m_pPlayer->pev->button & IN_ATTACK) && CanAttack( m_flNextPrimaryAttack, gpGlobals->time, UseDecrement() ) && m_pPlayer->m_iDrivingTank==FALSE )
-#else
 	else if ((m_pPlayer->pev->button & IN_ATTACK) && CanAttack( m_flNextPrimaryAttack, gpGlobals->time, UseDecrement() ) )
-#endif
 	{
 		if ( (m_iClip == 0 && pszAmmo1()) || (iMaxClip() == -1 && !m_pPlayer->m_rgAmmo[PrimaryAmmoIndex()] ) )
 		{

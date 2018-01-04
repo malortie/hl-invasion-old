@@ -642,6 +642,12 @@ public:
 
 	int		Fade;
 	int		bActive;
+#if 1
+	float	m_fogdensity;
+
+private:
+	float ConvertFogDensityFromServerToClient(short serverFogDensity);
+#endif
 };
 
 

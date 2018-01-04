@@ -249,7 +249,7 @@ void CM16::Reload(void)
 	if (m_pPlayer->ammo_m16 <= 0)
 		return;
 
-	DefaultReload(MP5_MAX_CLIP, M16_RELOAD, 1.5);
+	DefaultReload(MP5_MAX_CLIP, M16_RELOAD, 2.9);
 }
 
 

@@ -19,6 +19,8 @@
 
 #define	FOG_DISTANCE_INFINIE		4096
 
+#define FOG_SERVER_MAX_DENSITY		100
+#define FOG_CLIENT_MAX_DENSITY		0.01f
 
 //------------------------------------
 //
@@ -54,6 +56,8 @@ int CHudFog::MsgFunc_Fog( const char *pszName, int iSize, void *pbuf )
 	fogcolor.y	= READ_COORD();
 	fogcolor.z	= READ_COORD();
 
+	m_fogdensity = ConvertFogDensityFromServerToClient(READ_SHORT());
+
 	m_iFlags |= HUD_ACTIVE;
 	return 1;
 }
@@ -77,18 +81,19 @@ int CHudFog :: Draw	( float flTime )
 	return 1;
 }
 
-
 void CHudFog :: DrawFog ( void )
 {
 	if ( Fade == 0 && m_iFlags & HUD_ACTIVE)
 	{
 		if ( bActive == 0 )
 		{
+			gEngfuncs.pTriAPI->FogParams(0, 0);
 			gEngfuncs.pTriAPI->Fog ( fogcolor, mindist, maxdist, 0 );
 			m_iFlags &= ~HUD_ACTIVE;
 		}
 		else
 		{
+			gEngfuncs.pTriAPI->FogParams(m_fogdensity, 0);
 			gEngfuncs.pTriAPI->Fog(fogcolor, mindist, maxdist, 1);
 		}
 		return;
@@ -105,6 +110,7 @@ void CHudFog :: DrawFog ( void )
 	else if ( Fade == 1 && bActive == 0 )
 		fldist = FOG_DISTANCE_INFINIE * fadetime / maxfadetime;
 
+	gEngfuncs.pTriAPI->FogParams(m_fogdensity, 0);
 	gEngfuncs.pTriAPI->Fog ( fogcolor, mindist + fldist, maxdist + fldist, 1 );
 }
 
@@ -146,4 +152,29 @@ int CHudFog :: VidInit( void )
 	return 1;
 }
 
+inline float clamp(float val, float minVal, float maxVal)
+{
+	if (maxVal < minVal)
+		return maxVal;
+	else if (val < minVal)
+		return minVal;
+	else if (val > maxVal)
+		return maxVal;
+	else
+		return val;
+}
 
+inline float RemapValClamped(float val, float A, float B, float C, float D)
+{
+	if (A == B)
+		return val >= B ? D : C;
+	float cVal = (val - A) / (B - A);
+	cVal = clamp(cVal, 0.0f, 1.0f);
+
+	return C + (D - C) * cVal;
+}
+
+float CHudFog::ConvertFogDensityFromServerToClient(short serverFogDensity)
+{
+	return RemapValClamped(serverFogDensity, 0, FOG_SERVER_MAX_DENSITY, 0, FOG_CLIENT_MAX_DENSITY);
+}
