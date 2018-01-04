@@ -1533,7 +1533,7 @@ void UTIL_BubbleTrail( Vector from, Vector to, int count )
 {
 #if defined ( HLINVASION_DLL )
 	//modif de Julien
-	float hfrom, hto;
+	float hfrom = 0, hto = 0;
 #endif
 
 	float flHeight = UTIL_WaterLevel( from,  from.z, from.z + 256 );

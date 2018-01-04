@@ -220,12 +220,12 @@ void CIRgun::WeaponIdle(void)
 	}
 	else if (flRand <= 0.7)
 	{
-		iAnim = IRGUN_FIRE1; // idle2
-		m_flTimeWeaponIdle = (20 / 14.0);
+		iAnim = IRGUN_IDLE1; // idle1
+		m_flTimeWeaponIdle = (20 / 4.0);
 	}
 	else
 	{
-		iAnim = IRGUN_FIDGET; // idle1
+		iAnim = IRGUN_FIDGET; // fidget
 		m_flTimeWeaponIdle = (18 / 4.0);
 	}
 

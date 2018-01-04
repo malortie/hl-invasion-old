@@ -3884,17 +3884,20 @@ void CBasePlayer::ImpulseCommands( )
 	case 100:
 		// temporary flashlight for level designers
 #if defined ( HLINVASION_DLL )
-		if ( (FClassnameIs(m_pActiveItem->pev, "weapon_briquet")) /*FlashlightIsOn()*/ )
+		if (m_pActiveItem != NULL)
 		{
-			SelectLastItem ();
-		//	FlashlightTurnOff();
-		}
-        else 
-		{
-			if ( pev->weapons & (1<<WEAPON_SUIT))
-				SelectItem ( "weapon_briquet" );
+			if ((FClassnameIs(m_pActiveItem->pev, "weapon_briquet")) /*FlashlightIsOn()*/)
+			{
+				SelectLastItem();
+				//	FlashlightTurnOff();
+			}
+			else
+			{
+				if (pev->weapons & (1 << WEAPON_SUIT))
+					SelectItem("weapon_briquet");
 
-			//	FlashlightTurnOn();
+				//	FlashlightTurnOn();
+			}
 		}
 		break;
 #else

@@ -1903,7 +1903,7 @@ void EV_FireRpg(event_args_t *args)
 	}
 }
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+#if defined ( HLINVASION_CLIENT_DLL )
 void EV_RpgIdle(event_args_t *args)
 {
 	int idx;
@@ -1937,7 +1937,7 @@ void EV_RpgReload(event_args_t *args)
 		gEngfuncs.pEventAPI->EV_WeaponAnimation(anim, body);
 	}
 }
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+#endif // defined ( HLINVASION_CLIENT_DLL )
 
 //======================
 //	     RPG END 

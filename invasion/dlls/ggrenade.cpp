@@ -134,6 +134,15 @@ void CGrenade::Explode( TraceResult *pTrace, int bitsDamageType )
 		for ( int i = 0; i < sparkCount; i++ )
 			Create( "spark_shower", pev->origin, pTrace->vecPlaneNormal, NULL );
 	}
+
+#if defined ( HLINVASION_DLL )
+	if (IsInGaz())
+	{
+		edict_t *pFind = FIND_ENTITY_BY_CLASSNAME(NULL, "player");
+		CBaseEntity *pPlayer = CBaseEntity::Instance(pFind);
+		pPlayer->m_bFireInGaz = TRUE;
+	}
+#endif
 }
 
 

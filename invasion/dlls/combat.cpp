@@ -1562,15 +1562,6 @@ void CBaseEntity::FireBullets(ULONG cShots, Vector vecSrc, Vector vecDirShooting
 		UTIL_BubbleTrail( vecSrc, tr.vecEndPos, (flDistance * tr.flFraction) / 64.0 );
 	}
 	ApplyMultiDamage(pev, pevAttacker);
-
-#if defined ( HLINVASION_DLL )
-	//modif de Julien
-	if (IsPlayer())
-	{
-		if (IsInGaz() == TRUE)
-			m_bFireInGaz = TRUE;
-	}
-#endif
 }
 
 
@@ -1691,6 +1682,15 @@ Vector CBaseEntity::FireBulletsPlayer ( ULONG cShots, Vector vecSrc, Vector vecD
 		UTIL_BubbleTrail( vecSrc, tr.vecEndPos, (flDistance * tr.flFraction) / 64.0 );
 	}
 	ApplyMultiDamage(pev, pevAttacker);
+
+#if defined ( HLINVASION_DLL )
+	//modif de Julien
+	if (IsPlayer())
+	{
+		if (IsInGaz() == TRUE)
+			m_bFireInGaz = TRUE;
+	}
+#endif
 
 	return Vector( x * vecSpread.x, y * vecSpread.y, 0.0 );
 }

@@ -89,7 +89,7 @@ void CHudFog :: DrawFog ( void )
 		}
 		else
 		{
-			gEngfuncs.pTriAPI->Fog ( fogcolor, mindist, maxdist, 1 );
+			gEngfuncs.pTriAPI->Fog(fogcolor, mindist, maxdist, 1);
 		}
 		return;
 	}
