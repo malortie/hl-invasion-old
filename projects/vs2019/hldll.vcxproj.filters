@@ -1,0 +1,555 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\dlls">
+      <UniqueIdentifier>{a59f65b1-455f-459d-bc2a-75775255cd5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\dlls\wpn_shared">
+      <UniqueIdentifier>{000b311c-d555-467e-b6cb-5e669fb8c45e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\pm_shared">
+      <UniqueIdentifier>{7f184267-1d16-4bbc-9212-a804fcd04e6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game_shared">
+      <UniqueIdentifier>{9cd951c6-53c4-4c79-826f-13ac1af8a8b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\dlls">
+      <UniqueIdentifier>{e3b69fef-bfa6-4270-8280-f2b25793ac4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine">
+      <UniqueIdentifier>{b85e935a-5cc8-482d-b85f-6cdaa3452ccb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\pm_shared">
+      <UniqueIdentifier>{37941113-16fa-4ce0-9bdd-a72a1ced8902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\dlls\invasion">
+      <UniqueIdentifier>{8ac983ed-eb05-4d99-b79f-9e9c87b1968f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\dlls\invasion\weapons">
+      <UniqueIdentifier>{4210bef7-f576-4cb8-9587-4e7a5f60c5ff}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\invasion\dlls\aflock.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\agrunt.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\airtank.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\animating.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\animation.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\apache.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\barnacle.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\barney.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\bigmomma.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\bloater.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\bmodels.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\bullsquid.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\buttons.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\cbase.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\client.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\combat.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\controller.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\crowbar.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\defaultai.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\gman.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\doors.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\effects.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\explode.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\flyingmonster.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\func_break.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\func_tank.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\game.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\gamerules.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\gargantua.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\genericmonster.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\ggrenade.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\globals.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\h_ai.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\h_battery.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\h_cine.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\h_cycler.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\h_export.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\handgrenade.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\hassassin.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\headcrab.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\healthkit.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\hgrunt.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\wpn_shared\hl_wpn_glock.cpp">
+      <Filter>Source Files\dlls\wpn_shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\monstermaker.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\hornet.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\houndeye.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\ichthyosaur.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\islave.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\items.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\leech.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\lights.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\maprules.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\player.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\monsters.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\monsterstate.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\mortar.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\mp5.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\multiplay_gamerules.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\nihilanth.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\nodes.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\observer.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\osprey.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\pathcorner.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\plane.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\plats.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\pm_shared\pm_shared.c">
+      <Filter>Source Files\pm_shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\pm_shared\pm_debug.c">
+      <Filter>Source Files\pm_shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\pm_shared\pm_math.c">
+      <Filter>Source Files\pm_shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\python.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\rat.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\roach.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\rpg.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\satchel.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\schedule.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\scientist.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\scripted.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\shotgun.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\singleplay_gamerules.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\skill.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\sound.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\soundent.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\spectator.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\squadmonster.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\subs.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\talkmonster.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\teamplay_gamerules.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\tempmonster.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\tentacle.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\triggers.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\tripmine.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\turret.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\util.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp">
+      <Filter>Source Files\game_shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\zombie.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\weapons.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\world.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\xen.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\diablo.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\flamme.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\flybee.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\fog.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\func_vgui.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\luciole.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\miroir.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\music.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\radiomsg.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\rpggrunt.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\sniper.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\t_sub.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\tank.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\briquet.cpp">
+      <Filter>Source Files\dlls\invasion\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\fgrenade.cpp">
+      <Filter>Source Files\dlls\invasion\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\lflammes.cpp">
+      <Filter>Source Files\dlls\invasion\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\irgun.cpp">
+      <Filter>Source Files\dlls\invasion\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\fsniper.cpp">
+      <Filter>Source Files\dlls\invasion\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\m16.cpp">
+      <Filter>Source Files\dlls\invasion\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\supergun.cpp">
+      <Filter>Source Files\dlls\invasion\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\invasion\sgball.cpp">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\invasion\dlls\squeakgrenade.cpp">
+      <Filter>Source Files\dlls</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\invasion\dlls\doors.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\activity.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\activitymap.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\animation.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\basemonster.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\cbase.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\cdll_dll.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\client.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\decals.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\defaultai.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\effects.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\engine\eiface.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\hornet.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\enginecallback.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\explode.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\extdll.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\flyingmonster.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\func_break.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\gamerules.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\player.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\items.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\monsterevent.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\monsters.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\nodes.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\plane.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\pm_shared\pm_shared.h">
+      <Filter>Header Files\pm_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\pm_shared\pm_debug.h">
+      <Filter>Header Files\pm_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\pm_shared\pm_defs.h">
+      <Filter>Header Files\pm_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\pm_shared\pm_info.h">
+      <Filter>Header Files\pm_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\pm_shared\pm_materials.h">
+      <Filter>Header Files\pm_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\pm_shared\pm_movevars.h">
+      <Filter>Header Files\pm_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\weapons.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\saverestore.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\schedule.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\scripted.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\scriptevent.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\skill.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\soundent.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\spectator.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\squadmonster.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\talkmonster.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\teamplay_gamerules.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\trains.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\util.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\vector.h">
+      <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\invasion\flamme.h">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\invasion\fog.h">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\invasion\radiomsg.h">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\invasion\lflammes.h">
+      <Filter>Source Files\dlls\invasion\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\invasion\dlls\invasion\sgball.h">
+      <Filter>Source Files\dlls\invasion</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

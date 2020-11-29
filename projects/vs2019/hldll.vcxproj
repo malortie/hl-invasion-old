@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{69DDADC0-97F4-419E-86EB-C91781A0D2E0}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>hldll</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(Configuration)\$(ProjectName)\int\</IntDir>
+    <TargetName>invasion</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(Configuration)\$(ProjectName)\int\</IntDir>
+    <TargetName>invasion</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;QUIVER;VOXEL;QUAKE2;VALVE_DLL;CLIENT_WEAPONS;%(PreprocessorDefinitions);HLINVASION_DLL</PreprocessorDefinitions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\..\invasion\dlls;..\..\invasion\dlls\invasion;..\..\engine;..\..\common;..\..\invasion\pm_shared;..\..\game_shared;..\..\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DisableSpecificWarnings>4018;4091;4474;4477;4996;</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>$(ProjectDir)..\..\invasion\dlls\hl.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>call ..\..\filecopy.bat $(TargetPath) ..\..\..\game\mod\dlls\$(TargetName).dll
+call ..\..\filecopy.bat $(TargetDir)\$(TargetName).pdb ..\..\..\game\mod\dlls\$(TargetName).pdb</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Performing Post-Build Event</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;QUIVER;VOXEL;QUAKE2;VALVE_DLL;CLIENT_WEAPONS;%(PreprocessorDefinitions);HLINVASION_DLL</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\invasion\dlls;..\..\invasion\dlls\invasion;..\..\engine;..\..\common;..\..\invasion\pm_shared;..\..\game_shared;..\..\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <DisableSpecificWarnings>4018;4091;4474;4477;4996;</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>$(ProjectDir)..\..\invasion\dlls\hl.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>call ..\..\filecopy.bat $(TargetPath) ..\..\..\game\mod\dlls\$(TargetName).dll
+call ..\..\filecopy.bat $(TargetDir)\$(TargetName).pdb ..\..\..\game\mod\dlls\$(TargetName).pdb</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Performing Post-Build Event</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\invasion\dlls\aflock.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\agrunt.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\airtank.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\animating.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\animation.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\apache.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\barnacle.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\barney.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\bigmomma.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\bloater.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\bmodels.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\bullsquid.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\buttons.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\cbase.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\client.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\combat.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\controller.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\crowbar.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\defaultai.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\doors.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\effects.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\explode.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\flyingmonster.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\func_break.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\func_tank.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\game.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\gamerules.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\gargantua.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\genericmonster.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\ggrenade.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\globals.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\gman.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\handgrenade.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\hassassin.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\headcrab.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\healthkit.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\hgrunt.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\hornet.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\houndeye.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\h_ai.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\h_battery.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\h_cine.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\h_cycler.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\h_export.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\ichthyosaur.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\briquet.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\diablo.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\fgrenade.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\flamme.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\flybee.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\fog.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\fsniper.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\func_vgui.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\irgun.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\lflammes.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\luciole.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\m16.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\miroir.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\music.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\radiomsg.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\rpggrunt.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\sgball.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\sniper.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\supergun.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\tank.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\invasion\t_sub.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\islave.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\items.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\leech.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\lights.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\maprules.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\monstermaker.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\monsters.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\monsterstate.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\mortar.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\mp5.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\multiplay_gamerules.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\nihilanth.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\nodes.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\observer.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\osprey.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\pathcorner.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\plane.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\plats.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\player.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\python.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\rat.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\roach.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\rpg.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\satchel.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\schedule.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\scientist.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\scripted.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\shotgun.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\singleplay_gamerules.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\skill.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\sound.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\soundent.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\spectator.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\squadmonster.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\squeakgrenade.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\subs.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\talkmonster.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\teamplay_gamerules.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\tempmonster.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\tentacle.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\triggers.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\tripmine.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\turret.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\util.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\weapons.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\world.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\wpn_shared\hl_wpn_glock.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\xen.cpp" />
+    <ClCompile Include="..\..\invasion\dlls\zombie.cpp" />
+    <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp" />
+    <ClCompile Include="..\..\invasion\pm_shared\pm_debug.c" />
+    <ClCompile Include="..\..\invasion\pm_shared\pm_math.c" />
+    <ClCompile Include="..\..\invasion\pm_shared\pm_shared.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\invasion\dlls\activity.h" />
+    <ClInclude Include="..\..\invasion\dlls\activitymap.h" />
+    <ClInclude Include="..\..\invasion\dlls\animation.h" />
+    <ClInclude Include="..\..\invasion\dlls\basemonster.h" />
+    <ClInclude Include="..\..\invasion\dlls\cbase.h" />
+    <ClInclude Include="..\..\invasion\dlls\cdll_dll.h" />
+    <ClInclude Include="..\..\invasion\dlls\client.h" />
+    <ClInclude Include="..\..\invasion\dlls\decals.h" />
+    <ClInclude Include="..\..\invasion\dlls\defaultai.h" />
+    <ClInclude Include="..\..\invasion\dlls\doors.h" />
+    <ClInclude Include="..\..\invasion\dlls\effects.h" />
+    <ClInclude Include="..\..\invasion\dlls\enginecallback.h" />
+    <ClInclude Include="..\..\invasion\dlls\explode.h" />
+    <ClInclude Include="..\..\invasion\dlls\extdll.h" />
+    <ClInclude Include="..\..\invasion\dlls\flyingmonster.h" />
+    <ClInclude Include="..\..\invasion\dlls\func_break.h" />
+    <ClInclude Include="..\..\invasion\dlls\gamerules.h" />
+    <ClInclude Include="..\..\invasion\dlls\hornet.h" />
+    <ClInclude Include="..\..\invasion\dlls\invasion\flamme.h" />
+    <ClInclude Include="..\..\invasion\dlls\invasion\fog.h" />
+    <ClInclude Include="..\..\invasion\dlls\invasion\lflammes.h" />
+    <ClInclude Include="..\..\invasion\dlls\invasion\radiomsg.h" />
+    <ClInclude Include="..\..\invasion\dlls\invasion\sgball.h" />
+    <ClInclude Include="..\..\invasion\dlls\items.h" />
+    <ClInclude Include="..\..\invasion\dlls\monsterevent.h" />
+    <ClInclude Include="..\..\invasion\dlls\monsters.h" />
+    <ClInclude Include="..\..\invasion\dlls\nodes.h" />
+    <ClInclude Include="..\..\invasion\dlls\plane.h" />
+    <ClInclude Include="..\..\invasion\dlls\player.h" />
+    <ClInclude Include="..\..\invasion\dlls\saverestore.h" />
+    <ClInclude Include="..\..\invasion\dlls\schedule.h" />
+    <ClInclude Include="..\..\invasion\dlls\scripted.h" />
+    <ClInclude Include="..\..\invasion\dlls\scriptevent.h" />
+    <ClInclude Include="..\..\invasion\dlls\skill.h" />
+    <ClInclude Include="..\..\invasion\dlls\soundent.h" />
+    <ClInclude Include="..\..\invasion\dlls\spectator.h" />
+    <ClInclude Include="..\..\invasion\dlls\squadmonster.h" />
+    <ClInclude Include="..\..\invasion\dlls\talkmonster.h" />
+    <ClInclude Include="..\..\invasion\dlls\teamplay_gamerules.h" />
+    <ClInclude Include="..\..\invasion\dlls\trains.h" />
+    <ClInclude Include="..\..\invasion\dlls\util.h" />
+    <ClInclude Include="..\..\invasion\dlls\vector.h" />
+    <ClInclude Include="..\..\invasion\dlls\weapons.h" />
+    <ClInclude Include="..\..\engine\eiface.h" />
+    <ClInclude Include="..\..\invasion\pm_shared\pm_debug.h" />
+    <ClInclude Include="..\..\invasion\pm_shared\pm_defs.h" />
+    <ClInclude Include="..\..\invasion\pm_shared\pm_info.h" />
+    <ClInclude Include="..\..\invasion\pm_shared\pm_materials.h" />
+    <ClInclude Include="..\..\invasion\pm_shared\pm_movevars.h" />
+    <ClInclude Include="..\..\invasion\pm_shared\pm_shared.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
