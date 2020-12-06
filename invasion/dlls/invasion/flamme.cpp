@@ -36,7 +36,6 @@ TYPEDESCRIPTION	CFlamme::m_SaveData[] =
 	DEFINE_FIELD(CFlamme, m_bRestore, FIELD_INTEGER),
 	DEFINE_FIELD(CFlamme, m_flMonsterDamage, FIELD_FLOAT),
 };
-IMPLEMENT_SAVERESTORE(CFlamme, CPointEntity);
 
 //---------------------------------------------------------
 // flammes
@@ -454,4 +453,28 @@ void CFlamme::FlameTouch(CBaseEntity *pOther)
 		pev->velocity = pev->velocity.Normalize() * min(30, pev->velocity.Length());
 		UTIL_DecalTrace(&trace, DECAL_SCORCH1 + RANDOM_LONG(0, 1));
 	}
+}
+
+int CFlamme::Save(CSave& save)
+{
+	if (!CPointEntity::Save(save))
+		return 0;
+
+	return save.WriteFields("CFlamme", this, m_SaveData, ARRAYSIZE(m_SaveData));
+}
+
+int CFlamme::Restore(CRestore& restore)		// s execute lors du chargement rapide
+{
+	if (!CPointEntity::Restore(restore))
+		return 0;
+
+	int status = restore.ReadFields("CFlamme", this, m_SaveData, ARRAYSIZE(m_SaveData));
+
+	//------------
+
+	m_bRestore = TRUE;
+
+	//------------
+
+	return status;
 }
