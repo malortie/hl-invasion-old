@@ -1880,7 +1880,31 @@ TYPEDESCRIPTION CBriquet::m_SaveData[] =
 	DEFINE_FIELD(CBriquet, m_flNextLight, FIELD_TIME),
 	DEFINE_FIELD(CBriquet, m_bTransition, FIELD_BOOLEAN),
 };
-IMPLEMENT_SAVERESTORE(CBriquet, CBasePlayerWeapon);
+
+//--------------------------------------------------------------------------
+// restoration de la flamme à la sauvegarde
+
+int CBriquet::Save(CSave& save)
+{
+	if (!CBasePlayerWeapon::Save(save))
+		return 0;
+
+	return save.WriteFields("CBriquet", this, m_SaveData, ARRAYSIZE(m_SaveData));
+}
+
+int CBriquet::Restore(CRestore& restore)		// s execute lors du chargement rapide
+{
+	if (!CBasePlayerWeapon::Restore(restore))
+		return 0;
+
+	int status = restore.ReadFields("CBriquet", this, m_SaveData, ARRAYSIZE(m_SaveData));
+
+	//-----------------------
+
+	m_bTransition = TRUE;
+
+	return status;
+}
 
 TYPEDESCRIPTION CFSniper::m_SaveData[] =
 {
