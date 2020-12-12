@@ -182,7 +182,13 @@ void CFuncConveyor :: Spawn( void )
 	if ( pev->speed == 0 )
 		pev->speed = 100;
 
+#if defined ( HLINVASION_DLL )
+	pev->v_angle.z = pev->speed;
+
+	UpdateSpeed( pev->v_angle.z );
+#else
 	UpdateSpeed( pev->speed );
+#endif // defined ( HLINVASION_DLL )
 }
 
 
