@@ -792,6 +792,8 @@ public:
 	wrect_t m_wrc1024;
 	wrect_t m_wrcNoir;
 
+protected:
+	void DrawBlackOverlay(int x, int y, int w, int h, int spriteWidth, int spriteHeight);
 };
 
 //

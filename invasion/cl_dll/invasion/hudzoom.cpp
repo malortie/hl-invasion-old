@@ -15,7 +15,59 @@
 #include "entity_state.h"
 #include "cl_entity.h"
 
+void CHudSniper::DrawBlackOverlay(int x, int y, int w, int h, 
+	int spriteWidth, int spriteHeight)
+{
+	// Do not draw whenever we have a null dimension.
+	if (w == 0 || h == 0)
+		return;
 
+	SPR_Set(m_sprBlack, 255, 255, 255);
+
+	m_wrcNoir.left = 0;
+	m_wrcNoir.top = 0;
+	m_wrcNoir.right = spriteWidth;
+
+	// Assume there is enough room for the desired sprite height.
+	m_wrcNoir.bottom = spriteHeight;
+
+	int yoffset = 0;
+
+	while (h > 0)
+	{
+		// Clamp the height of the area if the remaining height
+		// is too small.
+		if (h < m_wrcNoir.bottom)
+			m_wrcNoir.bottom = h;
+
+		// Assume there is enough room for the desired sprite width.
+		m_wrcNoir.right = spriteWidth;
+
+		int xoffset = 0;
+
+		int w2 = w;
+		while (w2 > 0)
+		{
+			// Clamp the width of the area if the remaining width
+			// is too small.
+			if (w2 < m_wrcNoir.right)
+				m_wrcNoir.right = w2;
+
+			// Draw the sprite.
+			SPR_DrawHoles(0, x + xoffset, y + yoffset, &m_wrcNoir);
+
+			// Subtract remaining width by the width of the sprite we draw.
+			w2 -= m_wrcNoir.right;
+			// Advance by the width of the sprite we draw.
+			xoffset += m_wrcNoir.right;
+		}
+
+		// Subtract remaining height by the height of the sprite we draw.
+		h -= m_wrcNoir.bottom;
+		// Advance by the height of the sprite we draw.
+		yoffset += m_wrcNoir.bottom;
+	}
+}
 
 int CHudSniper :: Draw	( float flTime )
 {
@@ -60,57 +112,23 @@ int CHudSniper :: Draw	( float flTime )
 		SPR_Set( m_sprBD, 255, 255, 255);
 		SPR_DrawHoles(0, CenterX + 128, CenterY + 128, &m_wrc1024);
 
+		int overlayWidth = CenterX - 128 - 256;
+		int overlayHeight = ScreenHeight;
 
 		// noir à gauche et à droite
 
-		int i;
-
-		for ( i = 0 ; i < ScreenHeight ; i += 256 )
-		{
-			m_wrcNoir.left = 0;
-			m_wrcNoir.top = 0;
-			m_wrcNoir.right = ScreenWidth / 2 - 128 - 256;
-			m_wrcNoir.bottom = 256;
-
-			SPR_Set( m_sprBlack, 255, 255, 255);
-			SPR_DrawHoles(0, 0, i, &m_wrcNoir);
-
-			SPR_DrawHoles( 0, ScreenWidth / 2 + 128 + 256, i, &m_wrcNoir);
-
-		}
-
-		if ( 256 * i + 256 < ScreenHeight )
-		{
-			m_wrcNoir.bottom = ScreenHeight - ( 256 * i + 256 ) ;
-
-			SPR_Set( m_sprBlack, 255, 255, 255);
-			SPR_DrawHoles(0, 0, i, &m_wrcNoir);
-
-			SPR_DrawHoles( 0, ScreenWidth / 2 + 128 + 256, i, &m_wrcNoir);
-
-		}
+		DrawBlackOverlay(0, 0, overlayWidth, overlayHeight, 256, 256);
+		DrawBlackOverlay(CenterX + 128 + 256, 0, overlayWidth, overlayHeight, 256, 256);
 
 		// noir en haut et en bas
 
 		if ( CenterY - 128 - 256 > 0 )
 		{
+			overlayWidth = 3 * 256;
+			overlayHeight = CenterY - 128 - 256;
 
-			int i;
-
-			for ( i = 0 ; i < 3 ; i ++ )
-			{
-				m_wrcNoir.left = 0;
-				m_wrcNoir.top = 0;
-				m_wrcNoir.right = 256;
-				m_wrcNoir.bottom = CenterY - 128 - 256;
-
-				SPR_Set( m_sprBlack, 255, 255, 255);
-				SPR_DrawHoles(0, CenterX - 128 - 256 + i * 256 , 0, &m_wrcNoir);
-
-				SPR_Set( m_sprBlack, 255, 255, 255);
-				SPR_DrawHoles(0, CenterX - 128 - 256 + i * 256 , CenterY + 128 + 256, &m_wrcNoir);
-
-			}
+			DrawBlackOverlay(CenterX - 128 - 256, 0, overlayWidth, overlayHeight, 256, 256);
+			DrawBlackOverlay(CenterX - 128 - 256, CenterY + 128 + 256, overlayWidth, overlayHeight, 256, 256);
 		}
 	}
 
@@ -144,55 +162,22 @@ int CHudSniper :: Draw	( float flTime )
 
 		if ( CenterX - 240 > 0 )
 		{
-			int i;
+			int overlayWidth = CenterX - 240;
+			int overlayHeight = ScreenHeight;
 
-			for ( i = 0 ; i < ScreenHeight ; i += 256 )
-			{
-				m_wrcNoir.left = 0;
-				m_wrcNoir.top = 0;
-				m_wrcNoir.right = CenterX - 240;
-				m_wrcNoir.bottom = 256;
-
-				SPR_Set( m_sprBlack, 255, 255, 255);
-				SPR_DrawHoles(0, 0, i, &m_wrcNoir);
-
-				SPR_DrawHoles( 0, CenterX + 240, i, &m_wrcNoir);
-
-			}
-
-			if ( 256 * i + 256 < ScreenHeight )
-			{
-				m_wrcNoir.bottom = ScreenHeight - ( 256 * i + 256 ) ;
-
-				SPR_Set( m_sprBlack, 255, 255, 255);
-				SPR_DrawHoles(0, 0, i, &m_wrcNoir);
-
-				SPR_DrawHoles( 0, CenterX + 240, i, &m_wrcNoir);
-
-			}
+			DrawBlackOverlay(0, 0, overlayWidth, overlayHeight, 256, 256);
+			DrawBlackOverlay(CenterX + 240, 0, overlayWidth, overlayHeight, 256, 256);
 		}
 
 		// noir en haut et en bas
 
 		if ( CenterY - 240 > 0 )
 		{
+			int overlayWidth = 2 * 240;
+			int overlayHeight = CenterY - 240;
 
-			int i;
-
-			for ( i = 0 ; i < 3 ; i ++ )
-			{
-				m_wrcNoir.left = 0;
-				m_wrcNoir.top = 0;
-				m_wrcNoir.right = 256;
-				m_wrcNoir.bottom = CenterY - 240;
-
-				SPR_Set( m_sprBlack, 255, 255, 255);
-				SPR_DrawHoles(0, CenterX - 240 + i * 256 , 0, &m_wrcNoir);
-
-				SPR_Set( m_sprBlack, 255, 255, 255);
-				SPR_DrawHoles(0, CenterX - 240 + i * 256 , CenterY + 240, &m_wrcNoir);
-
-			}
+			DrawBlackOverlay(CenterX - 240, 0, overlayWidth, overlayHeight, 256, 256);
+			DrawBlackOverlay(CenterX - 240, CenterY + 240, overlayWidth, overlayHeight, 256, 256);
 		}
 	}
 
