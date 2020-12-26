@@ -121,10 +121,8 @@ float CHalfLifeRules::FlPlayerFallDamage( CBasePlayer *pPlayer )
 //=========================================================
 void CHalfLifeRules :: PlayerSpawn( CBasePlayer *pPlayer )
 {
-#if defined ( HLINVASION_DLL )
 	// modif de julien
 	// donne la lampe torche
-#endif
 }
 
 //=========================================================
