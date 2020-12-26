@@ -27,11 +27,9 @@ extern DLL_GLOBAL int		g_iSkillLevel;
 #define SF_WAITFORTRIGGER	(0x04 | 0x40) // UNDONE: Fix!
 #define SF_NOWRECKAGE		0x08
 
-#if defined ( HLINVASION_DLL )
 // modif de Julien
 #define SF_APACHE_LENSFLARE		32
 extern int gmsgLensFlare;
-#endif // HLINVASION_DLL
 
 class CApache : public CBaseMonster
 {
@@ -94,10 +92,8 @@ class CApache : public CBaseMonster
 	int m_iDoSmokePuff;
 	CBeam *m_pBeam;
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	BOOL	m_bFlashLightOn;
-#endif // defined ( HLINVASION_DLL )
 };
 LINK_ENTITY_TO_CLASS( monster_apache, CApache );
 
@@ -123,9 +119,8 @@ TYPEDESCRIPTION	CApache::m_SaveData[] =
 	DEFINE_FIELD( CApache, m_iDoSmokePuff, FIELD_INTEGER ),
 	DEFINE_FIELD( CApache, m_bFlashLightOn, FIELD_BOOLEAN ),
 };
-#if !defined ( HLINVASION_DLL )
-IMPLEMENT_SAVERESTORE( CApache, CBaseMonster );
-#else
+
+
 // modif de Julien
 
 //IMPLEMENT_SAVERESTORE( CApache, CBaseMonster );
@@ -149,7 +144,6 @@ int CApache::Restore(CRestore &restore)
 
 	return status;
 }
-#endif // !defined ( HLINVASION_DLL )
 
 void CApache :: Spawn( void )
 {
@@ -187,10 +181,8 @@ void CApache :: Spawn( void )
 
 	m_iRockets = 10;
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	m_bFlashLightOn = FALSE;
-#endif
 }
 
 
@@ -216,7 +208,6 @@ void CApache::Precache( void )
 
 	UTIL_PrecacheOther( "hvr_rocket" );
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	PRECACHE_MODEL("models/hg_gibs.mdl");
 	PRECACHE_MODEL("sprites/spot01.spr");
@@ -225,7 +216,6 @@ void CApache::Precache( void )
 	PRECACHE_MODEL("sprites/lensflare03.spr");
 	PRECACHE_MODEL("sprites/lensflare04.spr");
 	PRECACHE_MODEL("sprites/lensflare05.spr");
-#endif
 }
 
 
@@ -268,7 +258,7 @@ void CApache :: Killed( entvars_t *pevAttacker, int iGib )
 		m_flNextRocket = gpGlobals->time + 15.0;
 	}
 
-#if defined ( HLINVASION_DLL )
+	// modif de Julien
 	if (pev->spawnflags & SF_APACHE_LENSFLARE && m_bFlashLightOn == TRUE)
 	{
 		m_bFlashLightOn = FALSE;
@@ -280,7 +270,6 @@ void CApache :: Killed( entvars_t *pevAttacker, int iGib )
 
 		MESSAGE_END();
 	}
-#endif
 }
 
 void CApache :: DyingThink( void )
@@ -469,12 +458,10 @@ void CApache :: DyingThink( void )
 			WRITE_BYTE( BREAK_METAL );
 		MESSAGE_END();
 
-#if defined ( HLINVASION_DLL )
 		//modif de jULIEN
 		pev->deadflag = DEAD_DEAD;
 		FCheckAITrigger();
 		//=========
-#endif
 
 		SetThink( &CApache::SUB_Remove );
 		pev->nextthink = gpGlobals->time + 0.1;
@@ -815,7 +802,6 @@ void CApache :: Flight( void )
 		// ALERT( at_console, "%.0f %.2f\n", pitch, flVol );
 	}
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	// lampe
 
@@ -830,7 +816,6 @@ void CApache :: Flight( void )
 
 		MESSAGE_END();
 	}
-#endif
 }
 
 
@@ -1005,13 +990,11 @@ void CApache::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir
 {
 	// ALERT( at_console, "%d %.0f\n", ptr->iHitgroup, flDamage );
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	if (FClassnameIs(ENT(pevAttacker), "hvr_rocket"))
 	{
 		return;
 	}
-#endif
 
 	// ignore blades
 	if (ptr->iHitgroup == 6 && (bitsDamageType & (DMG_ENERGYBEAM|DMG_BULLET|DMG_CLUB)))
