@@ -121,6 +121,7 @@ TYPEDESCRIPTION	CApache::m_SaveData[] =
 	DEFINE_FIELD( CApache, m_pBeam, FIELD_CLASSPTR ),
 	DEFINE_FIELD( CApache, m_flGoalSpeed, FIELD_FLOAT ),
 	DEFINE_FIELD( CApache, m_iDoSmokePuff, FIELD_INTEGER ),
+	DEFINE_FIELD( CApache, m_bFlashLightOn, FIELD_BOOLEAN ),
 };
 #if !defined ( HLINVASION_DLL )
 IMPLEMENT_SAVERESTORE( CApache, CBaseMonster );
