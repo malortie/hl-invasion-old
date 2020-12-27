@@ -21,10 +21,8 @@
 #include	"monsters.h"
 #include	"schedule.h"
 
-#if defined ( HLINVASION_DLL )
 // modif de Julien
 extern int gmsgClientDecal;
-#endif
 
 // For holograms, make them not solid so the player can walk through them
 #define	SF_GENERICMONSTER_NOTSOLID					4 
@@ -51,11 +49,9 @@ LINK_ENTITY_TO_CLASS( monster_generic, CGenericMonster );
 //=========================================================
 int	CGenericMonster :: Classify ( void )
 {
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	if (pev->spawnflags & SF_GENERICMONSTER_NOTSOLID)
 		return CLASS_NONE;
-#endif
 
 	return	CLASS_PLAYER_ALLY;
 }
@@ -91,7 +87,6 @@ void CGenericMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		CBaseMonster::HandleAnimEvent( pEvent );
 		break;
 
-#if defined ( HLINVASION_DLL )
 		// modif de Julien
 	case 1444:
 		Vector vecBout;
@@ -112,7 +107,6 @@ void CGenericMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 
 		MESSAGE_END();
 		break;
-#endif
 	}
 }
 
@@ -129,15 +123,6 @@ int CGenericMonster :: ISoundMask ( void )
 //=========================================================
 void CGenericMonster :: Spawn()
 {
-#if defined ( HLINVASION_DLL )
-#if 0
-	if (FStrEq(STRING(pev->targetname), "gordon"))
-	{
-		UTIL_Remove(this);
-		return;
-	}
-#endif
-#endif
 	Precache();
 
 	SET_MODEL( ENT(pev), STRING(pev->model) );
@@ -151,11 +136,9 @@ void CGenericMonster :: Spawn()
 
 	if ( FStrEq( STRING(pev->model), "models/player.mdl" ) || FStrEq( STRING(pev->model), "models/holo.mdl" ) )
 		UTIL_SetSize(pev, VEC_HULL_MIN, VEC_HULL_MAX);
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	else if (pev->spawnflags & SF_GENERICMONSTER_NOTSOLID)
 		UTIL_SetSize(pev, Vector(0, 0, 0), Vector(0, 0, 0));
-#endif // defined ( HLINVASION_DLL )
 	else
 		UTIL_SetSize(pev, VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX);
 
@@ -166,14 +149,12 @@ void CGenericMonster :: Spawn()
 	m_flFieldOfView		= 0.5;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	if (pev->spawnflags & SF_GENERICMONSTER_NOTSOLID)
 	{
 		pev->solid = SOLID_NOT;
 		pev->movetype = MOVETYPE_NOCLIP;
 	}
-#endif
 
 	MonsterInit();
 
