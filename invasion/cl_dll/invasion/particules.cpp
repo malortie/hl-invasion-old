@@ -817,7 +817,6 @@ int CHudParticules::MsgFunc_ClientDecal( const char *pszName, int iSize, void *p
 
 	if ( decal == 6 )	// muzzle outro
 	{
-#if 0 // FIX LATER
 		Vector vecDir = vecNormal, velocity (0,0,0), avelocity(0,0,0), src = vecSrc;
 		float largeur, brightness;
 
@@ -846,7 +845,6 @@ int CHudParticules::MsgFunc_ClientDecal( const char *pszName, int iSize, void *p
 
 			AddParticule ( src, Vector (largeur,brightness,0.0f), velocity, avelocity, "sprites/outro_muzzle.spr", gHUD.m_flTime + 7, FLAG_PARTICULE_OUTRO2 );
 		}
-#endif
 
 		return 1;
 	}

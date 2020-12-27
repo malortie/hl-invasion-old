@@ -190,6 +190,7 @@ void CGenericMonster :: Spawn()
 void CGenericMonster :: Precache()
 {
 	PRECACHE_MODEL( (char *)STRING(pev->model) );
+	PRECACHE_MODEL( "sprites/outro_muzzle.spr" );
 }	
 
 //=========================================================
