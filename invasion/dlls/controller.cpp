@@ -38,13 +38,11 @@
 
 #define CONTROLLER_FLINCH_DELAY			2		// at most one flinch every n secs
 
-#if defined ( HLINVASION_DLL )
 // modif de julien
 enum
 {
 	TASK_FLYBEE_WAIT_FOR_MOVEMENT = LAST_COMMON_TASK + 1,
 };
-#endif
 
 class CController : public CSquadMonster
 {
@@ -489,7 +487,6 @@ Schedule_t	slControllerFail[] =
 	},
 };
 
-#if defined ( HLINVASION_DLL )
 // modif de julien
 
 Task_t	tlControllerBurn[] =
@@ -508,7 +505,6 @@ Schedule_t	slControllerBurn[] =
 		"ControllerBurn"
 	},
 };
-#endif // defined ( HLINVASION_DLL )
 
 DEFINE_CUSTOM_SCHEDULES( CController )
 {
@@ -516,9 +512,7 @@ DEFINE_CUSTOM_SCHEDULES( CController )
 	slControllerStrafe,
 	slControllerTakeCover,
 	slControllerFail,
-#if defined ( HLINVASION_DLL )
 	slControllerBurn,	// modif de julien
-#endif
 };
 
 IMPLEMENT_CUSTOM_SCHEDULES( CController, CSquadMonster );
@@ -571,7 +565,7 @@ void CController :: StartTask ( Task_t *pTask )
 			}
 			break;
 		}
-#if defined ( HLINVASION_DLL )
+
 	// modif de julien
 
 	case TASK_FLYBEE_WAIT_FOR_MOVEMENT:
@@ -582,7 +576,6 @@ void CController :: StartTask ( Task_t *pTask )
 			}
 			break;
 		}
-#endif // defined ( HLINVASION_DLL )
 
 	default:
 		CSquadMonster :: StartTask ( pTask );
@@ -758,7 +751,6 @@ void CController :: RunTask ( Task_t *pTask )
 		}
 		break;
 
-#if defined ( HLINVASION_DLL )
 	// modif de julien
 
 	case TASK_FLYBEE_WAIT_FOR_MOVEMENT:
@@ -770,7 +762,6 @@ void CController :: RunTask ( Task_t *pTask )
 			}
 			break;
 		}
-#endif // defined ( HLINVASION_DLL )
 
 	default: 
 		CSquadMonster :: RunTask ( pTask );
@@ -835,11 +826,10 @@ Schedule_t* CController :: GetScheduleOfType ( int Type )
 		return slControllerTakeCover;
 	case SCHED_FAIL:
 		return slControllerFail;
-#if defined ( HLINVASION_DLL )
+
 	// modif de julien
 	case SCHED_BURNT:
 		return slControllerBurn;
-#endif // defined ( HLINVASION_DLL )
 	}
 
 	return CBaseMonster :: GetScheduleOfType( Type );
