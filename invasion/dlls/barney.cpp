@@ -40,10 +40,8 @@
 #define	BARNEY_BODY_GUNDRAWN		1
 #define BARNEY_BODY_GUNGONE			2
 
-#if defined ( HLINVASION_DLL )
 //Julien
 #define	SF_BARNEY_L2M6				2048
-#endif
 
 class CBarney : public CTalkMonster
 {
@@ -266,11 +264,9 @@ int CBarney :: ISoundMask ( void)
 //=========================================================
 int	CBarney :: Classify ( void )
 {
-#if defined ( HLINVASION_DLL )
 	// modif de julien
 	if (pev->spawnflags & SF_BARNEY_L2M6)
 		return CLASS_NONE;
-#endif
 
 	return	CLASS_PLAYER_ALLY;
 }
@@ -437,11 +433,9 @@ void CBarney :: Spawn()
 	MonsterInit();
 	SetUse( &CBarney::FollowerUse );
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 
 	m_bIdleSentState = FALSE;
-#endif
 }
 
 //=========================================================
