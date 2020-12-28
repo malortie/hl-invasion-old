@@ -26,15 +26,12 @@
 #include	"decals.h"
 #include	"soundent.h"
 #include	"game.h"
-#if defined ( HLINVASION_DLL )
 #include	"weapons.h"
-#endif
 
 #define		SQUID_SPRINT_DIST	256 // how close the squid has to get before starting to sprint and refusing to swerve
 
 int			   iSquidSpitSprite;
 	
-#if defined ( HLINVASION_DLL )
 // modif de Julien
 #define HITGROUP_QUEUE				8
 
@@ -44,7 +41,6 @@ int			   iSquidSpitSprite;
 #define QUEUE_GROUP					2
 #define LEG_R_GROUP					3
 #define LEG_L_GROUP					4
-#endif // defined ( HLINVASION_DLL )
 
 //=========================================================
 // monster-specific schedule types
@@ -239,11 +235,9 @@ public:
 	float m_flLastHurtTime;// we keep track of this, because if something hurts a squid, it will forget about its love of headcrabs for a while.
 	float m_flNextSpitTime;// last time the bullsquid used the spit attack.
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	void MakeGib(int body, entvars_t *pevAttacker);
 	void TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType);
-#endif
 };
 LINK_ENTITY_TO_CLASS( monster_bullchicken, CBullsquid );
 
@@ -333,7 +327,6 @@ int CBullsquid :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, f
 	return CBaseMonster :: TakeDamage ( pevInflictor, pevAttacker, flDamage, bitsDamageType );
 }
 
-#if defined ( HLINVASION_DLL )
 // modif de julien
 void CBullsquid :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
 {
@@ -404,8 +397,6 @@ void CBullsquid :: MakeGib ( int body, entvars_t *pevAttacker )
 	pGib->pev->avelocity.y = RANDOM_FLOAT ( 100, 300 );
 
 }
-
-#endif // defined ( HLINVASION_DLL )
 
 //=========================================================
 // CheckRangeAttack1
@@ -787,9 +778,7 @@ void CBullsquid :: Spawn()
 void CBullsquid :: Precache()
 {
 	PRECACHE_MODEL("models/bullsquid.mdl");
-#if defined ( HLINVASION_DLL )
 	PRECACHE_MODEL("models/bullsquid_gibs.mdl");
-#endif
 	
 	PRECACHE_MODEL("sprites/bigspit.spr");// spit projectile.
 	
