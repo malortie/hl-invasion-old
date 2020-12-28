@@ -26,9 +26,7 @@
 #include	"squadmonster.h"
 #include	"soundent.h"
 #include	"game.h"
-#if defined ( HLINVASION_DLL )
 #include	"weapons.h"
-#endif
 
 extern CGraph WorldGraph;
 
@@ -42,7 +40,6 @@ extern CGraph WorldGraph;
 
 #define HOUNDEYE_SOUND_STARTLE_VOLUME	128 // how loud a sound has to be to badly scare a sleeping houndeye
 
-#if defined ( HLINVASION_DLL )
 // modif de Julien
 #define HITGROUP_MIDLEG				8
 
@@ -52,7 +49,6 @@ extern CGraph WorldGraph;
 #define LEG_L_GROUP					2
 #define LEG_M_GROUP					3
 #define LEG_R_GROUP					4
-#endif // defined ( HLINVASION_DLL )
 
 //=========================================================
 // monster-specific tasks
@@ -125,11 +121,9 @@ public:
 	BOOL m_fDontBlink;// don't try to open/close eye if this bit is set!
 	Vector	m_vecPackCenter; // the center of the pack. The leader maintains this by averaging the origins of all pack members.
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	void MakeGib(int body, entvars_t *pevAttacker);
 	void TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType);
-#endif
 };
 LINK_ENTITY_TO_CLASS( monster_houndeye, CHoundeye );
 
@@ -375,9 +369,7 @@ void CHoundeye :: Spawn()
 void CHoundeye :: Precache()
 {
 	PRECACHE_MODEL("models/houndeye.mdl");
-#if defined ( HLINVASION_DLL )
 	PRECACHE_MODEL("models/houndeye_gibs.mdl");	// démembrage
-#endif
 
 	PRECACHE_SOUND("houndeye/he_alert1.wav");
 	PRECACHE_SOUND("houndeye/he_alert2.wav");
@@ -527,7 +519,6 @@ void CHoundeye :: PainSound ( void )
 	}
 }
 
-#if defined ( HLINVASION_DLL )
 // modif de julien
 
 void CHoundeye :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
@@ -583,7 +574,6 @@ void CHoundeye :: MakeGib ( int body, entvars_t *pevAttacker )
 	pGib->pev->avelocity.y = RANDOM_FLOAT ( 100, 300 );
 
 }
-#endif // defined ( HLINVASION_DLL )
 
 //=========================================================
 // WriteBeamColor - writes a color vector to the network 
