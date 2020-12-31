@@ -27,11 +27,9 @@
 #include "skill.h"
 #include "gamerules.h"
 
-#if defined ( HLINVASION_DLL )
 // modif de Julien
 #include "weapons.h"
 #include "player.h"
-#endif // defined ( HLINVASION_DLL )
 
 class CRecharge : public CBaseToggle
 {
@@ -168,7 +166,6 @@ void CRecharge::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 
 
 	// charge the player
-#if defined ( HLINVASION_DLL )
 	if (m_hActivator->pev->armorvalue < MAX_NORMAL_BATTERY/*100*/ )
 	{
 		m_iJuice--;
@@ -185,16 +182,6 @@ void CRecharge::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 			*/
 		}
 	}
-#else
-	if (m_hActivator->pev->armorvalue < 100)
-	{
-		m_iJuice--;
-		m_hActivator->pev->armorvalue += 1;
-
-		if (m_hActivator->pev->armorvalue > 100)
-			m_hActivator->pev->armorvalue = 100;
-	}
-#endif // defined ( HLINVASION_DLL )
 
 	// govern the rate of charge
 	m_flNextCharge = gpGlobals->time + 0.1;
