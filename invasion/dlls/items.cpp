@@ -189,7 +189,6 @@ class CItemSuit : public CItem
 		if ( pPlayer->pev->weapons & (1<<WEAPON_SUIT) )
 			return FALSE;
 
-#if defined ( HLINVASION_DLL )
 		/*if ( pev->spawnflags & SF_SUIT_SHORTLOGON )
 			EMIT_SOUND_SUIT(pPlayer->edict(), "!HEV_A0");		// short version of suit logon,
 		else
@@ -200,12 +199,6 @@ class CItemSuit : public CItem
 		pPlayer->SetArmor ( MAX_NORMAL_BATTERY, 0 );
 		pPlayer->TextAmmo( TA_SUIT );
 		EMIT_SOUND_SUIT(pPlayer->edict(), "sentences/bell.wav");
-#else
-		if ( pev->spawnflags & SF_SUIT_SHORTLOGON )
-			EMIT_SOUND_SUIT(pPlayer->edict(), "!HEV_A0");		// short version of suit logon,
-		else
-			EMIT_SOUND_SUIT(pPlayer->edict(), "!HEV_AAx");	// long version of suit logon
-#endif // defined ( HLINVASION_DLL )
 
 		pPlayer->pev->weapons |= (1<<WEAPON_SUIT);
 		return TRUE;
@@ -236,7 +229,6 @@ class CItemBattery : public CItem
 			return FALSE;
 		}
 
-#if defined ( HLINVASION_DLL )
 		// modif de Julien
 
 		if ( pPlayer->m_iBattery == 9 )
@@ -287,39 +279,6 @@ class CItemBattery : public CItem
 		}
 		return FALSE;
 		*/
-#else
-
-		if ((pPlayer->pev->armorvalue < MAX_NORMAL_BATTERY) &&
-			(pPlayer->pev->weapons & (1<<WEAPON_SUIT)))
-		{
-			int pct;
-			char szcharge[64];
-
-			pPlayer->pev->armorvalue += gSkillData.batteryCapacity;
-			pPlayer->pev->armorvalue = min(pPlayer->pev->armorvalue, MAX_NORMAL_BATTERY);
-
-			EMIT_SOUND( pPlayer->edict(), CHAN_ITEM, "items/gunpickup2.wav", 1, ATTN_NORM );
-
-			MESSAGE_BEGIN( MSG_ONE, gmsgItemPickup, NULL, pPlayer->pev );
-				WRITE_STRING( STRING(pev->classname) );
-			MESSAGE_END();
-
-			
-			// Suit reports new power level
-			// For some reason this wasn't working in release build -- round it.
-			pct = (int)( (float)(pPlayer->pev->armorvalue * 100.0) * (1.0/MAX_NORMAL_BATTERY) + 0.5);
-			pct = (pct / 5);
-			if (pct > 0)
-				pct--;
-		
-			sprintf( szcharge,"!HEV_%1dP", pct );
-			
-			//EMIT_SOUND_SUIT(ENT(pev), szcharge);
-			pPlayer->SetSuitUpdate(szcharge, FALSE, SUIT_NEXT_IN_30SEC);
-			return TRUE;		
-		}
-		return FALSE;
-#endif // defined ( HLINVASION_DLL )
 	}
 };
 
