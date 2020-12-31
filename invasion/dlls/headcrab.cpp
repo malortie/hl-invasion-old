@@ -22,16 +22,12 @@
 #include	"monsters.h"
 #include	"schedule.h"
 #include	"game.h"
-#if defined ( HLINVASION_DLL )
 #include	"weapons.h"
-#endif
 
-#if defined ( HLINVASION_DLL )
 // modif de Julien
 #define NO_MEMBRE					1
 
 #define HEAD_GROUP					1
-#endif
 
 //=========================================================
 // Monster's Anim Events Go Here
@@ -116,10 +112,8 @@ public:
 	static const char *pDeathSounds[];
 	static const char *pBiteSounds[];
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	void TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType);
-#endif
 };
 LINK_ENTITY_TO_CLASS( monster_headcrab, CHeadCrab );
 
@@ -448,7 +442,6 @@ int CHeadCrab :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, fl
 	return CBaseMonster::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
 }
 
-#if defined ( HLINVASION_DLL )
 // modif de julien
 
 void CHeadCrab :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
@@ -467,7 +460,6 @@ void CHeadCrab :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector ve
 	}
 
 }
-#endif // defined ( HLINVASION_DLL )
 
 //=========================================================
 // IdleSound
