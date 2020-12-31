@@ -926,7 +926,6 @@ Schedule_t	slTakeCoverFromOrigin[] =
 	},
 };
 
-#if defined ( HLINVASION_DLL )
 // modif de Julien
 //=========================================================
 // slBurnt - monstre victime du lance-flammes 
@@ -950,7 +949,6 @@ Schedule_t	slBurnt[] =
 		"Monster burnt"
 	},
 };
-#endif // defined ( HLINVASION_DLL )
 
 //=========================================================
 // hide from the loudest sound source
@@ -1041,10 +1039,9 @@ Schedule_t *CBaseMonster::m_scheduleList[] =
 	slFaceScript,
 	slCower,
 	slTakeCoverFromOrigin,
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	slBurnt,
-#endif
+
 	slTakeCoverFromBestSound,
 	slTakeCoverFromEnemy,
 	slFail
@@ -1249,14 +1246,12 @@ Schedule_t* CBaseMonster :: GetScheduleOfType ( int Type )
 		{
 			return slFail;
 		}
-#if defined ( HLINVASION_DLL )
+
 		// modif de Julien
 	case SCHED_BURNT:
 		{
 			return &slBurnt[ 0 ];
 		}
-#endif // defined ( HLINVASION_DLL )
-
 	default:
 		{
 			ALERT ( at_console, "GetScheduleOfType()\nNo CASE for Schedule Type %d!\n", Type );
