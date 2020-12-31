@@ -182,6 +182,7 @@ class CItemSuit : public CItem
 	void Precache( void )
 	{
 		PRECACHE_MODEL ("models/w_suit.mdl");
+		PRECACHE_SOUND ("sentences/bell.wav");
 	}
 	BOOL MyTouch( CBasePlayer *pPlayer )
 	{
