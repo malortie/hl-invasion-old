@@ -73,7 +73,6 @@ BOOL CHealthKit::MyTouch( CBasePlayer *pPlayer )
 		return FALSE;
 	}
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 
 	if ( pPlayer->m_iMedkit == 9 )
@@ -113,30 +112,6 @@ BOOL CHealthKit::MyTouch( CBasePlayer *pPlayer )
 	}
 	return FALSE;
 	*/
-#else
-
-	if ( pPlayer->TakeHealth( gSkillData.healthkitCapacity, DMG_GENERIC ) )
-	{
-		MESSAGE_BEGIN( MSG_ONE, gmsgItemPickup, NULL, pPlayer->pev );
-			WRITE_STRING( STRING(pev->classname) );
-		MESSAGE_END();
-
-		EMIT_SOUND(ENT(pPlayer->pev), CHAN_ITEM, "items/smallmedkit1.wav", 1, ATTN_NORM);
-
-		if ( g_pGameRules->ItemShouldRespawn( this ) )
-		{
-			Respawn();
-		}
-		else
-		{
-			UTIL_Remove(this);	
-		}
-
-		return TRUE;
-	}
-
-	return FALSE;
-#endif // defined ( HLINVASION_DLL )
 }
 
 
