@@ -31,13 +31,11 @@
 #include	"explode.h"
 #include	"func_break.h"
 
-#if defined ( HLINVASION_DLL )
 // modif de julien
 
 #include	"lflammes.h"
 
 #define		GARG_LFLAMMES
-#endif
 
 //=========================================================
 // Gargantua Monster
@@ -578,7 +576,6 @@ void CGargantua :: FlameUpdate( void )
 			GetAttachment( i+1, vecStart, angleGun );
 			Vector vecEnd = vecStart + (gpGlobals->v_forward * GARG_FLAME_LENGTH); //  - offset[i] * gpGlobals->v_right;
 
-#if defined ( HLINVASION_DLL )
 #if defined GARG_LFLAMMES
 
 			// modif de Julien
@@ -604,21 +601,6 @@ void CGargantua :: FlameUpdate( void )
 			// RadiusDamage( trace.vecEndPos, pev, pev, gSkillData.gargantuaDmgFire, CLASS_ALIEN_MONSTER, DMG_BURN );
 			FlameDamage( vecStart, trace.vecEndPos, pev, pev, gSkillData.gargantuaDmgFire, CLASS_ALIEN_MONSTER, DMG_BURN );
 #endif
-#else
-			UTIL_TraceLine( vecStart, vecEnd, dont_ignore_monsters, edict(), &trace );
-
-			m_pFlame[i]->SetStartPos( trace.vecEndPos );
-			m_pFlame[i+2]->SetStartPos( (vecStart * 0.6) + (trace.vecEndPos * 0.4) );
-
-			if ( trace.flFraction != 1.0 && gpGlobals->time > m_streakTime )
-			{
-				StreakSplash( trace.vecEndPos, trace.vecPlaneNormal, 6, 20, 50, 400 );
-				streaks = TRUE;
-				UTIL_DecalTrace( &trace, DECAL_SMALLSCORCH1 + RANDOM_LONG(0,2) );
-			}
-			// RadiusDamage( trace.vecEndPos, pev, pev, gSkillData.gargantuaDmgFire, CLASS_ALIEN_MONSTER, DMG_BURN );
-			FlameDamage( vecStart, trace.vecEndPos, pev, pev, gSkillData.gargantuaDmgFire, CLASS_ALIEN_MONSTER, DMG_BURN );
-#endif // defined ( HLINVASION_DLL )
 
 			MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 				WRITE_BYTE( TE_ELIGHT );
@@ -910,14 +892,11 @@ int CGargantua::TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, flo
 		if ( bitsDamageType & DMG_BLAST )
 			SetConditions( bits_COND_LIGHT_DAMAGE );
 	}
-#if defined ( HLINVASION_DLL )
+
 	// modif de Julien
 	return 0;
 
 	//	 return CBaseMonster::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
-#else
-	return CBaseMonster::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
-#endif
 }
 
 
@@ -1060,7 +1039,6 @@ void CGargantua::HandleAnimEvent(MonsterEvent_t *pEvent)
 		EMIT_SOUND_DYN ( edict(), CHAN_VOICE, pBreatheSounds[ RANDOM_LONG(0,ARRAYSIZE(pBreatheSounds)-1) ], 1.0, ATTN_GARG, 0, PITCH_NORM + RANDOM_LONG(-10,10) );
 		break;
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	case 1000:	// SCRIPT_EVENT_DEAD:
 
@@ -1070,7 +1048,6 @@ void CGargantua::HandleAnimEvent(MonsterEvent_t *pEvent)
 
 		CBaseMonster::HandleAnimEvent(pEvent);
 		break;
-#endif // defined ( HLINVASION_DLL )
 
 	default:
 		CBaseMonster::HandleAnimEvent(pEvent);
