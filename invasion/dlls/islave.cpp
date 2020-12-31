@@ -28,7 +28,6 @@
 
 extern DLL_GLOBAL int		g_iSkillLevel;
 
-#if defined ( HLINVASION_DLL )
 // modif de Julien
 
 #define NO_MEMBRE					1
@@ -38,7 +37,6 @@ extern DLL_GLOBAL int		g_iSkillLevel;
 #define ARM_L_GROUP					3
 #define LEG_R_GROUP					4
 #define LEG_L_GROUP					5
-#endif
 
 //=========================================================
 // Monster's Anim Events Go Here
@@ -105,10 +103,8 @@ public:
 	static const char *pPainSounds[];
 	static const char *pDeathSounds[];
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	void MakeGib(int body, entvars_t *pevAttacker);
-#endif
 };
 LINK_ENTITY_TO_CLASS( monster_alien_slave, CISlave );
 LINK_ENTITY_TO_CLASS( monster_vortigaunt, CISlave );
@@ -578,9 +574,7 @@ void CISlave :: Precache()
 	PRECACHE_SOUND("headcrab/hc_headbite.wav");
 	PRECACHE_SOUND("weapons/cbar_miss1.wav");
 
-#if defined ( HLINVASION_DLL )
 	PRECACHE_MODEL("models/islave_gibs.mdl");
-#endif
 
 	for ( i = 0; i < ARRAYSIZE( pAttackHitSounds ); i++ )
 		PRECACHE_SOUND((char *)pAttackHitSounds[i]);
@@ -620,7 +614,6 @@ void CISlave::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir
 
 	CSquadMonster::TraceAttack( pevAttacker, flDamage, vecDir, ptr, bitsDamageType );
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	
 	//demembrage
@@ -654,10 +647,8 @@ void CISlave::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir
 			break;
 		}
 	}
-#endif // defined ( HLINVASION_DLL )
 }
 
-#if defined ( HLINVASION_DLL )
 // modif de julien
 
 void CISlave :: MakeGib ( int body, entvars_t *pevAttacker )
@@ -678,7 +669,6 @@ void CISlave :: MakeGib ( int body, entvars_t *pevAttacker )
 	pGib->pev->avelocity.y = RANDOM_FLOAT ( 100, 300 );
 
 }
-#endif // defined ( HLINVASION_DLL )
 
 //=========================================================
 // AI Schedules Specific to this monster
