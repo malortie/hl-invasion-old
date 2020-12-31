@@ -35,7 +35,7 @@
 
 #include	"lflammes.h"
 
-#define		GARG_LFLAMMES
+//#define		GARG_LFLAMMES
 
 //=========================================================
 // Gargantua Monster
