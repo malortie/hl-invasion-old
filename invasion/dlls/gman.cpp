@@ -51,10 +51,8 @@ public:
 	EHANDLE m_hTalkTarget;
 	float m_flTalkTime;
 
-#if defined ( HLINVASION_DLL )
 	// modif de julien
 	int CanPlaySequence(BOOL fDisregardMonsterState, int interruptLevel);
-#endif
 };
 LINK_ENTITY_TO_CLASS( monster_gman, CGMan );
 
@@ -66,7 +64,6 @@ TYPEDESCRIPTION	CGMan::m_SaveData[] =
 };
 IMPLEMENT_SAVERESTORE( CGMan, CBaseMonster );
 
-#if defined ( HLINVASION_DLL )
 //---------------------
 // modif de Julien
 
@@ -74,7 +71,6 @@ int CGMan::CanPlaySequence(BOOL fDisregardMonsterState, int interruptLevel)
 {
 	return TRUE;
 }
-#endif // defined ( HLINVASION_DLL )
 
 //=========================================================
 // Classify - indicates this monster's place in the 
@@ -136,12 +132,8 @@ void CGMan :: Spawn()
 	SET_MODEL( ENT(pev), "models/gman.mdl" );
 	UTIL_SetSize(pev, VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX);
 
-#if defined ( HLINVASION_DLL )
 //	pev->solid			= SOLID_SLIDEBOX;
 	pev->solid			= SOLID_NOT;	// modif de Julien
-#else
-	pev->solid			= SOLID_SLIDEBOX;
-#endif
 	pev->movetype		= MOVETYPE_STEP;
 	m_bloodColor		= DONT_BLEED;
 	pev->health			= 100;
