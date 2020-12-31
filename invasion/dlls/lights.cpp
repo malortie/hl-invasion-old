@@ -198,7 +198,6 @@ void CEnvLight :: Spawn( void )
 	CLight::Spawn( );
 }
 
-#if defined ( HLINVASION_DLL )
 //-------------------------------------------------------------
 // modif de Julien
 
@@ -260,4 +259,3 @@ void CLightEnt :: LightThink ( void )
 		WRITE_BYTE( 0 );		// decay * 0.1
 	MESSAGE_END( );
 }
-#endif // defined ( HLINVASION_DLL )
