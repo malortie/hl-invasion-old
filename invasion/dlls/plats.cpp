@@ -805,7 +805,6 @@ void CFuncTrain :: Next( void )
 		SetMoveDone( &CFuncTrain::Wait );
 		LinearMove (pTarg->pev->origin - (pev->mins + pev->maxs)* 0.5, pev->speed);
 
-#if defined ( HLINVASION_DLL )
 		//modif de Julien
 	/*	if ( (pev->spawnflags & 2) && ( pTarg->pev->angles != Vector ( 0, 0, 0 ) ) )
 		{
@@ -814,7 +813,6 @@ void CFuncTrain :: Next( void )
 			float time = (pTarg->pev->origin - (pev->mins + pev->maxs)* 0.5).Length() / pev->speed;
 			pev->avelocity = Vector ( 200, 0, 0 );//vecDestDelta / time;
 		}*/
-#endif // defined ( HLINVASION_DLL )
 	}
 }
 
