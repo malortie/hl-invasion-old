@@ -27,10 +27,6 @@ extern DLL_GLOBAL	short	g_sModelIndexFireball;
 extern DLL_GLOBAL	short	g_sModelIndexSmoke;
 
 
-#if defined ( HLINVASION_DLL )
 extern void ExplosionCreate( const Vector &center, const Vector &angles, edict_t *pOwner, int magnitude, BOOL doDamage, float flDelay = 0 );
-#else
-extern void ExplosionCreate( const Vector &center, const Vector &angles, edict_t *pOwner, int magnitude, BOOL doDamage );
-#endif
 
 #endif			//EXPLODE_H
