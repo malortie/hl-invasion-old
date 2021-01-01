@@ -27,9 +27,7 @@
 #include "soundent.h"
 #include "decals.h"
 
-#if defined ( HLINVASION_DLL )
 extern int iFgTrail;
-#endif // defined ( HLINVASION_DLL )
 
 //===================grenade
 
@@ -115,13 +113,11 @@ void CGrenade::Explode( TraceResult *pTrace, int bitsDamageType )
 		case 2:	EMIT_SOUND(ENT(pev), CHAN_VOICE, "weapons/debris3.wav", 0.55, ATTN_NORM);	break;
 	}
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 
 	UTIL_ScreenShake(pev->origin, 100, 85, 1.0, 500);
 
 	//====================
-#endif
 
 	pev->effects |= EF_NODRAW;
 	SetThink( &CGrenade::Smoke );
@@ -135,14 +131,12 @@ void CGrenade::Explode( TraceResult *pTrace, int bitsDamageType )
 			Create( "spark_shower", pev->origin, pTrace->vecPlaneNormal, NULL );
 	}
 
-#if defined ( HLINVASION_DLL )
 	if (IsInGaz())
 	{
 		edict_t *pFind = FIND_ENTITY_BY_CLASSNAME(NULL, "player");
 		CBaseEntity *pPlayer = CBaseEntity::Instance(pFind);
 		pPlayer->m_bFireInGaz = TRUE;
 	}
-#endif
 }
 
 
@@ -442,7 +436,6 @@ CGrenade * CGrenade:: ShootTimed( entvars_t *pevOwner, Vector vecStart, Vector v
 	return pGrenade;
 }
 
-#if defined ( HLINVASION_DLL )
 //modif de Julien
 //grenade à fragmentation
 
@@ -549,7 +542,6 @@ void CGrenade :: FragThink( void )
 }
 
 //=============================
-#endif // defined ( HLINVASION_DLL )
 
 
 CGrenade * CGrenade :: ShootSatchelCharge( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity )
@@ -615,7 +607,6 @@ void CGrenade :: UseSatchelCharges( entvars_t *pevOwner, SATCHELCODE code )
 
 //======================end grenade
 
-#if defined ( HLINVASION_DLL )
 //modif de Julien
 //=========================================
 //	pour les trigger_gaz
@@ -647,4 +638,3 @@ BOOL CGrenade::IsInGaz ( void )
 	}
 	return FALSE;
 }
-#endif // defined ( HLINVASION_DLL )
