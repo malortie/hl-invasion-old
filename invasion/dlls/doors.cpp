@@ -883,10 +883,8 @@ void CRotDoor :: SetToggleState( int state )
 	UTIL_SetOrigin( pev, pev->origin );
 }
 
-#if defined ( HLINVASION_DLL )
 //modif de Julien
 #define	SF_MOMENT_DOOR_BLOCK					1024 // no idle noises from this monster
-#endif
 
 class CMomentaryDoor : public CBaseToggle
 {
@@ -906,10 +904,8 @@ public:
 
 	BYTE	m_bMoveSnd;			// sound a door makes while moving	
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	virtual void Blocked(CBaseEntity *pOther);
-#endif
 };
 
 LINK_ENTITY_TO_CLASS( momentary_door, CMomentaryDoor );
@@ -1060,7 +1056,6 @@ void CMomentaryDoor::DoorMoveDone( void )
 	EMIT_SOUND(ENT(pev), CHAN_STATIC, (char*)STRING(pev->noiseArrived), 1, ATTN_NORM);
 }
 
-#if defined ( HLINVASION_DLL )
 //modif de Julien
 void CMomentaryDoor :: Blocked( CBaseEntity *pOther )
 {
@@ -1084,4 +1079,3 @@ void CMomentaryDoor :: Blocked( CBaseEntity *pOther )
 		FireTargets ( STRING(pev->netname), this, this, USE_ON, 0 );
 	}
 }
-#endif // defined ( HLINVASION_DLL )
