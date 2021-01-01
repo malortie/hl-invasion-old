@@ -20,13 +20,11 @@ typedef enum { matGlass = 0, matWood, matMetal, matFlesh, matCinderBlock, matCei
 
 #define	NUM_SHARDS 6 // this many shards spawned when breakable objects break;
 
-#if defined ( HLINVASION_DLL )
 //modif de Julien
 #define SF_BREAK_L2M2		8
 #define SF_BREAK_INTRO		16
 #define SF_BREAK_TANKTOUCH	32
 #define SF_BREAK_TANKDAMAGE	64
-#endif
 
 class CBreakable : public CBaseDelay
 {
@@ -78,11 +76,9 @@ public:
 	int			m_iszGibModel;
 	int			m_iszSpawnObject;
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	int			m_iszTankPrev;
 	BOOL		CheckTankPrev(void);
-#endif
 };
 
 #endif	// FUNC_BREAK_H
