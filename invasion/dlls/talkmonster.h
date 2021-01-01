@@ -172,13 +172,11 @@ public:
 	EHANDLE		m_hTalkTarget;	// who to look at while talking
 	CUSTOM_SCHEDULES;
 
-#if defined ( HLINVASION_DLL )
 	// modif de julien
 
 	int			m_iszIdleSentence;
 	int			m_iszIdleRadio;
 	BOOL		m_bIdleSentState;
-#endif
 };
 
 
