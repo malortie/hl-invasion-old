@@ -78,7 +78,6 @@ int CHandGrenade::GetItemInfo(ItemInfo *p)
 	return 1;
 }
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 // modif de julien
 int CHandGrenade::AddToPlayer( CBasePlayer *pPlayer )
 {
@@ -94,7 +93,6 @@ int CHandGrenade::AddToPlayer( CBasePlayer *pPlayer )
 	}
 	return FALSE;
 }
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 
 BOOL CHandGrenade::Deploy( )
 {
