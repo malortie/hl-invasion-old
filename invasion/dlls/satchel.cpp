@@ -205,10 +205,8 @@ int CSatchel::AddToPlayer(CBasePlayer *pPlayer)
 	pPlayer->pev->weapons |= (1 << m_iId);
 	m_chargeReady = 0;// this satchel charge weapon now forgets that any satchels are deployed by it.
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	// modif de Julien
 	m_pPlayer->TextAmmo(TA_SATCHEL);
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 
 	if (bResult)
 	{
@@ -250,11 +248,7 @@ int CSatchel::GetItemInfo(ItemInfo *p)
 	p->iMaxAmmo2 = -1;
 	p->iMaxClip = WEAPON_NOCLIP;
 	p->iSlot = 4;
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	p->iPosition = 2;
-#else
-	p->iPosition = 1;
-#endif
 	p->iFlags = ITEM_FLAG_SELECTONEMPTY | ITEM_FLAG_LIMITINWORLD | ITEM_FLAG_EXHAUSTIBLE;
 	p->iId = m_iId = WEAPON_SATCHEL;
 	p->iWeight = SATCHEL_WEIGHT;
