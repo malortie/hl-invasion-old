@@ -286,41 +286,6 @@ void CEnvExplosion::Smoke( void )
 	}
 }
 
-
-// HACKHACK -- create one of these and fake a keyvalue to get the right explosion setup
-#if defined ( HLINVASION_DLL )
-void ExplosionCreate(const Vector &center, const Vector &angles, edict_t *pOwner, int magnitude, BOOL doDamage, float flDelay)
-#else
-void ExplosionCreate( const Vector &center, const Vector &angles, edict_t *pOwner, int magnitude, BOOL doDamage )
-#endif // HLINVASION_DLL
-{
-	KeyValueData	kvd;
-	char			buf[128];
-
-	CBaseEntity *pExplosion = CBaseEntity::Create( "env_explosion", center, angles, pOwner );
-	sprintf( buf, "%3d", magnitude );
-	kvd.szKeyName = "iMagnitude";
-	kvd.szValue = buf;
-	pExplosion->KeyValue( &kvd );
-	if ( !doDamage )
-		pExplosion->pev->spawnflags |= SF_ENVEXPLOSION_NODAMAGE;
-
-	pExplosion->Spawn();
-
-#if defined ( HLINVASION_DLL )
-	// modif de Julien
-
-	CEnvExplosion *pExp = (CEnvExplosion*)pExplosion;
-
-	pExp->SetThink(&CEnvExplosion::ExplodeDelay);
-
-	pExp->pev->nextthink = gpGlobals->time + flDelay;
-	// modif de julien // pExplosion->Use( NULL, NULL, USE_TOGGLE, 0 );
-#else
-	pExplosion->Use( NULL, NULL, USE_TOGGLE, 0 );
-#endif
-}
-
 #if defined ( HLINVASION_DLL )
 //modif de Julien
 //=========================================
@@ -352,6 +317,41 @@ BOOL CEnvExplosion::IsInGaz(void)
 
 	}
 	return FALSE;
+}
+
+// HACKHACK -- create one of these and fake a keyvalue to get the right explosion setup
+#if defined ( HLINVASION_DLL )
+void ExplosionCreate(const Vector& center, const Vector& angles, edict_t* pOwner, int magnitude, BOOL doDamage, float flDelay)
+#else
+void ExplosionCreate(const Vector& center, const Vector& angles, edict_t* pOwner, int magnitude, BOOL doDamage)
+#endif // HLINVASION_DLL
+{
+	KeyValueData	kvd;
+	char			buf[128];
+
+	CBaseEntity* pExplosion = CBaseEntity::Create("env_explosion", center, angles, pOwner);
+	sprintf(buf, "%3d", magnitude);
+	kvd.szKeyName = "iMagnitude";
+	kvd.szValue = buf;
+	pExplosion->KeyValue(&kvd);
+	if (!doDamage)
+		pExplosion->pev->spawnflags |= SF_ENVEXPLOSION_NODAMAGE;
+
+	pExplosion->Spawn();
+
+#if defined ( HLINVASION_DLL )
+	// modif de Julien
+
+	CEnvExplosion* pExp = (CEnvExplosion*)pExplosion;
+
+	pExp->SetThink(&CEnvExplosion::ExplodeDelay);
+	pExp->pev->nextthink = gpGlobals->time + flDelay;
+
+
+	// modif de julien // pExplosion->Use( NULL, NULL, USE_TOGGLE, 0 );
+#else
+	pExplosion->Use(NULL, NULL, USE_TOGGLE, 0);
+#endif
 }
 
 // modif de julien
