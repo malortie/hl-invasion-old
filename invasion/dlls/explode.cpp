@@ -96,11 +96,9 @@ public:
 	int m_iMagnitude;// how large is the fireball? how much damage?
 	int m_spriteScale; // what's the exact fireball sprite scale? 
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	virtual BOOL IsInGaz(void);
 	void	EXPORT ExplodeDelay(void);
-#endif
 };
 
 TYPEDESCRIPTION	CEnvExplosion::m_SaveData[] = 
@@ -125,7 +123,6 @@ void CEnvExplosion::KeyValue( KeyValueData *pkvd )
 
 void CEnvExplosion::Spawn( void )
 { 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	if (FStrEq(STRING(gpGlobals->mapname), "l3m2") || FStrEq(STRING(gpGlobals->mapname), "L3M2"))
 	{
@@ -134,7 +131,6 @@ void CEnvExplosion::Spawn( void )
 		pev->nextthink = gpGlobals->time + 0.1;
 		return;
 	}
-#endif
 
 	pev->solid = SOLID_NOT;
 	pev->effects = EF_NODRAW;
@@ -231,12 +227,10 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 	// do damage
 	if ( !( pev->spawnflags & SF_ENVEXPLOSION_NODAMAGE ) )
 	{
-#if defined ( HLINVASION_DLL )
 		// modif de Julien
 		if ( pev->owner != NULL )
 			RadiusDamage(pev, VARS(pev->owner), m_iMagnitude, CLASS_NONE, DMG_BLAST);
 		else
-#endif // defined ( HLINVASION_DLL )
 			RadiusDamage(pev, pev, m_iMagnitude, CLASS_NONE, DMG_BLAST);
 	}
 
@@ -254,7 +248,6 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 		}
 	}
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	if (IsInGaz())
 	{
@@ -262,7 +255,6 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 		CBaseEntity *pPlayer = CBaseEntity::Instance(pFind);
 		pPlayer->m_bFireInGaz = TRUE;
 	}
-#endif
 }
 
 void CEnvExplosion::Smoke( void )
@@ -286,7 +278,6 @@ void CEnvExplosion::Smoke( void )
 	}
 }
 
-#if defined ( HLINVASION_DLL )
 //modif de Julien
 //=========================================
 //	pour les trigger_gaz
@@ -320,11 +311,7 @@ BOOL CEnvExplosion::IsInGaz(void)
 }
 
 // HACKHACK -- create one of these and fake a keyvalue to get the right explosion setup
-#if defined ( HLINVASION_DLL )
 void ExplosionCreate(const Vector& center, const Vector& angles, edict_t* pOwner, int magnitude, BOOL doDamage, float flDelay)
-#else
-void ExplosionCreate(const Vector& center, const Vector& angles, edict_t* pOwner, int magnitude, BOOL doDamage)
-#endif // HLINVASION_DLL
 {
 	KeyValueData	kvd;
 	char			buf[128];
@@ -339,7 +326,6 @@ void ExplosionCreate(const Vector& center, const Vector& angles, edict_t* pOwner
 
 	pExplosion->Spawn();
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 
 	CEnvExplosion* pExp = (CEnvExplosion*)pExplosion;
@@ -349,9 +335,6 @@ void ExplosionCreate(const Vector& center, const Vector& angles, edict_t* pOwner
 
 
 	// modif de julien // pExplosion->Use( NULL, NULL, USE_TOGGLE, 0 );
-#else
-	pExplosion->Use(NULL, NULL, USE_TOGGLE, 0);
-#endif
 }
 
 // modif de julien
@@ -398,4 +381,3 @@ void CEnvShower::UseShower(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 	}
 
 }
-#endif // HLINVASION_DLL
