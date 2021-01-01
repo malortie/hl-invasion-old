@@ -80,11 +80,7 @@ void CBaseMonster :: RunAI ( void )
 		// things will happen before the player gets there!
 		// UPDATE: We now let COMBAT state monsters think and act fully outside of player PVS. This allows the player to leave 
 		// an area where monsters are fighting, and the fight will continue.
-#if defined ( HLINVASION_DLL )
 		if ( !FNullEnt( FIND_CLIENT_IN_PVS( edict() ) ) || ( m_MonsterState == MONSTERSTATE_COMBAT ) || UTIL_FindEntityByClassname (NULL,"vehicle_tank") != NULL )
-#else
-		if ( !FNullEnt( FIND_CLIENT_IN_PVS( edict() ) ) || ( m_MonsterState == MONSTERSTATE_COMBAT ) )
-#endif
 		{
 			Look( m_flDistLook );
 			Listen();// check for audible sounds. 
@@ -219,10 +215,8 @@ MONSTERSTATE CBaseMonster :: GetIdealState ( void )
 		HUNT goes to COMBAT upon seeing enemy
 		*/
 		{
-#if defined ( HLINVASION_DLL )
 			// modif de Julien
 			m_IdealMonsterState = MONSTERSTATE_HUNT;
-#endif
 			break;
 		}
 	case MONSTERSTATE_SCRIPT:
