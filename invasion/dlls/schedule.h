@@ -74,11 +74,9 @@ typedef enum
 		SCHED_AISCRIPT,
 		SCHED_FAIL,
 
-#if defined ( HLINVASION_DLL )
 		// modif de Julien
 
 		SCHED_BURNT,
-#endif
 
 		LAST_COMMON_SCHEDULE			// Leave this at the bottom
 } SCHEDULE_TYPE;
@@ -179,10 +177,8 @@ typedef enum
 		TASK_FORGET,
 		TASK_WAIT_FOR_MOVEMENT,			// wait until MovementIsComplete()
 
-#if defined ( HLINVASION_DLL )
 		// modif de Julien
 		TASK_GET_BURNT_COVER,
-#endif
 
 		LAST_COMMON_TASK, // LEAVE THIS AT THE BOTTOM!! (sjb)
 } SHARED_TASKS;
