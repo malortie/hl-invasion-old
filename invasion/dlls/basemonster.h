@@ -333,12 +333,11 @@ public:
 
 	CBaseEntity* DropItem ( char *pszItemName, const Vector &vecPos, const Vector &vecAng );// drop an item.
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	// modif de Julien
 
 	void	Gunflash ( void );
 	int		m_iHasGibbed;		// pour le démembrage
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+
 };
 
 
