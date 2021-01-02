@@ -352,13 +352,12 @@ public:
 	int ammo_uranium;
 	int ammo_hornets;
 	int ammo_argrens;
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	int ammo_chewinggum;
 	int ammo_fsniper;
 	int ammo_irgun;
 	int ammo_m16;
 	int ammo_oeufs;
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+
 	//Special stuff for grenades and satchels.
 	float m_flStartThrow;
 	float m_flReleaseThrow;
@@ -368,11 +367,10 @@ public:
 	enum EGON_FIRESTATE { FIRE_OFF, FIRE_CHARGE };
 	int m_fireState;
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	//modif de Julien
 	virtual BOOL IsInGaz(void) { return FALSE; };
 	BOOL m_bFireInGaz;
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+
 };
 
 
