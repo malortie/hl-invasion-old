@@ -155,7 +155,6 @@ public:
 LINK_ENTITY_TO_CLASS( func_conveyor, CFuncConveyor );
 void CFuncConveyor :: Spawn( void )
 {
-#if defined ( HLINVASION_DLL )
 	pev->v_angle = pev->angles;	//modif de julien - permet de garder une trace de l'angle du conveyor
 								//dans v_angle.y
 								//
@@ -164,7 +163,6 @@ void CFuncConveyor :: Spawn( void )
 								//interdit le changement de direction de la poussée
 								//pev->speed ne doit PAS  etre modifié
 								//sa valeur modifiable est stockée dans pev->v_angle.z
-#endif // defined ( HLINVASION_DLL )
 
 	SetMovedir( pev );
 	CFuncWall::Spawn();
@@ -182,13 +180,9 @@ void CFuncConveyor :: Spawn( void )
 	if ( pev->speed == 0 )
 		pev->speed = 100;
 
-#if defined ( HLINVASION_DLL )
 	pev->v_angle.z = pev->speed;
 
 	UpdateSpeed( pev->v_angle.z );
-#else
-	UpdateSpeed( pev->speed );
-#endif // defined ( HLINVASION_DLL )
 }
 
 
@@ -210,7 +204,6 @@ void CFuncConveyor :: UpdateSpeed( float speed )
 
 void CFuncConveyor :: Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	//change la direction de poussée
 	//le conveyor met son angle a 0 avec setmovedir
@@ -228,10 +221,6 @@ void CFuncConveyor :: Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 
 	pev->v_angle.z = - pev->v_angle.z;
 	UpdateSpeed( pev->v_angle.z );
-#else
-    pev->speed = -pev->speed;
-	UpdateSpeed( pev->speed );
-#endif
 }
 
 
