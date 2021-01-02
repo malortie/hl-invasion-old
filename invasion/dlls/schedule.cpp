@@ -785,7 +785,6 @@ void CBaseMonster :: StartTask ( Task_t *pTask )
 		}
 		break;
 
-#if defined ( HLINVASION_DLL )
 		// modif de Julien
 	case TASK_GET_BURNT_COVER:
 		{
@@ -825,7 +824,6 @@ void CBaseMonster :: StartTask ( Task_t *pTask )
 			}
 		}
 		break;
-#endif // defined ( HLINVASION_DLL )
 
 	case TASK_FIND_COVER_FROM_BEST_SOUND:
 		{
