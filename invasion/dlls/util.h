@@ -289,10 +289,8 @@ extern float		UTIL_WaterLevel( const Vector &position, float minz, float maxz );
 extern void			UTIL_Bubbles( Vector mins, Vector maxs, int count );
 extern void			UTIL_BubbleTrail( Vector from, Vector to, int count );
 
-#if defined ( HLINVASION_DLL )
 //modif de Julien
 extern void UTIL_WaterWave(Vector origin);
-#endif // defined ( HLINVASION_DLL )
 
 // allows precacheing of other entities
 extern void			UTIL_PrecacheOther( const char *szClassname );
@@ -441,9 +439,7 @@ extern DLL_GLOBAL int			g_Language;
 #define	SF_TRIGGER_ALLOWMONSTERS	1// monsters allowed to fire this trigger
 #define	SF_TRIGGER_NOCLIENTS		2// players not allowed to fire this trigger
 #define SF_TRIGGER_PUSHABLES		4// only pushables can fire this trigger
-#if defined ( HLINVASION_DLL )
 #define SF_TRIGGER_TANK				8// modif de Julien
-#endif
 
 // func breakable
 #define SF_BREAK_TRIGGER_ONLY	1// may only be broken by trigger
