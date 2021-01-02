@@ -582,14 +582,12 @@ void CBaseButton::ButtonSpark ( void )
 //
 void CBaseButton::ButtonUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	if (FClassnameIs(ENT(pev), "func_rot_button") && (FStrEq(STRING(gpGlobals->mapname), "l4m2") || FStrEq(STRING(gpGlobals->mapname), "L4M2")))
 	{
 		if (pActivator != NULL && pActivator->pev->origin.y > pev->origin.y)
 			return;
 	}
-#endif // defined ( HLINVASION_DLL )
 
 	// Ignore touches if button is moving, or pushed-in and waiting to auto-come-out.
 	// UNDONE: Should this use ButtonResponseToTouch() too?
@@ -1114,7 +1112,6 @@ void CMomentaryRotButton::Return( void )
 
 void CMomentaryRotButton::UpdateSelfReturn( float value )
 {
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	if ( FStrEq(STRING(gpGlobals->mapname), "l4m4") || FStrEq(STRING(gpGlobals->mapname), "L4M4") )
 	{
@@ -1130,7 +1127,6 @@ void CMomentaryRotButton::UpdateSelfReturn( float value )
 			m_returnSpeed = 70;
 		}
 	}
-#endif // defined ( HLINVASION_DLL )
 
 	if ( value <= 0 )
 	{
