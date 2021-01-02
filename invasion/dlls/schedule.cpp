@@ -1546,6 +1546,10 @@ Schedule_t *CBaseMonster :: GetSchedule ( void )
 
 			return GetScheduleOfType( SCHED_AISCRIPT );
 		}
+	case MONSTERSTATE_HUNT:
+		{
+			return GetScheduleOfType(SCHED_BURNT);
+		}
 	default:
 		{
 			ALERT ( at_aiconsole, "Invalid State for GetSchedule!\n" );
