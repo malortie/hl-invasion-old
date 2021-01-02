@@ -950,12 +950,10 @@ private:
 	BOOL	m_active;
 	int		m_iszListener;	// name of entity to look at while talking
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	int		m_iszMessage;
 	int		m_iHead;
 	CBaseEntity *m_pRadio;
-#endif
 };
 
 #define SF_SENTENCE_ONCE		0x0001
@@ -974,11 +972,9 @@ TYPEDESCRIPTION	CScriptedSentence::m_SaveData[] =
 	DEFINE_FIELD( CScriptedSentence, m_flVolume, FIELD_FLOAT ),
 	DEFINE_FIELD( CScriptedSentence, m_active, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CScriptedSentence, m_iszListener, FIELD_STRING ),
-#if defined ( HLINVASION_DLL )
 	DEFINE_FIELD( CScriptedSentence, m_iszMessage, FIELD_STRING ),	// modif de Julien
 	DEFINE_FIELD( CScriptedSentence, m_pRadio, FIELD_CLASSPTR ),	// modif de Julien
 	DEFINE_FIELD( CScriptedSentence, m_iHead, FIELD_INTEGER ),	// modif de Julien
-#endif
 };
 
 
@@ -1028,7 +1024,7 @@ void CScriptedSentence :: KeyValue( KeyValueData *pkvd )
 		m_iszListener = ALLOC_STRING( pkvd->szValue );
 		pkvd->fHandled = TRUE;
 	}
-#if defined ( HLINVASION_DLL )
+
 	// modif de Julien
 
 	else if (FStrEq(pkvd->szKeyName, "radiomsg"))
@@ -1041,7 +1037,7 @@ void CScriptedSentence :: KeyValue( KeyValueData *pkvd )
 		m_iHead = atoi( pkvd->szValue );
 		pkvd->fHandled = TRUE;
 	}
-#endif // defined ( HLINVASION_DLL )
+
 	else
 		CBaseToggle::KeyValue( pkvd );
 }
@@ -1094,7 +1090,6 @@ void CScriptedSentence :: Spawn( void )
 	if ( m_flVolume <= 0 )
 		m_flVolume = 1.0;
 
-#if defined ( HLINVASION_DLL )
 	// modif de julien
 	
 	if ( !FStringNull ( m_iszMessage ) )
@@ -1118,7 +1113,6 @@ void CScriptedSentence :: Spawn( void )
 	}
 	
 	else m_pRadio = NULL;
-#endif // defined ( HLINVASION_DLL )
 }
 
 
@@ -1135,11 +1129,9 @@ void CScriptedSentence :: FindThink( void )
 		m_active = FALSE;
 //		ALERT( at_console, "%s: found monster %s\n", STRING(m_iszSentence), STRING(m_iszEntity) );
 
-#if defined ( HLINVASION_DLL )
 		// modif de Julien
 		if (m_pRadio != NULL)
 			m_pRadio->Use(this, this, USE_ON, 0);
-#endif
 	}
 	else
 	{
