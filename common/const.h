@@ -779,14 +779,12 @@ typedef struct
 	int		hitgroup;		// 0 == generic, non zero is specific body part
 } trace_t;
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 //-----------------------------------
 // modif de Julien
 // electro - rocket
 
 #define ELECTRO_DISK_SPEED		512
 #define ELECTRO_DISK_MAX		300
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 
 #endif
 
