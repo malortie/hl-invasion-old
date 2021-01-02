@@ -684,13 +684,8 @@ void UTIL_ScreenShake( const Vector &center, float amplitude, float frequency, f
 	{
 		CBaseEntity *pPlayer = UTIL_PlayerByIndex( i );
 
-#if defined ( HLINVASION_DLL )
 		if ( !pPlayer || !(pPlayer->pev->flags & FL_ONGROUND) )	// Don't shake if not onground//modif de Julien
 			continue;
-#else
-		if ( !pPlayer || !(pPlayer->pev->flags & FL_ONGROUND) )	// Don't shake if not onground
-			continue;
-#endif
 
 		localAmplitude = 0;
 
@@ -1116,11 +1111,7 @@ int UTIL_IsMasterTriggered(string_t sMaster, CBaseEntity *pActivator)
 				return pMaster->IsTriggered( pActivator );
 		}
 
-#if defined ( HLINVASION_DLL )
 		ALERT(at_console, "entite %s : Master was null or not a master!\n", STRING ( pActivator->pev->classname) );	// modif de julien
-#else
-		ALERT(at_console, "Master was null or not a master!\n");
-#endif
 	}
 
 	// if this isn't a master entity, just say yes.
@@ -1531,26 +1522,17 @@ void UTIL_Bubbles( Vector mins, Vector maxs, int count )
 
 void UTIL_BubbleTrail( Vector from, Vector to, int count )
 {
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	float hfrom = 0, hto = 0;
-#endif
 
 	float flHeight = UTIL_WaterLevel( from,  from.z, from.z + 256 );
-#if defined ( HLINVASION_DLL )
 	flHeight = hfrom = flHeight - from.z;
-#else
-	flHeight = flHeight - from.z;
-#endif
 
 	if (flHeight < 8)
 	{
 		flHeight = UTIL_WaterLevel( to,  to.z, to.z + 256 );
-#if defined ( HLINVASION_DLL )
 		flHeight = hto = flHeight - to.z;
-#else
-		flHeight = flHeight - to.z;
-#endif
+
 		if (flHeight < 8)
 			return;
 
@@ -1575,7 +1557,6 @@ void UTIL_BubbleTrail( Vector from, Vector to, int count )
 		WRITE_COORD( 8 ); // speed
 	MESSAGE_END();
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	if (hto > 0 && hfrom == 0)
 	{
@@ -1584,10 +1565,8 @@ void UTIL_BubbleTrail( Vector from, Vector to, int count )
 		Vector vecWavePos = to + (from - to).Normalize() * sqrt(hto*hto + flen*flen);
 		UTIL_WaterWave(vecWavePos);
 	}
-#endif
 }
 
-#if defined ( HLINVASION_DLL )
 //modif de Julien
 
 extern DLL_GLOBAL	short	g_sModelIndexBlastCircle; // sprite de l'onde de choc
@@ -1621,7 +1600,6 @@ void UTIL_WaterWave ( Vector origin  )
 }
 
 //================================
-#endif // defined ( HLINVASION_DLL )
 
 void UTIL_Remove( CBaseEntity *pEntity )
 {
