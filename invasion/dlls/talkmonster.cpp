@@ -22,9 +22,7 @@
 #include	"scripted.h"
 #include	"soundent.h"
 #include	"animation.h"
-#if defined ( HLINVASION_DLL )
 #include	"radiomsg.h"
-#endif
 
 //=========================================================
 // Talking monster base class
@@ -49,12 +47,10 @@ TYPEDESCRIPTION	CTalkMonster::m_SaveData[] =
 	DEFINE_FIELD( CTalkMonster, m_flStopTalkTime, FIELD_TIME ),
 	DEFINE_FIELD( CTalkMonster, m_hTalkTarget, FIELD_EHANDLE ),
 
-#if defined ( HLINVASION_DLL )
 	// modif de julien
 	DEFINE_FIELD( CTalkMonster, m_iszIdleSentence, FIELD_STRING ),
 	DEFINE_FIELD( CTalkMonster, m_bIdleSentState, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CTalkMonster, m_iszIdleRadio, FIELD_STRING ),
-#endif
 };
 
 IMPLEMENT_SAVERESTORE( CTalkMonster, CBaseMonster );
@@ -1163,14 +1159,10 @@ void CTalkMonster::PlaySentence( const char *pszSentence, float duration, float 
 	if ( !pszSentence )
 		return;
 
-#if defined ( HLINVASION_DLL )
 //	modif de Julien
 //	Talk ( duration );
 
 	Talk ( 15 );
-#else
-	Talk ( duration );
-#endif
 
 	CTalkMonster::g_talkWaitTime = gpGlobals->time + duration + 2.0;
 	if ( pszSentence[0] == '!' )
@@ -1251,7 +1243,6 @@ Schedule_t* CTalkMonster :: GetScheduleOfType ( int Type )
 		
 	case SCHED_IDLE_STAND:
 		{	
-#if defined ( HLINVASION_DLL )
 			// modifs de Julien
 
 /*			// if never seen player, try to greet him
@@ -1307,67 +1298,7 @@ Schedule_t* CTalkMonster :: GetScheduleOfType ( int Type )
 					// regular standing idle
 					return slIdleStand;
 			}
-#else
-			// if never seen player, try to greet him
-			if (!FBitSet(m_bitsSaid, bit_saidHelloPlayer))
-			{
-				return slIdleHello;
-			}
 
-			// sustained light wounds?
-			if (!FBitSet(m_bitsSaid, bit_saidWoundLight) && (pev->health <= (pev->max_health * 0.75)))
-			{
-				//SENTENCEG_PlayRndSz( ENT(pev), m_szGrp[TLK_WOUND], 1.0, ATTN_IDLE, 0, GetVoicePitch() );
-				//CTalkMonster::g_talkWaitTime = gpGlobals->time + RANDOM_FLOAT(2.8, 3.2);
-				PlaySentence( m_szGrp[TLK_WOUND], RANDOM_FLOAT(2.8, 3.2), VOL_NORM, ATTN_IDLE );
-				SetBits(m_bitsSaid, bit_saidWoundLight);
-				return slIdleStand;
-			}
-			// sustained heavy wounds?
-			else if (!FBitSet(m_bitsSaid, bit_saidWoundHeavy) && (pev->health <= (pev->max_health * 0.5)))
-			{
-				//SENTENCEG_PlayRndSz( ENT(pev), m_szGrp[TLK_MORTAL], 1.0, ATTN_IDLE, 0, GetVoicePitch() );
-				//CTalkMonster::g_talkWaitTime = gpGlobals->time + RANDOM_FLOAT(2.8, 3.2);
-				PlaySentence( m_szGrp[TLK_MORTAL], RANDOM_FLOAT(2.8, 3.2), VOL_NORM, ATTN_IDLE );
-				SetBits(m_bitsSaid, bit_saidWoundHeavy);
-				return slIdleStand;
-			}
-
-			// talk about world
-			if (FOkToSpeak() && RANDOM_LONG(0,m_nSpeak * 2) == 0)
-			{
-				//ALERT ( at_console, "standing idle speak\n" );
-				return slIdleSpeak;
-			}
-			
-			if ( !IsTalking() && HasConditions ( bits_COND_SEE_CLIENT ) && RANDOM_LONG( 0, 6 ) == 0 )
-			{
-				edict_t *pPlayer = g_engfuncs.pfnPEntityOfEntIndex( 1 );
-
-				if ( pPlayer )
-				{
-					// watch the client.
-					UTIL_MakeVectors ( pPlayer->v.angles );
-					if ( ( pPlayer->v.origin - pev->origin ).Length2D() < TLK_STARE_DIST	&& 
-						 UTIL_DotPoints( pPlayer->v.origin, pev->origin, gpGlobals->v_forward ) >= m_flFieldOfView )
-					{
-						// go into the special STARE schedule if the player is close, and looking at me too.
-						return &slTlkIdleWatchClient[ 1 ];
-					}
-
-					return slTlkIdleWatchClient;
-				}
-			}
-			else
-			{
-				if (IsTalking())
-					// look at who we're talking to
-					return slTlkIdleEyecontact;
-				else
-					// regular standing idle
-					return slIdleStand;
-			}
-#endif // HLINVASION_DLL
 
 			// NOTE - caller must first CTalkMonster::GetScheduleOfType, 
 			// then check result and decide what to return ie: if sci gets back
@@ -1489,7 +1420,6 @@ BOOL CTalkMonster::CanFollow( void )
 
 void CTalkMonster :: FollowerUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-#if defined ( HLINVASION_DLL )
 	/*	// Don't allow use during a scripted_sentence
 	if ( m_useTime > gpGlobals->time )
 		return;
@@ -1543,36 +1473,6 @@ void CTalkMonster :: FollowerUse( CBaseEntity *pActivator, CBaseEntity *pCaller,
 		}
 
 	}
-#else
-	// Don't allow use during a scripted_sentence
-	if ( m_useTime > gpGlobals->time )
-		return;
-
-	if ( pCaller != NULL && pCaller->IsPlayer() )
-	{
-		// Pre-disaster followers can't be used
-		if ( pev->spawnflags & SF_MONSTER_PREDISASTER )
-		{
-			DeclineFollowing();
-		}
-		else if ( CanFollow() )
-		{
-			LimitFollowers( pCaller , 1 );
-
-			if ( m_afMemory & bits_MEMORY_PROVOKED )
-				ALERT( at_console, "I'm not following you, you evil person!\n" );
-			else
-			{
-				StartFollowing( pCaller );
-				SetBits(m_bitsSaid, bit_saidHelloPlayer);	// Don't say hi after you've started following
-			}
-		}
-		else
-		{
-			StopFollowing( TRUE );
-		}
-	}
-#endif // defined ( HLINVASION_DLL )
 }
 
 void CTalkMonster::KeyValue( KeyValueData *pkvd )
@@ -1599,13 +1499,10 @@ void CTalkMonster::Precache( void )
 	if ( m_iszUnUse )
 		m_szGrp[TLK_UNUSE] = STRING( m_iszUnUse );
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	UTIL_PrecacheOther("trigger_radio_message");
-#endif
 }
 
-#if defined ( HLINVASION_DLL )
 //-------------------------------------------------------------------------------------
 // modif de Julien
 //
@@ -1704,4 +1601,3 @@ void CIdleSent :: Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE u
 	}
 
 }
-#endif // defined ( HLINVASION_DLL )
