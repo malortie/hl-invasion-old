@@ -108,9 +108,7 @@ TYPEDESCRIPTION	CBaseMonster::m_SaveData[] =
 
 	DEFINE_FIELD( CBaseMonster, m_scriptState, FIELD_INTEGER ),
 	DEFINE_FIELD( CBaseMonster, m_pCine, FIELD_CLASSPTR ),
-#if defined ( HLINVASION_DLL )
-	DEFINE_FIELD(CBaseMonster, m_iHasGibbed, FIELD_INTEGER),
-#endif // defined ( HLINVASION_DLL )
+	DEFINE_FIELD( CBaseMonster, m_iHasGibbed, FIELD_INTEGER ),
 };
 
 //IMPLEMENT_SAVERESTORE( CBaseMonster, CBaseToggle );
@@ -2152,23 +2150,13 @@ void CBaseMonster :: StartMonster ( void )
 	SetThink ( &CBaseMonster::CallMonsterThink );
 	pev->nextthink += RANDOM_FLOAT(0.1, 0.4); // spread think times.
 	
-#if defined ( HLINVASION_DLL )
 /*	if ( !FStringNull(pev->targetname) )// wait until triggered
 	{
 		SetState( MONSTERSTATE_IDLE );
 		// UNDONE: Some scripted sequence monsters don't have an idle?
 		SetActivity( ACT_IDLE );
 		ChangeSchedule( GetScheduleOfType( SCHED_WAIT_TRIGGER ) );
-	}*/
-#else
-	if ( !FStringNull(pev->targetname) )// wait until triggered
-	{
-		SetState( MONSTERSTATE_IDLE );
-		// UNDONE: Some scripted sequence monsters don't have an idle?
-		SetActivity( ACT_IDLE );
-		ChangeSchedule( GetScheduleOfType( SCHED_WAIT_TRIGGER ) );
-	}
-#endif // defined ( HLINVASION_DLL )
+	}*/	// modif de Julien
 }
 
 
@@ -3460,7 +3448,6 @@ BOOL CBaseMonster :: ShouldFadeOnDeath( void )
 	return FALSE;
 }
 
-#if defined ( HLINVASION_DLL )
 //---------------------------------------------------
 // modif de Julien
 
@@ -3483,4 +3470,3 @@ void CBaseMonster :: Gunflash ( void )
 	MESSAGE_END( );
 
 }
-#endif // HLINVASION_DLL
