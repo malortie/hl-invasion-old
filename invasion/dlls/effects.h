@@ -206,7 +206,7 @@ public:
 	Vector  m_firePosition;
 };
 
-#if defined ( HLINVASION_DLL )
+
 //modif de Julien
 
 class CLightning : public CBeam
@@ -253,6 +253,6 @@ public:
 
 	float	m_radius;
 };
-#endif // defined ( HLINVASION_DLL )
+
 
 #endif		//EFFECTS_H
