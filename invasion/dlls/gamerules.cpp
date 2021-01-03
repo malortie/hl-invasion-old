@@ -234,14 +234,8 @@ void CGameRules::RefreshSkillData ( void )
 	gSkillData.plrDmg357 = GetSkillCvar( "sk_plr_357_bullet");
 
 	// MP5 Round
-#if defined ( HLINVASION_DLL )
 	gSkillData.plrDmgMP5 = GetSkillCvar( "sk_plr_9mmAR_bullet");
-#else
-	//	gSkillData.plrDmgMP5 = GetSkillCvar( "sk_plr_9mmAR_bullet");
-	gSkillData.plrDmgMP5 = GetSkillCvar( "sk_12mm_bullet");
-#endif // defined ( HLINVASION_DLL )
 
-#if defined ( HLINVASION_DLL )
 	//============================
 	//modif de Julien
 
@@ -266,7 +260,6 @@ void CGameRules::RefreshSkillData ( void )
 
 	//fin modif
 	//================================
-#endif
 
 	// M203 grenade
 	gSkillData.plrDmgM203Grenade = GetSkillCvar( "sk_plr_9mmAR_grenade");
@@ -274,18 +267,11 @@ void CGameRules::RefreshSkillData ( void )
 	// Shotgun buckshot
 	gSkillData.plrDmgBuckshot = GetSkillCvar( "sk_plr_buckshot");
 
-#if defined ( HLINVASION_DLL )
 /*
 	// Crossbow
 	gSkillData.plrDmgCrossbowClient = GetSkillCvar( "sk_plr_xbow_bolt_client");
 	gSkillData.plrDmgCrossbowMonster = GetSkillCvar( "sk_plr_xbow_bolt_monster");
 */
-
-#else
-	// Crossbow
-	gSkillData.plrDmgCrossbowClient = GetSkillCvar( "sk_plr_xbow_bolt_client");
-	gSkillData.plrDmgCrossbowMonster = GetSkillCvar( "sk_plr_xbow_bolt_monster");
-#endif
 
 	// RPG
 	gSkillData.plrDmgRPG = GetSkillCvar( "sk_plr_rpg");
@@ -293,16 +279,10 @@ void CGameRules::RefreshSkillData ( void )
 	// Gauss gun
 	gSkillData.plrDmgGauss = GetSkillCvar( "sk_plr_gauss");
 
-#if defined ( HLINVASION_DLL )
 /*	// Egon Gun
 	gSkillData.plrDmgEgonNarrow = GetSkillCvar( "sk_plr_egon_narrow");
 	gSkillData.plrDmgEgonWide = GetSkillCvar( "sk_plr_egon_wide");
 */
-#else
-	// Egon Gun
-	gSkillData.plrDmgEgonNarrow = GetSkillCvar( "sk_plr_egon_narrow");
-	gSkillData.plrDmgEgonWide = GetSkillCvar( "sk_plr_egon_wide");
-#endif
 
 	// Hand Grendade
 	gSkillData.plrDmgHandGrenade = GetSkillCvar( "sk_plr_hand_grenade");
