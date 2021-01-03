@@ -2745,7 +2745,7 @@ void CTriggerTank :: TankThink( void )
 		{
 			pev->nextthink = gpGlobals->time + 0.1;
 
-			SetThink( &CBaseEntity::SUB_Remove );
+			SetThink( &CTriggerTank::SUB_Remove );
 		}
 	}
 
