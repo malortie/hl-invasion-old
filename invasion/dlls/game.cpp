@@ -303,7 +303,6 @@ cvar_t	sk_plr_9mmAR_bullet1 = {"sk_plr_9mmAR_bullet1","0"};
 cvar_t	sk_plr_9mmAR_bullet2 = {"sk_plr_9mmAR_bullet2","0"};
 cvar_t	sk_plr_9mmAR_bullet3 = {"sk_plr_9mmAR_bullet3","0"};
 
-#if defined ( HLINVASION_DLL )
 //modif de Julien
 //M16
 cvar_t	sk_plr_m16_bullet1 = {"sk_plr_m16_bullet1","0"};
@@ -349,7 +348,6 @@ cvar_t	sk_luciole_damage3 = {"sk_luciole_damage3","0"};
 
 
 //fin modif
-#endif // defined ( HLINVASION_DLL )
 
 // M203 grenade
 cvar_t	sk_plr_9mmAR_grenade1 = {"sk_plr_9mmAR_grenade1","0"};
@@ -362,7 +360,6 @@ cvar_t	sk_plr_buckshot1 = {"sk_plr_buckshot1","0"};
 cvar_t	sk_plr_buckshot2 = {"sk_plr_buckshot2","0"};
 cvar_t	sk_plr_buckshot3 = {"sk_plr_buckshot3","0"};
 
-#if defined ( HLINVASION_DLL )
 /*
 // Crossbow
 cvar_t	sk_plr_xbow_bolt_client1 = {"sk_plr_xbow_bolt_client1","0"};
@@ -373,16 +370,6 @@ cvar_t	sk_plr_xbow_bolt_monster1 = {"sk_plr_xbow_bolt_monster1","0"};
 cvar_t	sk_plr_xbow_bolt_monster2 = {"sk_plr_xbow_bolt_monster2","0"};
 cvar_t	sk_plr_xbow_bolt_monster3 = {"sk_plr_xbow_bolt_monster3","0"};
 */
-#else
-// Crossbow
-cvar_t	sk_plr_xbow_bolt_client1 = {"sk_plr_xbow_bolt_client1","0"};
-cvar_t	sk_plr_xbow_bolt_client2 = {"sk_plr_xbow_bolt_client2","0"};
-cvar_t	sk_plr_xbow_bolt_client3 = {"sk_plr_xbow_bolt_client3","0"};
-
-cvar_t	sk_plr_xbow_bolt_monster1 = {"sk_plr_xbow_bolt_monster1","0"};
-cvar_t	sk_plr_xbow_bolt_monster2 = {"sk_plr_xbow_bolt_monster2","0"};
-cvar_t	sk_plr_xbow_bolt_monster3 = {"sk_plr_xbow_bolt_monster3","0"};
-#endif // defined ( HLINVASION_DLL )
 
 // RPG
 cvar_t	sk_plr_rpg1 = {"sk_plr_rpg1","0"};
@@ -396,7 +383,6 @@ cvar_t	sk_plr_gauss2 = {"sk_plr_gauss2","0"};
 cvar_t	sk_plr_gauss3 = {"sk_plr_gauss3","0"};
 
 
-#if defined ( HLINVASION_DLL )
 /*
 // Tau Cannon
 cvar_t	sk_plr_egon_narrow1 = {"sk_plr_egon_narrow1","0"};
@@ -407,16 +393,6 @@ cvar_t	sk_plr_egon_wide1 = {"sk_plr_egon_wide1","0"};
 cvar_t	sk_plr_egon_wide2 = {"sk_plr_egon_wide2","0"};
 cvar_t	sk_plr_egon_wide3 = {"sk_plr_egon_wide3","0"};
 */
-#else
-// Tau Cannon
-cvar_t	sk_plr_egon_narrow1 = {"sk_plr_egon_narrow1","0"};
-cvar_t	sk_plr_egon_narrow2 = {"sk_plr_egon_narrow2","0"};
-cvar_t	sk_plr_egon_narrow3 = {"sk_plr_egon_narrow3","0"};
-
-cvar_t	sk_plr_egon_wide1 = {"sk_plr_egon_wide1","0"};
-cvar_t	sk_plr_egon_wide2 = {"sk_plr_egon_wide2","0"};
-cvar_t	sk_plr_egon_wide3 = {"sk_plr_egon_wide3","0"};
-#endif // defined ( HLINVASION_DLL )
 
 
 // Hand Grendade
@@ -811,7 +787,6 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_plr_9mmAR_bullet2 );// {"sk_plr_9mmAR_bullet2","0"};
 	CVAR_REGISTER ( &sk_plr_9mmAR_bullet3 );// {"sk_plr_9mmAR_bullet3","0"};
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 
 	//M16
@@ -856,7 +831,6 @@ void GameDLLInit( void )
 
 
 	//fin modif====================
-#endif // defined ( HLINVASION_DLL )
 
 
 	// M203 grenade
@@ -871,7 +845,6 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_plr_buckshot3 );// {"sk_plr_buckshot3","0"};
 
 
-#if defined ( HLINVASION_DLL )
 /*
 	// Crossbow
 	CVAR_REGISTER ( &sk_plr_xbow_bolt_monster1 );// {"sk_plr_xbow_bolt1","0"};
@@ -882,16 +855,6 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_plr_xbow_bolt_client2 );// {"sk_plr_xbow_bolt2","0"};
 	CVAR_REGISTER ( &sk_plr_xbow_bolt_client3 );// {"sk_plr_xbow_bolt3","0"};
 */
-#else
-	// Crossbow
-	CVAR_REGISTER ( &sk_plr_xbow_bolt_monster1 );// {"sk_plr_xbow_bolt1","0"};
-	CVAR_REGISTER ( &sk_plr_xbow_bolt_monster2 );// {"sk_plr_xbow_bolt2","0"};
-	CVAR_REGISTER ( &sk_plr_xbow_bolt_monster3 );// {"sk_plr_xbow_bolt3","0"};
-
-	CVAR_REGISTER ( &sk_plr_xbow_bolt_client1 );// {"sk_plr_xbow_bolt1","0"};
-	CVAR_REGISTER ( &sk_plr_xbow_bolt_client2 );// {"sk_plr_xbow_bolt2","0"};
-	CVAR_REGISTER ( &sk_plr_xbow_bolt_client3 );// {"sk_plr_xbow_bolt3","0"};
-#endif // defined ( HLINVASION_DLL )
 
 
 	// RPG
@@ -906,7 +869,6 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_plr_gauss3 );// {"sk_plr_gauss3","0"};
 
 
-#if defined ( HLINVASION_DLL )
 /*
 	// Egon Gun
 	CVAR_REGISTER ( &sk_plr_egon_narrow1 );// {"sk_plr_egon_narrow1","0"};
@@ -917,16 +879,6 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_plr_egon_wide2 );// {"sk_plr_egon_wide2","0"};
 	CVAR_REGISTER ( &sk_plr_egon_wide3 );// {"sk_plr_egon_wide3","0"};
 */
-#else
-	// Egon Gun
-	CVAR_REGISTER ( &sk_plr_egon_narrow1 );// {"sk_plr_egon_narrow1","0"};
-	CVAR_REGISTER ( &sk_plr_egon_narrow2 );// {"sk_plr_egon_narrow2","0"};
-	CVAR_REGISTER ( &sk_plr_egon_narrow3 );// {"sk_plr_egon_narrow3","0"};
-
-	CVAR_REGISTER ( &sk_plr_egon_wide1 );// {"sk_plr_egon_wide1","0"};
-	CVAR_REGISTER ( &sk_plr_egon_wide2 );// {"sk_plr_egon_wide2","0"};
-	CVAR_REGISTER ( &sk_plr_egon_wide3 );// {"sk_plr_egon_wide3","0"};
-#endif // defined ( HLINVASION_DLL )
 
 
 	// Hand Grendade
