@@ -234,7 +234,8 @@ void CGameRules::RefreshSkillData ( void )
 	gSkillData.plrDmg357 = GetSkillCvar( "sk_plr_357_bullet");
 
 	// MP5 Round
-	gSkillData.plrDmgMP5 = GetSkillCvar( "sk_plr_9mmAR_bullet");
+//	gSkillData.plrDmgMP5 = GetSkillCvar( "sk_plr_9mmAR_bullet");
+	gSkillData.plrDmgMP5 = GetSkillCvar("sk_12mm_bullet");
 
 	//============================
 	//modif de Julien
