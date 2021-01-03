@@ -829,7 +829,7 @@ void CTriggerHurt :: Spawn( void )
 	// modif de Julien
 	if ((FStrEq(STRING(gpGlobals->mapname), "l3m2") || FStrEq(STRING(gpGlobals->mapname), "L3M2")) && FStrEq(STRING(pev->targetname), "pan"))
 	{
-		SetThink(&CBaseEntity::SUB_Remove);
+		SetThink(&CTriggerHurt::SUB_Remove);
 
 		pev->nextthink = gpGlobals->time + 0.1;
 		return;
