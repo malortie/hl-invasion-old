@@ -367,7 +367,6 @@ void CBeam::DoSparks( const Vector &start, const Vector &end )
 	}
 }
 
-#if defined ( HLINVASION_DLL )
 /*
 class CLightning : public CBeam
 {
@@ -409,53 +408,6 @@ public:
 	float	m_radius;
 };
 */
-#else
-class CLightning : public CBeam
-{
-public:
-	void	Spawn( void );
-	void	Precache( void );
-	void	KeyValue( KeyValueData *pkvd );
-	void	Activate( void );
-
-	void	EXPORT StrikeThink( void );
-	void	EXPORT DamageThink( void );
-	void	RandomArea( void );
-	void	RandomPoint( Vector &vecSrc );
-	void	Zap( const Vector &vecSrc, const Vector &vecDest );
-	void	EXPORT StrikeUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void	EXPORT ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	
-	inline BOOL ServerSide( void )
-	{
-		if ( m_life == 0 && !(pev->spawnflags & SF_BEAM_RING) )
-			return TRUE;
-		return FALSE;
-	}
-
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
-	static	TYPEDESCRIPTION m_SaveData[];
-
-	void	BeamUpdateVars( void );
-
-	int		m_active;
-	int		m_iszStartEntity;
-	int		m_iszEndEntity;
-	float	m_life;
-	int		m_boltWidth;
-	int		m_noiseAmplitude;
-	int		m_brightness;
-	int		m_speed;
-	float	m_restrike;
-	int		m_spriteTexture;
-	int		m_iszSpriteName;
-	int		m_frameStart;
-
-	float	m_radius;
-};
-#endif // defined ( HLINVASION_DLL )
-
 LINK_ENTITY_TO_CLASS( env_lightning, CLightning );
 LINK_ENTITY_TO_CLASS( env_beam, CLightning );
 
@@ -1565,9 +1517,7 @@ void CGibShooter :: ShootThink ( void )
 	}
 }
 
-#if defined ( HLINVASION_DLL )
 #define	SF_GIBSHOOTER_INSTANT	4 // disparition instantanée du CGib
-#endif
 
 class CEnvShooter : public CGibShooter
 {
@@ -1650,13 +1600,11 @@ CGib *CEnvShooter :: CreateGib ( void )
 	pGib->pev->scale = pev->scale;
 	pGib->pev->skin = pev->skin;
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	if (pev->spawnflags & SF_GIBSHOOTER_INSTANT)
 	{
 		pGib->m_instant = 1;			// pGib vaut 0 ou 1 si disparait instantanément
 	}
-#endif
 
 	return pGib;
 }
@@ -2342,7 +2290,6 @@ void CItemSoda::CanTouch ( CBaseEntity *pOther )
 	pev->nextthink = gpGlobals->time;
 }
 
-#if defined ( HLINVASION_DLL )
 //-----------------------------------------------------
 //	Modif de Julien
 //	Env_smoke
@@ -2488,4 +2435,3 @@ void EnvSmokeCreate( const Vector &center, int m_iScale, float m_fFrameRate, int
 	pSmoke->Spawn();
 	pSmoke->Use( NULL, NULL, USE_TOGGLE, 0 );
 }
-#endif // defined ( HLINVASION_DLL )
