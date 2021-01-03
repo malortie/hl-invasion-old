@@ -27,7 +27,6 @@
 #define	SF_MONSTERMAKER_START_ON	1 // start active ( if has targetname )
 #define	SF_MONSTERMAKER_CYCLIC		4 // drop one monster every time fired.
 #define SF_MONSTERMAKER_MONSTERCLIP	8 // Children are blocked by monsterclip
-#if defined ( HLINVASION_DLL )
 //=============modif de Julien
 #define SF_MONSTERMAKER_GAG				32
 #define SF_MONSTERMAKER_PRISONER		64
@@ -38,7 +37,6 @@
 #define SF_MONSTERMAKER_L3M3			2048
 #define SF_MONSTERMAKER_FLASHLIGHT		16
 //=========
-#endif // HLINVASION_DLL
 
 //=========================================================
 // MonsterMaker - this ent creates monsters during the game.
@@ -73,7 +71,6 @@ public:
 	BOOL m_fActive;
 	BOOL m_fFadeChildren;// should we make the children fadeout?
 
-#if defined ( HLINVASION_DLL )
 	//======== modifs de Julien
 	int m_iMBody;			// permet de choisir la tête du scientist
 	int m_iMWeapon;			// et l'arme du grunt
@@ -82,7 +79,6 @@ public:
 	string_t	m_iszTriggerTarget;// name of target that should be fired. 
 
 	//=================
-#endif // defined ( HLINVASION_DLL )
 };
 
 LINK_ENTITY_TO_CLASS( monstermaker, CMonsterMaker );
@@ -97,7 +93,6 @@ TYPEDESCRIPTION	CMonsterMaker::m_SaveData[] =
 	DEFINE_FIELD( CMonsterMaker, m_fActive, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CMonsterMaker, m_fFadeChildren, FIELD_BOOLEAN ),
 
-#if defined ( HLINVASION_DLL )
 	// modifs de Julien
 	DEFINE_FIELD(CMonsterMaker, m_iMBody, FIELD_INTEGER),
 	DEFINE_FIELD(CMonsterMaker, m_iMWeapon, FIELD_INTEGER),
@@ -105,7 +100,6 @@ TYPEDESCRIPTION	CMonsterMaker::m_SaveData[] =
 	DEFINE_FIELD(CMonsterMaker, m_iszTriggerTarget, FIELD_STRING),
 
 	//=============
-#endif // defined ( HLINVASION_DLL )
 };
 
 
@@ -129,7 +123,6 @@ void CMonsterMaker :: KeyValue( KeyValueData *pkvd )
 		m_iszMonsterClassname = ALLOC_STRING( pkvd->szValue );
 		pkvd->fHandled = TRUE;
 	}
-#if defined ( HLINVASION_DLL )
 	//===========modifs de Julien
 	else if (FStrEq(pkvd->szKeyName, "m_imbody"))
 	{
@@ -153,7 +146,6 @@ void CMonsterMaker :: KeyValue( KeyValueData *pkvd )
 	}
 
 	//==============
-#endif // defined ( HLINVASION_DLL ) 
 	else
 		CBaseMonster::KeyValue( pkvd );
 }
@@ -272,7 +264,8 @@ void CMonsterMaker::MakeMonster( void )
 	if ( pev->spawnflags & SF_MONSTERMAKER_MONSTERCLIP )
 		SetBits( pevCreate->spawnflags, SF_MONSTER_HITMONSTERCLIP );
 
-#if defined ( HLINVASION_DLL )
+
+
 	//============
 	/* modifs de Julien  */
 	//============
@@ -315,7 +308,6 @@ void CMonsterMaker::MakeMonster( void )
 
 	//=============
 	//=============
-#endif // defined ( HLINVASION_DLL )
 
 	DispatchSpawn( ENT( pevCreate ) );
 	pevCreate->owner = edict();
@@ -326,7 +318,6 @@ void CMonsterMaker::MakeMonster( void )
 		pevCreate->targetname = pev->netname;
 	}
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 
 	if (pev->spawnflags & SF_MONSTERMAKER_L3M3)
@@ -352,7 +343,8 @@ void CMonsterMaker::MakeMonster( void )
 	{
 		pevCreate->spawnflags |= 64;		// SF_GRUNT_FLASHLIGHT	= 64
 	}
-#endif // HLINVASION_DLL
+
+
 
 	m_cLiveChildren++;// count this monster
 	m_cNumMonsters--;
