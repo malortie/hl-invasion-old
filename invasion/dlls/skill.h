@@ -109,7 +109,6 @@ struct skilldata_t
 	float plrDmgSatchel;
 	float plrDmgTripmine;
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	//modif. de Julien
 	float plrDmgM16;
 	float plrDmgSniper;
@@ -123,7 +122,6 @@ struct skilldata_t
 	float LucioleDamage;
 
 	//fin modif
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	
 // weapons shared by monsters
 	float monDmg9MM;
