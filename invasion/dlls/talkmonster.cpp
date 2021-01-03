@@ -1465,7 +1465,7 @@ void CTalkMonster :: FollowerUse( CBaseEntity *pActivator, CBaseEntity *pCaller,
 
 			pRadio->m_iHead = VOCAL;
 
-			pRadio->SetThink ( &CBaseEntity::SUB_Remove );
+			pRadio->SetThink ( &CRadiomsg::SUB_Remove );
 
 			pRadio->pev->nextthink = gpGlobals->time + 0.1;
 
