@@ -608,10 +608,10 @@ void CTalkMonster :: RunTask( Task_t *pTask )
 		{
 			IdleHeadTurn( pev->origin );
 			// override so that during walk, a scientist may talk and greet player
-			FIdleHello();
+//			FIdleHello();
 			if (RANDOM_LONG(0,m_nSpeak * 20) == 0)
 			{
-				FIdleSpeak();
+//				FIdleSpeak();
 			}
 		}
 
