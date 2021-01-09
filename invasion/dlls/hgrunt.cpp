@@ -46,9 +46,7 @@ int g_fGruntQuestion;				// true if an idle grunt asked a question. Cleared when
 
 extern DLL_GLOBAL int		g_iSkillLevel;
 
-#if defined ( HLINVASION_DLL )
 extern int gmsgLensFlare;
-#endif
 
 //=========================================================
 // monster-specific DEFINE's
@@ -68,19 +66,17 @@ extern int gmsgLensFlare;
 #define HGRUNT_SHOTGUN				( 1 << 3)
 
 #define HEAD_GROUP					1
-#if defined ( HLINVASION_DLL )
 #define ARM_R_GROUP					3
 #define ARM_L_GROUP					4
 #define LEG_R_GROUP					5
 #define LEG_L_GROUP					6
 #define PACK_GROUP					7
 
-#endif // defined ( HLINVASION_DLL )
 #define HEAD_GRUNT					0
 #define HEAD_COMMANDER				1
 #define HEAD_SHOTGUN				2
 #define HEAD_M203					3
-#if defined ( HLINVASION_DLL )
+
 
 //Heads de YANNICK !!!!!!!  (http://hlmodsperso.free.fr)
 
@@ -90,13 +86,11 @@ extern int gmsgLensFlare;
 #define HEAD_LIGHT1					7
 #define HEAD_BLOOD					8
 
-#endif // defined ( HLINVASION_DLL )
 #define GUN_GROUP					2
 #define GUN_MP5						0
 #define GUN_SHOTGUN					1
 #define GUN_NONE					2
 
-#if defined ( HLINVASION_DLL )
 #define NO_MEMBRE					1
 
 #define HBOX_CHEST					2
@@ -121,7 +115,6 @@ extern int gmsgLensFlare;
 #define BLAST_NODIRECTION			1	// pas encore de direction fixée
 #define BLAST_FORWARDS				2
 #define BLAST_BACKWARDS				3
-#endif // defined ( HLINVASION_DLL )
 
 //=========================================================
 // Monster's Anim Events Go Here
@@ -234,22 +227,17 @@ public:
 
 	int		m_iSentence;
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	void MakeGib(int body, entvars_t *pevAttacker);
-#endif // defined ( HLINVASION_DLL )
 
 	static const char *pGruntSentences[];
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 
 	BOOL	m_bFlashLightOn;
 	void	Killed(entvars_t *pevAttacker, int iGib);
 	int		m_iBlastJump;
 	virtual Activity GetDeathActivity(void);
-
-#endif // defined ( HLINVASION_DLL )
 };
 
 LINK_ENTITY_TO_CLASS( monster_human_grunt, CHGrunt );
@@ -268,18 +256,12 @@ TYPEDESCRIPTION	CHGrunt::m_SaveData[] =
 //  DEFINE_FIELD( CShotgun, m_iBrassShell, FIELD_INTEGER ),
 //  DEFINE_FIELD( CShotgun, m_iShotgunShell, FIELD_INTEGER ),
 	DEFINE_FIELD( CHGrunt, m_iSentence, FIELD_INTEGER ),
-#if defined ( HLINVASION_DLL )
-	DEFINE_FIELD(CHGrunt, m_iHasGibbed, FIELD_INTEGER),// modif de Julien
-	DEFINE_FIELD(CHGrunt, m_bFlashLightOn, FIELD_BOOLEAN),// modif de Julien
-	DEFINE_FIELD(CHGrunt, m_iBlastJump, FIELD_INTEGER),// modif de Julien
-#endif
+	DEFINE_FIELD( CHGrunt, m_iHasGibbed, FIELD_INTEGER ),// modif de Julien
+	DEFINE_FIELD( CHGrunt, m_bFlashLightOn, FIELD_BOOLEAN ),// modif de Julien
+	DEFINE_FIELD( CHGrunt, m_iBlastJump, FIELD_INTEGER ),// modif de Julien
 };
 
-#if defined ( HLINVASION_DLL )
 //IMPLEMENT_SAVERESTORE( CHGrunt, CSquadMonster );	// fonctions déclarées
-#else
-IMPLEMENT_SAVERESTORE( CHGrunt, CSquadMonster );
-#endif // defined ( HLINVASION_DLL )
 
 const char *CHGrunt::pGruntSentences[] = 
 {
@@ -342,7 +324,6 @@ int CHGrunt::IRelationship ( CBaseEntity *pTarget )
 		return R_NM;
 	}
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	if (FClassnameIs(pTarget->pev, "vehicle_tank"))
 	{
@@ -351,7 +332,6 @@ int CHGrunt::IRelationship ( CBaseEntity *pTarget )
 		return R_HT;
 	}
 	//==========
-#endif
 
 	return CSquadMonster::IRelationship( pTarget );
 }
@@ -368,13 +348,11 @@ void CHGrunt :: GibMonster ( void )
 	{// throw a gun if the grunt has one
 		GetAttachment( 0, vecGunPos, vecGunAngles );
 		
-#if defined ( HLINVASION_DLL )
 		// modif de Julien
 		if (pev->spawnflags & SF_GRUNT_WEAPONORIGIN)
 		{
 			vecGunPos = pev->origin;
 		}
-#endif // defined ( HLINVASION_DLL )
 
 		CBaseEntity *pGun;
 		if (FBitSet( pev->weapons, HGRUNT_SHOTGUN ))
@@ -385,15 +363,12 @@ void CHGrunt :: GibMonster ( void )
 		{
 			pGun = DropItem( "weapon_9mmAR", vecGunPos, vecGunAngles );
 
-#if defined ( HLINVASION_DLL )
 			// modif de julien
 			CBasePlayerWeapon *pMp5 = (CBasePlayerWeapon*)pGun;
 			pMp5->m_iDefaultAmmo = m_cAmmoLoaded == 0 ? 1 : m_cAmmoLoaded;
-#endif // defined ( HLINVASION_DLL )
 		}
 		if ( pGun )
 		{
-#if defined ( HLINVASION_DLL )
 			// modif de Julien
 			if ( pev->spawnflags & SF_GRUNT_WEAPONORIGIN )
 			{
@@ -403,9 +378,7 @@ void CHGrunt :: GibMonster ( void )
 			{
 				pGun->pev->velocity = Vector(RANDOM_FLOAT(-100, 100), RANDOM_FLOAT(-100, 100), RANDOM_FLOAT(200, 300));
 			}
-#else
-			pGun->pev->velocity = Vector (RANDOM_FLOAT(-100,100), RANDOM_FLOAT(-100,100), RANDOM_FLOAT(200,300));
-#endif // defined ( HLINVASION_DLL )
+
 			pGun->pev->avelocity = Vector ( 0, RANDOM_FLOAT( 200, 400 ), 0 );
 		}
 	
@@ -423,7 +396,6 @@ void CHGrunt :: GibMonster ( void )
 	CBaseMonster :: GibMonster();
 }
 
-#if defined ( HLINVASION_DLL )
 //===========================================================
 // modif de Julien
 // 
@@ -473,7 +445,7 @@ int CHGrunt::Restore( CRestore &restore )
 
 	return status;
 }
-#endif // defined ( HLINVASION_DLL )
+
 
 //=========================================================
 // ISoundMask - Overidden for human grunts because they 
@@ -785,7 +757,7 @@ void CHGrunt :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecD
 	}
 	CSquadMonster::TraceAttack( pevAttacker, flDamage, vecDir, ptr, bitsDamageType );
 
-#if defined ( HLINVASION_DLL )
+
 	//demembrage
 	//modif de julien
 
@@ -831,10 +803,9 @@ void CHGrunt :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecD
 
 		}
 	}
-#endif // defined ( HLINVASION_DLL )
+
 }
 
-#if defined ( HLINVASION_DLL )
 
 //modif de Julien
 void CHGrunt::MakeGib(int body, entvars_t *pevAttacker)
@@ -857,7 +828,7 @@ void CHGrunt::MakeGib(int body, entvars_t *pevAttacker)
 	pGib->pev->avelocity.y = RANDOM_FLOAT(100, 300);
 
 }
-#endif // defined ( HLINVASION_DLL )
+
 
 //=========================================================
 // TakeDamage - overridden for the grunt because the grunt
@@ -868,7 +839,6 @@ int CHGrunt :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, floa
 {
 	Forget( bits_MEMORY_INCOVER );
 
-#if defined ( HLINVASION_DLL )
 	//	ALERT ( at_console, "GRUNT : take damage %.0f\n", (pev->health - flDamage) );
 
 	//modif de Julien
@@ -900,12 +870,11 @@ int CHGrunt :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, floa
 	}
 
 	//------------------------
-#endif // defined ( HLINVASION_DLL )
 
 	return CSquadMonster :: TakeDamage ( pevInflictor, pevAttacker, flDamage, bitsDamageType );
 }
 
-#if defined ( HLINVASION_DLL )
+
 // modif de Julien
 
 Activity CHGrunt::GetDeathActivity(void)
@@ -925,7 +894,7 @@ Activity CHGrunt::GetDeathActivity(void)
 
 	return CSquadMonster::GetDeathActivity();
 }
-#endif // defined ( HLINVASION_DLL )
+
 
 //=========================================================
 // SetYawSpeed - allows each sequence to have a different
@@ -1089,18 +1058,12 @@ void CHGrunt :: Shoot ( void )
 
 	Vector	vecShellVelocity = gpGlobals->v_right * RANDOM_FLOAT(40,90) + gpGlobals->v_up * RANDOM_FLOAT(75,200) + gpGlobals->v_forward * RANDOM_FLOAT(-40, 40);
 	EjectBrass ( vecShootOrigin - vecShootDir * 24, vecShellVelocity, pev->angles.y, m_iBrassShell, TE_BOUNCE_SHELL); 
-#if defined ( HLINVASION_DLL )
-	FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_5DEGREES, 2048, BULLET_MONSTER_MP5 ); // shoot +-5 degrees
+	FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_5DEGREES, 2048, BULLET_MONSTER_MP5 ); // shoot +-2.5 degrees
 	// avant : VECTOR_CONE_10DEGREES
 	// modifié par Julien
-#else
-	FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_10DEGREES, 2048, BULLET_MONSTER_MP5 ); // shoot +-5 degrees
-#endif
 
 	pev->effects |= EF_MUZZLEFLASH;
-#if defined ( HLINVASION_DLL )
 	Gunflash();
-#endif
 	
 	m_cAmmoLoaded--;// take away a bullet!
 
@@ -1153,13 +1116,11 @@ void CHGrunt :: HandleAnimEvent( MonsterEvent_t *pEvent )
 
 			GetAttachment( 0, vecGunPos, vecGunAngles );
 
-#if defined ( HLINVASION_DLL )
 			// modif de Julien
 			if (pev->spawnflags & SF_GRUNT_WEAPONORIGIN)
 			{
 				vecGunPos = pev->origin;
 			}
-#endif // defined ( HLINVASION_DLL )
 
 			// switch to body group with no gun.
 			SetBodygroup( GUN_GROUP, GUN_NONE );
@@ -1167,19 +1128,14 @@ void CHGrunt :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			// now spawn a gun.
 			if (FBitSet( pev->weapons, HGRUNT_SHOTGUN ))
 			{
-#if defined ( HLINVASION_DLL )
 				CBaseEntity *pGun = DropItem("weapon_shotgun", vecGunPos, vecGunAngles);
 
 				// modif de Julien
 				if (pev->spawnflags & SF_GRUNT_WEAPONORIGIN)
 					pGun->pev->velocity = Vector(0, 0, 0);
-#else
-				 DropItem( "weapon_shotgun", vecGunPos, vecGunAngles );
-#endif // defined ( HLINVASION_DLL )
 			}
 			else
 			{
-#if defined ( HLINVASION_DLL )
 				// modif de julien
 				CBasePlayerWeapon *pMp5 = (CBasePlayerWeapon*) DropItem( "weapon_9mmAR", vecGunPos, vecGunAngles );
 				pMp5->m_iDefaultAmmo = m_cAmmoLoaded == 0 ? 1 : m_cAmmoLoaded;
@@ -1187,9 +1143,6 @@ void CHGrunt :: HandleAnimEvent( MonsterEvent_t *pEvent )
 				// modif de Julien
 				if (pev->spawnflags & SF_GRUNT_WEAPONORIGIN)
 					pMp5->pev->velocity = Vector(0, 0, 0);
-#else
-				 DropItem( "weapon_9mmAR", vecGunPos, vecGunAngles );
-#endif // defined ( HLINVASION_DLL )
 			}
 			if (FBitSet( pev->weapons, HGRUNT_GRENADELAUNCHER ))
 			{
@@ -1351,7 +1304,6 @@ void CHGrunt :: Spawn()
 	else
 		pev->skin = 1;	// dark skin
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien et de Yannick
 
 	if ( pev->spawnflags & SF_GRUNT_FLASHLIGHT  )
@@ -1420,21 +1372,6 @@ void CHGrunt :: Spawn()
 
 	// modif de Julien
 	m_flDistLook = 4096;
-#else
-	if (FBitSet( pev->weapons, HGRUNT_SHOTGUN ))
-	{
-		SetBodygroup( HEAD_GROUP, HEAD_SHOTGUN);
-	}
-	else if (FBitSet( pev->weapons, HGRUNT_GRENADELAUNCHER ))
-	{
-		SetBodygroup( HEAD_GROUP, HEAD_M203 );
-		pev->skin = 1; // alway dark skin
-	}
-
-	CTalkMonster::g_talkWaitTime = 0;
-
-	MonsterInit();
-#endif // defined ( HLINVASION_DLL )
 }
 
 //=========================================================
@@ -1444,7 +1381,6 @@ void CHGrunt :: Precache()
 {
 	PRECACHE_MODEL("models/hgrunt.mdl");
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	PRECACHE_MODEL("models/hg_gibs.mdl");
 	PRECACHE_MODEL("sprites/spot01.spr");
@@ -1453,7 +1389,6 @@ void CHGrunt :: Precache()
 	PRECACHE_MODEL("sprites/lensflare03.spr");
 	PRECACHE_MODEL("sprites/lensflare04.spr");
 	PRECACHE_MODEL("sprites/lensflare05.spr");
-#endif // defined ( HLINVASION_DLL )
 
 	PRECACHE_SOUND( "hgrunt/gr_mgun1.wav" );
 	PRECACHE_SOUND( "hgrunt/gr_mgun2.wav" );
@@ -1662,12 +1597,8 @@ Task_t	tlGruntCombatFail[] =
 	{ TASK_STOP_MOVING,			0				},
 	{ TASK_SET_ACTIVITY,		(float)ACT_IDLE },
 	{ TASK_WAIT_FACE_ENEMY,		(float)2		},
-#if defined ( HLINVASION_DLL )
 	{ TASK_WAIT,				(float)1		},	
 //	{ TASK_WAIT_PVS,			(float)0		},	// modif de Julien TASK_WAIT
-#else
-	{ TASK_WAIT_PVS,			(float)0		},
-#endif // defined ( HLINVASION_DLL )
 };
 
 Schedule_t	slGruntCombatFail[] =
@@ -2287,11 +2218,7 @@ void CHGrunt :: SetActivity ( Activity NewActivity )
 		// grunt is either shooting standing or shooting crouched
 		if (FBitSet( pev->weapons, HGRUNT_9MMAR))
 		{
-#if defined ( HLINVASION_DLL )
 			if ( m_fStanding || pev->spawnflags & SF_GRUNT_TIRDEBOUT )	// modif de julien
-#else
-			if ( m_fStanding )
-#endif
 			{
 				// get aimable sequence
 				iSequence = LookupSequence( "standing_mp5" );
@@ -2304,11 +2231,7 @@ void CHGrunt :: SetActivity ( Activity NewActivity )
 		}
 		else
 		{
-#if defined ( HLINVASION_DLL )
 			if ( m_fStanding || pev->spawnflags & SF_GRUNT_TIRDEBOUT )	// modif de julien
-#else
-			if ( m_fStanding )
-#endif
 			{
 				// get aimable sequence
 				iSequence = LookupSequence( "standing_shotgun" );
@@ -2367,7 +2290,6 @@ void CHGrunt :: SetActivity ( Activity NewActivity )
 		iSequence = LookupActivity ( NewActivity );
 		break;
 
-#if defined ( HLINVASION_DLL )
 // modif de jUlien
 	case ACT_DIESIMPLE:
 	case ACT_DIEBACKWARD:
@@ -2389,7 +2311,6 @@ void CHGrunt :: SetActivity ( Activity NewActivity )
 
 			break;
 		}
-#endif // defined ( HLINVASION_DLL )
 	}
 	
 	m_Activity = NewActivity; // Go ahead and set this so it doesn't keep trying when the anim is not present
@@ -2419,7 +2340,6 @@ void CHGrunt :: SetActivity ( Activity NewActivity )
 //=========================================================
 Schedule_t *CHGrunt :: GetSchedule( void )
 {
-#if defined ( HLINVASION_DLL )
 	// lampe
 
 	if ( pev->spawnflags & SF_GRUNT_FLASHLIGHT && m_bFlashLightOn == FALSE )
@@ -2439,7 +2359,6 @@ Schedule_t *CHGrunt :: GetSchedule( void )
 			MESSAGE_END();
 		}
 	}
-#endif
 
 	// clear old sentence
 	m_iSentence = HGRUNT_SENT_NONE;
@@ -2885,7 +2804,6 @@ void CHGruntRepel::RepelUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE
 	// UNDONE: position?
 	pGrunt->m_vecLastPosition = tr.vecEndPos;
 
-#if defined ( HLINVASION_DLL )
 		// modif de Julien - --- - ---
 /*
 	KeyValueData	kvd;
@@ -2902,7 +2820,7 @@ void CHGruntRepel::RepelUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE
 	pGrunt->m_iszTriggerTarget = m_iszTriggerTarget;
 
 	// --- - --- - --- - --- -
-#endif // defined ( HLINVASION_DLL )
+
 
 	CBeam *pBeam = CBeam::BeamCreate( "sprites/rope.spr", 10 );
 	pBeam->PointEntInit( pev->origin + Vector(0,0,112), pGrunt->entindex() );
