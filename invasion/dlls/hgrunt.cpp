@@ -606,7 +606,7 @@ BOOL CHGrunt :: CheckMeleeAttack1 ( float flDot, float flDist )
 //=========================================================
 BOOL CHGrunt :: CheckRangeAttack1 ( float flDot, float flDist )
 {
-	if ( !HasConditions( bits_COND_ENEMY_OCCLUDED ) && flDist <= 2048 && flDot >= 0.5 && NoFriendlyFire() )
+	if ( !HasConditions( bits_COND_ENEMY_OCCLUDED ) && flDist <= 4096 && flDot >= 0.5 && NoFriendlyFire() )
 	{
 		TraceResult	tr;
 
