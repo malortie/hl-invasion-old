@@ -2694,7 +2694,7 @@ Schedule_t* CHGrunt :: GetScheduleOfType ( int Type )
 		{
 			if ( InSquad() )
 			{
-				if ( g_iSkillLevel == SKILL_HARD && HasConditions( bits_COND_CAN_RANGE_ATTACK2 ) && OccupySlot( bits_SLOTS_HGRUNT_GRENADE ) )
+				if ( g_iSkillLevel == SKILL_HARD && HasConditions( bits_COND_CAN_RANGE_ATTACK2 ) && OccupySlot( bits_SLOTS_HGRUNT_GRENADE ) && pev->weapons & HGRUNT_HANDGRENADE )
 				{
 					if (FOkToSpeak())
 					{
