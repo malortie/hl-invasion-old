@@ -1346,7 +1346,7 @@ void CHGrunt :: Spawn()
 	}
 	m_cAmmoLoaded		= m_cClipSize;
 
-	if (RANDOM_LONG( 0, 99 ) < 80)
+	if (RANDOM_LONG( 0, 99 ) < 70)
 		pev->skin = 0;	// light skin
 	else
 		pev->skin = 1;	// dark skin
