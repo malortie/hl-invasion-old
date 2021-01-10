@@ -3891,6 +3891,16 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		return;
 	}
 
+	// Re-enable to allow original mod testmode behavior.
+#if 0
+	// modif de Julien
+
+	if ( g_testmode == 0 )
+	{
+		return;
+	}
+#endif
+
 	CBaseEntity *pEntity;
 	TraceResult tr;
 
