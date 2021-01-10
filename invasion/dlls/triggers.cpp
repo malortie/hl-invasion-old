@@ -27,14 +27,10 @@
 #include "saverestore.h"
 #include "trains.h"			// trigger_camera has train functionality
 #include "gamerules.h"
-#if defined ( HLINVASION_DLL )
 #include "triggers.h"		//modif de Julien 10/7/01 : def du trigger camera ds le trigger.h
-#endif // defined ( HLINVASION_DLL )
 
-#if defined ( HLINVASION_DLL )
 // modif de julien
 #include "weapons.h"
-#endif // defined ( HLINVASION_DLL )
 
 #define	SF_TRIGGER_PUSH_START_OFF	2//spawnflag that makes trigger_push spawn turned OFF
 #define SF_TRIGGER_HURT_TARGETONCE	1// Only fire hurt target once
@@ -43,10 +39,8 @@
 #define SF_TRIGGER_HURT_CLIENTONLYFIRE	16// trigger hurt will only fire its target if it is hurting a client
 #define SF_TRIGGER_HURT_CLIENTONLYTOUCH 32// only clients may touch this trigger.
 
-#if defined ( HLINVASION_DLL )
 // modif de Julien
 #define SF_TRIGGER_ONCE_L4M2		8
-#endif
 
 extern DLL_GLOBAL BOOL		g_fGameOver;
 
@@ -594,10 +588,8 @@ void CBaseTrigger :: KeyValue( KeyValueData *pkvd )
 		CBaseToggle::KeyValue( pkvd );
 }
 
-#if defined ( HLINVASION_DLL )
 //modif de Julien
 #define SF_TRIGGER_HURT_L2M3	128
-#endif
 
 class CTriggerHurt : public CBaseTrigger
 {
@@ -825,7 +817,6 @@ void CTargetCDAudio::Play( void )
 
 void CTriggerHurt :: Spawn( void )
 {
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	if ((FStrEq(STRING(gpGlobals->mapname), "l3m2") || FStrEq(STRING(gpGlobals->mapname), "L3M2")) && FStrEq(STRING(pev->targetname), "pan"))
 	{
@@ -834,7 +825,7 @@ void CTriggerHurt :: Spawn( void )
 		pev->nextthink = gpGlobals->time + 0.1;
 		return;
 	}
-#endif // defined ( HLINVASION_DLL )
+
 
 	InitTrigger();
 	SetTouch ( &CTriggerHurt::HurtTouch );
@@ -848,12 +839,8 @@ void CTriggerHurt :: Spawn( void )
 		SetUse ( NULL );
 	}
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	if ((m_bitsDamageInflict & DMG_RADIATION) && !(pev->spawnflags & SF_TRIGGER_HURT_L2M3))
-#else
-	if (m_bitsDamageInflict & DMG_RADIATION)
-#endif
 	{
 		SetThink ( &CTriggerHurt::RadiationThink );
 		pev->nextthink = gpGlobals->time + RANDOM_FLOAT(0.0, 0.5); 
@@ -1156,12 +1143,8 @@ void CBaseTrigger :: MultiTouch( CBaseEntity *pOther )
 	// Only touch clients, monsters, or pushables (depending on flags)
 	if ( ((pevToucher->flags & FL_CLIENT) && !(pev->spawnflags & SF_TRIGGER_NOCLIENTS)) ||
 		 ((pevToucher->flags & FL_MONSTER) && (pev->spawnflags & SF_TRIGGER_ALLOWMONSTERS)) ||
-#if defined ( HLINVASION_DLL )
 		 (pev->spawnflags & SF_TRIGGER_PUSHABLES) && FClassnameIs(pevToucher,"func_pushable") ||
 		 /*(pev->spawnflags & SF_TRIGGER_TANK) &&*/ FClassnameIs(pevToucher, "info_tank_model" ) )	// modif de Julien
-#else
-		 (pev->spawnflags & SF_TRIGGER_PUSHABLES) && FClassnameIs(pevToucher,"func_pushable") )
-#endif // defined ( HLINVASION_DLL )
 	{
 
 #if 0
@@ -1565,11 +1548,7 @@ void CChangeLevel :: ChangeLevelNow( CBaseEntity *pActivator )
 //
 void CChangeLevel :: TouchChangeLevel( CBaseEntity *pOther )
 {
-#if defined ( HLINVASION_DLL )
 	if (!FClassnameIs(pOther->pev, "player") && !FClassnameIs(pOther->pev, "info_tank_model"))	// modif de Julien
-#else
-	if (!FClassnameIs(pOther->pev, "player"))
-#endif // defined ( HLINVASION_DLL )
 		return;
 
 	ChangeLevelNow( pOther );
@@ -1728,7 +1707,6 @@ int CChangeLevel::ChangeList( LEVELLIST *pLevelList, int maxList )
 				pent = pent->v.chain;
 			}
 
-#if defined ( HLINVASION_DLL )
 			// modif de Julien
 
 			CBasePlayer *pPlayer = ( CBasePlayer* )UTIL_FindEntityByClassname ( NULL, "player" );
@@ -1791,7 +1769,6 @@ int CChangeLevel::ChangeList( LEVELLIST *pLevelList, int maxList )
 
 
 			// fin modif
-#endif // defined ( HLINVASION_DLL )
 
 			for ( j = 0; j < entityCount; j++ )
 			{
@@ -2076,11 +2053,7 @@ void CTriggerSave::SaveTouch( CBaseEntity *pOther )
 		return;
 
 	// Only save on clients
-#if defined ( HLINVASION_DLL )
 	if ( !pOther->IsPlayer() && !FClassnameIs(pOther->edict(), "info_tank_model") )	// modif de Julien
-#else
-	if ( !pOther->IsPlayer() )
-#endif
 		return;
     
 	SetTouch( NULL );
@@ -2253,7 +2226,6 @@ void CTriggerChangeTarget::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, U
 #define SF_CAMERA_PLAYER_POSITION	1
 #define SF_CAMERA_PLAYER_TARGET		2
 #define SF_CAMERA_PLAYER_TAKECONTROL 4
-#if defined ( HLINVASION_DLL )
 //modif de Julien
 #define SF_CAMERA_PLAYER_MAP_L2M1	16
 #define SF_CAMERA_PLAYER_INTRO		32
@@ -2286,38 +2258,6 @@ public:
 	int	  m_state;
 	
 };*/
-#else
-
-class CTriggerCamera : public CBaseDelay
-{
-public:
-	void Spawn( void );
-	void KeyValue( KeyValueData *pkvd );
-	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT FollowTarget( void );
-	void Move(void);
-
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
-	virtual int	ObjectCaps( void ) { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
-	static	TYPEDESCRIPTION m_SaveData[];
-
-	EHANDLE m_hPlayer;
-	EHANDLE m_hTarget;
-	CBaseEntity *m_pentPath;
-	int	  m_sPath;
-	float m_flWait;
-	float m_flReturnTime;
-	float m_flStopTime;
-	float m_moveDistance;
-	float m_targetSpeed;
-	float m_initialSpeed;
-	float m_acceleration;
-	float m_deceleration;
-	int	  m_state;
-	
-};
-#endif // defined ( HLINVASION_DLL )
 LINK_ENTITY_TO_CLASS( trigger_camera, CTriggerCamera );
 
 // Global Savedata for changelevel friction modifier
@@ -2491,14 +2431,13 @@ void CTriggerCamera::FollowTarget( )
 	}
 
 	Vector vecGoal = UTIL_VecToAngles( m_hTarget->pev->origin - pev->origin );
-#if defined ( HLINVASION_DLL )
+
 	//modif de Julien
 	if (pev->spawnflags & SF_CAMERA_PLAYER_MAP_L2M1)
 	{
 		vecGoal = UTIL_VecToAngles(m_hTarget->pev->vuser1 - pev->origin);	// vuser1 est les coordonnées du canon par rapport à l'origine de la carte, et moins pev->origin par rapport à celle de la camera
 	}
 	//===============
-#endif // defined ( HLINVASION_DLL )
 	vecGoal.x = -vecGoal.x;
 
 	if (pev->angles.y > 360)
@@ -2520,7 +2459,6 @@ void CTriggerCamera::FollowTarget( )
 	if (dy > 180) 
 		dy = dy - 360;
 
-#if defined ( HLINVASION_DLL )
 	if ( pev->spawnflags & SF_CAMERA_PLAYER_INTRO )
 	{
 		pev->avelocity.x = dx / gpGlobals->frametime;
@@ -2532,10 +2470,6 @@ void CTriggerCamera::FollowTarget( )
 		pev->avelocity.x = dx * 40 * gpGlobals->frametime;
 		pev->avelocity.y = dy * 40 * gpGlobals->frametime;
 	}
-#else
-	pev->avelocity.x = dx * 40 * gpGlobals->frametime;
-	pev->avelocity.y = dy * 40 * gpGlobals->frametime;
-#endif
 
 
 	if (!(FBitSet (pev->spawnflags, SF_CAMERA_PLAYER_TAKECONTROL)))	
@@ -2598,7 +2532,7 @@ void CTriggerCamera::Move()
 	pev->velocity = ((pev->movedir * pev->speed) * fraction) + (pev->velocity * (1-fraction));
 }
 
-#if defined ( HLINVASION_DLL )
+
 /************************************************************
 *		trigger_gaz, de Julien								*
 ************************************************************/
@@ -2647,7 +2581,7 @@ void CTriggerGaz :: Spawn( void )
 	if ( FStringNull ( pev->target ) )
 		ALERT ( at_console , "ATTENTION : trigger_gaz sans target : disfonctionnement\n" );
 
-	SetUse( &CTriggerGaz::ToggleUse );
+	SetUse( &CTriggerGaz::ToggleUse );		// setuse permet de le (des)activer
 
 	if ( FBitSet (pev->spawnflags, SF_TRIGGER_HURT_START_OFF) )// if flagged to Start Turned Off, make trigger nonsolid.
 		pev->solid = SOLID_NOT;
@@ -2858,4 +2792,3 @@ void CTriggerNuclear :: Spawn ( void )
 {
 	InitTrigger();
 }
-#endif // defined ( HLINVASION_DLL )
