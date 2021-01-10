@@ -37,16 +37,12 @@
 #include "pm_shared.h"
 #include "hltv.h"
 
-#if defined ( HLINVASION_DLL )
 // modif de Julien
 #include "radiomsg.h"
 #include "fog.h"
-#endif // defined ( HLINVASION_DLL )
 
-#if defined ( HLINVASION_DLL )
 extern int	g_bFogUpdate;
 int			g_testmode;
-#endif
 
 // #define DUCKFIX
 
@@ -129,7 +125,6 @@ TYPEDESCRIPTION	CBasePlayer::m_playerSaveData[] =
 	DEFINE_FIELD( CBasePlayer, m_iHideHUD, FIELD_INTEGER ),
 	DEFINE_FIELD( CBasePlayer, m_iFOV, FIELD_INTEGER ),
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	DEFINE_FIELD( CBasePlayer, m_flNextWade, FIELD_FLOAT ),
 	DEFINE_FIELD( CBasePlayer, bNvgOn, FIELD_BOOLEAN ),
@@ -150,7 +145,7 @@ TYPEDESCRIPTION	CBasePlayer::m_playerSaveData[] =
 
 	DEFINE_FIELD( CBasePlayer, m_bitsTextAmmo, FIELD_FLOAT ),
 	DEFINE_ARRAY( CBasePlayer, m_iszAmmoSentence, FIELD_STRING, 32 ),
-#endif // defined ( HLINVASION_DLL )
+
 	
 	//DEFINE_FIELD( CBasePlayer, m_fDeadTime, FIELD_FLOAT ), // only used in multiplayer games
 	//DEFINE_FIELD( CBasePlayer, m_fGameHUDInitialized, FIELD_INTEGER ), // only used in multiplayer games
@@ -222,7 +217,6 @@ int gmsgTeamNames = 0;
 int gmsgStatusText = 0;
 int gmsgStatusValue = 0; 
 
-#if defined ( HLINVASION_DLL )
 // modifs de Julien
 int gmsgRpgViseur = 0;
 int gmsgRpgMenu = 0;
@@ -240,7 +234,6 @@ int gmsgRadioMsg = 0;
 int gmsgKeypad = 0;
 int gmsgConveyor = 0;
 int gmsgMusic = 0;
-#endif // HLINVASION_DLL
 
 
 void LinkUserMessages( void )
@@ -258,11 +251,7 @@ void LinkUserMessages( void )
 	gmsgFlashBattery = REG_USER_MSG("FlashBat", 1);
 	gmsgHealth = REG_USER_MSG( "Health", 1 );
 	gmsgDamage = REG_USER_MSG( "Damage", 12 );
-#if defined ( HLINVASION_DLL )
 	gmsgBattery = REG_USER_MSG( "Battery", -1);
-#else
-	gmsgBattery = REG_USER_MSG( "Battery", 2);
-#endif
 	gmsgTrain = REG_USER_MSG( "Train", 1);
 	//gmsgHudText = REG_USER_MSG( "HudTextPro", -1 );
 	gmsgHudText = REG_USER_MSG( "HudText", -1 ); // we don't use the message but 3rd party addons may!
@@ -293,7 +282,6 @@ void LinkUserMessages( void )
 	gmsgStatusText = REG_USER_MSG("StatusText", -1);
 	gmsgStatusValue = REG_USER_MSG("StatusValue", 3); 
 
-#if defined ( HLINVASION_DLL )
 	// modifs de Julien
 
 	gmsgRpgViseur	= REG_USER_MSG( "RpgViseur",	1 );
@@ -312,7 +300,6 @@ void LinkUserMessages( void )
 	gmsgKeypad		= REG_USER_MSG( "Keypad",		-1);
 	gmsgConveyor	= REG_USER_MSG( "Conveyor",		-1);
 	gmsgMusic		= REG_USER_MSG( "Music",		-1);
-#endif // defined ( HLINVASION_DLL )
 
 }
 
@@ -480,62 +467,45 @@ void CBasePlayer :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector 
 		switch ( ptr->iHitgroup )
 		{
 		case HITGROUP_GENERIC:
-#if defined ( HLINVASION_DLL )
 			m_iLastHitGroups = ARMOR_GLOBAL;	//modifs de Julien
-#endif
 			break;
 		case HITGROUP_HEAD:
-#if defined ( HLINVASION_DLL )
 			m_iLastHitGroups |= ARMOR_HEAD;
-#endif
 			flDamage *= gSkillData.plrHead;
 			break;
 		case HITGROUP_CHEST:
-#if defined ( HLINVASION_DLL )
 			m_iLastHitGroups |= ARMOR_CHEST;
-#endif
 			flDamage *= gSkillData.plrChest;
 			break;
 		case HITGROUP_STOMACH:
-#if defined ( HLINVASION_DLL )
 			m_iLastHitGroups |= ARMOR_STOMACH;
-#endif
 			flDamage *= gSkillData.plrStomach;
 			break;
 		case HITGROUP_LEFTARM:
-#if defined ( HLINVASION_DLL )
 			m_iLastHitGroups |= ARMOR_ARM_L;
 			flDamage *= gSkillData.plrArm;
 			break;
-#endif
 		case HITGROUP_RIGHTARM:
-#if defined ( HLINVASION_DLL )
 			m_iLastHitGroups |= ARMOR_ARM_R;
-#endif
 			flDamage *= gSkillData.plrArm;
 			break;
 		case HITGROUP_LEFTLEG:
-#if defined ( HLINVASION_DLL )
 			m_iLastHitGroups |= ARMOR_LEG_L;
 			flDamage *= gSkillData.plrLeg;
 			break;
-#endif
 		case HITGROUP_RIGHTLEG:
-#if defined ( HLINVASION_DLL )
 			m_iLastHitGroups |= ARMOR_LEG_R;
-#endif
 			flDamage *= gSkillData.plrLeg;
 			break;
 		default:
 			break;
 		}
 
-#if defined ( HLINVASION_DLL )
 		// modif de Julien
 
 		if (bitsDamageType & DMG_BLAST)
 			m_iLastHitGroups = ARMOR_GLOBAL;
-#endif
+
 
 		SpawnBlood(ptr->vecEndPos, BloodColor(), flDamage);// a little surface blood.
 		TraceBleed( flDamage, vecDir, ptr, bitsDamageType );
@@ -543,7 +513,8 @@ void CBasePlayer :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector 
 	}
 }
 
-#if defined ( HLINVASION_DLL )
+
+// /give item_battery
 //---------------------------------------------
 //
 // Set Armor - localisation des dommages
@@ -724,7 +695,6 @@ float	CBasePlayer :: SetArmor	( float flValue, int repartition )
 	}
 }
 
-#endif // HLINVASION_DLL
 
 /*
 	Take some damage.  
@@ -784,7 +754,6 @@ int CBasePlayer :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, 
 
 		flArmor = (flDamage - flNew) * flBonus;
 
-#if defined ( HLINVASION_DLL )
 		//modif de Julien
 		/*
 		// Does this use more armor than we have?
@@ -819,19 +788,8 @@ int CBasePlayer :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, 
 		}
 
 		// fin modif
-#else
-		// Does this use more armor than we have?
-		if (flArmor > pev->armorvalue)
-		{
-			flArmor = pev->armorvalue;
-			flArmor *= (1/flBonus);
-			flNew = flDamage - flArmor;
-			pev->armorvalue = 0;
-		}
-		else
-			pev->armorvalue -= flArmor;
-#endif // defined ( HLINVASION_DLL )
-		
+
+
 		flDamage = flNew;
 	}
 
@@ -1467,13 +1425,11 @@ void CBasePlayer::TabulateAmmo()
 	ammo_rockets = AmmoInventory( GetAmmoIndex( "rockets" ) );
 	ammo_uranium = AmmoInventory( GetAmmoIndex( "uranium" ) );
 	ammo_hornets = AmmoInventory( GetAmmoIndex( "Hornets" ) );
-#if defined ( HLINVASION_DLL )
 	ammo_chewinggum = AmmoInventory(GetAmmoIndex("chewinggum"));
 	ammo_fsniper = AmmoInventory(GetAmmoIndex("fsniper"));
 	ammo_irgun = AmmoInventory(GetAmmoIndex("irgun"));
 	ammo_m16 = AmmoInventory(GetAmmoIndex("m16"));
 	ammo_oeufs = AmmoInventory(GetAmmoIndex("oeufs"));
-#endif // defined ( HLINVASION_DLL )
 }
 
 
@@ -3003,14 +2959,13 @@ void CBasePlayer::PostThink()
 
 	UpdatePlayerSound();
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien - annuler le zoom si le joueur bouge brusquement
 	if (pev->velocity.Length() > 128)
 		m_iFOV = 90;
 
 	//modif de Julien - update la nvg
 	ThinkNVG();
-#endif // defined ( HLINVASION_DLL )
+
 
 pt_end:
 #if defined( CLIENT_WEAPONS )
@@ -3208,7 +3163,7 @@ void CBasePlayer::Spawn( void )
 	pev->classname		= MAKE_STRING("player");
 	pev->health			= 100;
 	pev->armorvalue		= 0;
-#if defined ( HLINVASION_DLL )
+
 	// modif de Julien
 
 	for ( int j=0; j<MAX_ARMOR_GROUP; j++ )
@@ -3225,7 +3180,7 @@ void CBasePlayer::Spawn( void )
 
 
 	//-----
-#endif // defined ( HLINVASION_DLL )
+
 	pev->takedamage		= DAMAGE_AIM;
 	pev->solid			= SOLID_SLIDEBOX;
 	pev->movetype		= MOVETYPE_WALK;
@@ -3357,7 +3312,6 @@ void CBasePlayer :: Precache( void )
 	if ( gInitHUD )
 		m_fInitHUD = TRUE;
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 
 	m_iszAmmoSentence [TA_SUIT] = GetRadiomsgText (MAKE_STRING("GIVESUIT") );
@@ -3384,7 +3338,8 @@ void CBasePlayer :: Precache( void )
 
 	// modif de Julien
 	UTIL_PrecacheOther ( "trigger_radio_message" );
-#endif // defined ( HLINVASION_DLL )
+
+
 }
 
 
@@ -3432,14 +3387,13 @@ int CBasePlayer::Restore( CRestore &restore )
 // Copied from spawn() for now
 	m_bloodColor	= BLOOD_COLOR_RED;
 
-#if defined ( HLINVASION_DLL )
 	//-------------------------------------
 	//modif de Julien - reset fov
 	m_iFOV = 90;
 	bNvgUpdate = 1;	// force l'envoi des infos au client
 
 	//-------------------------------------
-#endif // defined ( HLINVASION_DLL )
+
 
     g_ulModelIndexPlayer = pev->modelindex;
 
@@ -3826,12 +3780,10 @@ void CBasePlayer :: ForceClientDllUpdate( void )
 	m_fKnownItem = FALSE;    // Force weaponinit messages.
 	m_fInitHUD = TRUE;		// Force HUD gmsgResetHUD message
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 
 	m_iClientHudMedkit = -1;
 	m_iClientHudBattery = -1;
-#endif
 
 	// Now force all the necessary messages
 	//  to be sent.
@@ -3882,7 +3834,7 @@ void CBasePlayer::ImpulseCommands( )
 		}
 	case 100:
 		// temporary flashlight for level designers
-#if defined ( HLINVASION_DLL )
+
 		if (m_pActiveItem == NULL)
 			break;
 
@@ -3898,17 +3850,6 @@ void CBasePlayer::ImpulseCommands( )
 
 			//	FlashlightTurnOn();
 		}
-		break;
-#else
-        if ( FlashlightIsOn() )
-		{
-			FlashlightTurnOff();
-		}
-        else 
-		{
-			FlashlightTurnOn();
-		}
-#endif // defined ( HLINVASION_DLL )
 		break;
 
 	case	201:// paint decal
@@ -3973,7 +3914,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 
 	case 101:
 		gEvilImpulse101 = TRUE;
-#if defined ( HLINVASION_DLL )
+
 		// items
 		GiveNamedItem( "item_suit" );
 		GiveNamedItem( "item_battery" );
@@ -4030,34 +3971,8 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 //		GiveNamedItem( "ammo_gaussclip" );
 //		GiveNamedItem( "weapon_snark" );
 //		GiveNamedItem( "weapon_hornetgun" );
-#else
-		GiveNamedItem( "item_suit" );
-		GiveNamedItem( "item_battery" );
-		GiveNamedItem( "weapon_crowbar" );
-		GiveNamedItem( "weapon_9mmhandgun" );
-		GiveNamedItem( "ammo_9mmclip" );
-		GiveNamedItem( "weapon_shotgun" );
-		GiveNamedItem( "ammo_buckshot" );
-		GiveNamedItem( "weapon_9mmAR" );
-		GiveNamedItem( "ammo_9mmAR" );
-		GiveNamedItem( "ammo_ARgrenades" );
-		GiveNamedItem( "weapon_handgrenade" );
-		GiveNamedItem( "weapon_tripmine" );
-#ifndef OEM_BUILD
-		GiveNamedItem( "weapon_357" );
-		GiveNamedItem( "ammo_357" );
-		GiveNamedItem( "weapon_crossbow" );
-		GiveNamedItem( "ammo_crossbow" );
-		GiveNamedItem( "weapon_egon" );
-		GiveNamedItem( "weapon_gauss" );
-		GiveNamedItem( "ammo_gaussclip" );
-		GiveNamedItem( "weapon_rpg" );
-		GiveNamedItem( "ammo_rpgclip" );
-		GiveNamedItem( "weapon_satchel" );
-		GiveNamedItem( "weapon_snark" );
-		GiveNamedItem( "weapon_hornetgun" );
-#endif
-#endif // defined ( HLINVASION_DLL )
+
+
 		gEvilImpulse101 = FALSE;
 		break;
 
@@ -4525,7 +4440,6 @@ void CBasePlayer :: UpdateClientData( void )
 		ASSERT( gmsgBattery > 0 );
 		// send "health" update message
 
-#if defined ( HLINVASION_DLL )
 		//modif de Julien
 
 		MESSAGE_BEGIN( MSG_ONE, gmsgBattery, NULL, pev );
@@ -4536,14 +4450,8 @@ void CBasePlayer :: UpdateClientData( void )
 				WRITE_COORD ( m_flArmor[z] );
 
 		MESSAGE_END();
-#else
-		MESSAGE_BEGIN( MSG_ONE, gmsgBattery, NULL, pev );
-			WRITE_SHORT( (int)pev->armorvalue);
-		MESSAGE_END();
-#endif
 	}
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 
 	if ( m_iMedkit != m_iClientHudMedkit )
@@ -4570,7 +4478,6 @@ void CBasePlayer :: UpdateClientData( void )
 		MESSAGE_END();
 
 	}
-#endif // defined ( HLINVASION_DLL )
 
 	if (pev->dmg_take || pev->dmg_save || m_bitsHUDDamage != m_bitsDamageType)
 	{
@@ -4712,7 +4619,6 @@ void CBasePlayer :: UpdateClientData( void )
 	m_pClientActiveItem = m_pActiveItem;
 	m_iClientFOV = m_iFOV;
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien - update nvg state ...
 
 	if ( bNvgUpdate == 1 )
@@ -4757,7 +4663,6 @@ void CBasePlayer :: UpdateClientData( void )
 			}
 		}
 	}
-#endif // defined ( HLINVASION_DLL )
 
 	// Update Status Bar
 	if ( m_flNextSBarUpdateTime < gpGlobals->time )
@@ -5339,7 +5244,7 @@ void CStripWeapons :: Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 		pPlayer->RemoveAllItems( FALSE );
 }
 
-#if defined ( HLINVASION_DLL )
+
 //------------------------------------------------------------
 // modif de Julien
 
@@ -5392,7 +5297,9 @@ void CGiveWeapon :: Use ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 
 
 //--------------------------------------------
-#endif // defined ( HLINVASION_DLL )
+
+
+
 
 class CRevertSaved : public CPointEntity
 {
@@ -5524,7 +5431,8 @@ void CInfoIntermission::Think ( void )
 
 LINK_ENTITY_TO_CLASS( info_intermission, CInfoIntermission );
 
-#if defined ( HLINVASION_DLL )
+
+
 //modif de Julien
 //=========================================
 //	pour les trigger_gaz
@@ -5779,4 +5687,3 @@ void	CBasePlayer :: TextAmmo	( TEXT_AMMMO ta_text )
 		pRadio->Use ( this, this, USE_ON, 0 );
 	}
 }
-#endif // defined ( HLINVASION_DLL )
