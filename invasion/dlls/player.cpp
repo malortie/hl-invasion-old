@@ -1590,20 +1590,18 @@ void CBasePlayer::WaterMove()
 		pev->dmgtime = gpGlobals->time + 1;
 		TakeDamage(VARS(eoNullEntity), VARS(eoNullEntity), 4 * pev->waterlevel, DMG_ACID);
 	}
-	
-#if defined ( HLINVASION_DLL )
-	//modif de Julien
-	if (pev->waterlevel == 1 && m_flNextWade < gpGlobals->time)
-	{
-		UTIL_WaterWave(pev->origin);
-		m_flNextWade = gpGlobals->time + 1;
-	}
-#endif
 
 	if (!FBitSet(pev->flags, FL_INWATER))
 	{
 		SetBits(pev->flags, FL_INWATER);
 		pev->dmgtime = 0;
+	}
+
+	//modif de Julien
+	if (pev->waterlevel == 1 && m_flNextWade < gpGlobals->time)
+	{
+		UTIL_WaterWave(pev->origin);
+		m_flNextWade = gpGlobals->time + 1;
 	}
 }
 
