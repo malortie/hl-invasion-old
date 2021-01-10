@@ -62,7 +62,7 @@
 
 #define TEAM_NAME_LENGTH	16
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+
 // modif de Julien
 
 #define MAX_ARMOR_GROUP		7
@@ -105,7 +105,6 @@ typedef enum
 } TEXT_AMMMO;
 
 //--------------------
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 
 typedef enum
 {
@@ -368,7 +367,6 @@ public:
 	
 	float m_flNextChatTime;
 	
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	// modifs de Julien
 
 	// Night Vision Google
@@ -414,7 +412,8 @@ public:
 	int		m_iszAmmoSentence [32];		// textes
 
 	void	TextAmmo	( TEXT_AMMMO ta_text );
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+
+
 };
 
 #define AUTOAIM_2DEGREES  0.0348994967025
