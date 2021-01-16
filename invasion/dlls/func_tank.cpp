@@ -29,11 +29,9 @@
 #define SF_TANK_LINEOFSIGHT		0x0010
 #define SF_TANK_CANCONTROL		0x0020
 #define SF_TANK_SOUNDON			0x8000
-#if defined ( HLINVASION_DLL )
 //modif de Julien
 #define SF_TANK_L2M2			128
 #define SF_TANK_L2M1			256
-#endif
 
 enum TANKBULLET
 {
@@ -338,11 +336,9 @@ BOOL CFuncTank :: OnControls( entvars_t *pevTest )
 
 	Vector offset = pevTest->origin - pev->origin;
 
-#if defined ( HLINVASION_DLL )
 	// modif de julien
 	if (pev->spawnflags & SF_TANK_L2M1)
 		return TRUE;
-#endif
 
 	if ( (m_vecControllerUsePos - pevTest->origin).Length() < 30 )
 		return TRUE;
@@ -517,7 +513,6 @@ void CFuncTank::TrackTarget( void )
 
 		if ( FNullEnt( pPlayer ) )
 		{
-#if defined ( HLINVASION_DLL )
 			// modif de Julien
 			// ne voit pas le joueur - essaie de repérer un tank
 
@@ -533,11 +528,6 @@ void CFuncTank::TrackTarget( void )
 			{
 				pPlayer = pPlayerTank;
 			}
-#else
-			if ( IsActive() )
-				pev->nextthink = pev->ltime + 2;	// Wait 2 secs
-			return;
-#endif // defined ( HLINVASION_DLL )
 		}
 		pTarget = FindTarget( pPlayer );
 		if ( !pTarget )
@@ -555,11 +545,7 @@ void CFuncTank::TrackTarget( void )
 		
 		lineOfSight = FALSE;
 		// No line of sight, don't track
-#if defined ( HLINVASION_DLL )
 		if ( tr.flFraction == 1.0 || tr.pHit == pTarget || (pev->spawnflags & SF_TANK_L2M2) )
-#else
-		if ( tr.flFraction == 1.0 || tr.pHit == pTarget )
-#endif
 		{
 			lineOfSight = TRUE;
 
@@ -584,12 +570,11 @@ void CFuncTank::TrackTarget( void )
 
 	angles.x = -angles.x;
 
-#if defined ( HLINVASION_DLL )
+
 	//modif de Julien
 	//=======================
 	pev->vuser1 = BarrelPosition();	// cela donne ses coordonnées, stockées dans la structure entvars_t sous vuser1
 	//================
-#endif
 
 	// Force the angles to be relative to the center position
 	angles.y = m_yawCenter + UTIL_AngleDistance( angles.y, m_yawCenter );
@@ -642,11 +627,7 @@ void CFuncTank::TrackTarget( void )
 		Vector forward;
 		UTIL_MakeVectorsPrivate( pev->angles, forward, NULL, NULL );
 
-#if defined ( HLINVASION_DLL )
 		if ( pev->spawnflags & SF_TANK_LINEOFSIGHT && !(pev->spawnflags & SF_TANK_L2M2) )
-#else
-		if ( pev->spawnflags & SF_TANK_LINEOFSIGHT )
-#endif
 		{
 			float length = direction.Length();
 			UTIL_TraceLine( barrelEnd, barrelEnd + forward * length, dont_ignore_monsters, edict(), &tr );
@@ -984,12 +965,10 @@ void CFuncTankMortar::KeyValue( KeyValueData *pkvd )
 
 void CFuncTankMortar::Fire( const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker )
 {
-#if defined ( HLINVASION_DLL )
 	if ( (pev->spawnflags & SF_TANK_L2M2) && (m_fireLast == 0) )
 	{
 		m_fireLast = gpGlobals->time - 2.5;
 	}
-#endif
 
 	if ( m_fireLast != 0 )
 	{
@@ -1004,11 +983,7 @@ void CFuncTankMortar::Fire( const Vector &barrelEnd, const Vector &forward, entv
 
 			TankTrace( barrelEnd, forward, gTankSpread[m_spread], tr );
 
-#if defined ( HLINVASION_DLL )
 			ExplosionCreate( tr.vecEndPos, pev->angles, edict(), pev->impulse, TRUE, pev->spawnflags & SF_TANK_L2M2 ? (tr.vecEndPos-barrelEnd).Length() / 6000 : 0 );
-#else
-			ExplosionCreate( tr.vecEndPos, pev->angles, edict(), pev->impulse, TRUE );
-#endif
 
 			CFuncTank::Fire( barrelEnd, forward, pev );
 		}
