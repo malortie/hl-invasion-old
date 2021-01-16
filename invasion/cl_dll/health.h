@@ -106,10 +106,8 @@ public:
 	virtual int Draw(float fTime);
 	virtual void Reset( void );
 	int MsgFunc_Health(const char *pszName,  int iSize, void *pbuf);
+	int MsgFunc_Medkit(const char *pszName,  int iSize, void *pbuf);	// modif de Julien
 	int MsgFunc_Damage(const char *pszName,  int iSize, void *pbuf);
-#if defined ( HLINVASION_CLIENT_DLL )
-	int MsgFunc_Medkit(const char *pszName, int iSize, void *pbuf);	// modif de Julien
-#endif
 	int m_iHealth;
 	int m_HUD_dmg_bio;
 	int m_HUD_cross;
@@ -128,8 +126,6 @@ private:
 	void CalcDamageDirection(vec3_t vecFrom);
 	void UpdateTiles(float fTime, long bits);
 
-#if defined ( HLINVASION_CLIENT_DLL )
-
 	// modif de Julien
 
 	int m_iMedkit;
@@ -141,5 +137,4 @@ private:
 	wrect_t m_wrcDisposition;
 	wrect_t m_wrcVie;
 	wrect_t m_wrcMedkit;
-#endif
 };	
