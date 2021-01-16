@@ -53,10 +53,9 @@ extern void CopyToBodyQue(entvars_t* pev);
 extern int giPrecacheGrunt;
 extern int gmsgSayText;
 
-#if defined ( HLINVASION_DLL )
 // modif de Julien
 extern CBaseEntity *FindEntityForward(CBaseEntity *pMe);
-#endif // defined ( HLINVASION_DLL )
+
 
 extern cvar_t allow_spectators;
 
@@ -501,9 +500,7 @@ called each time a player uses a "cmd" command
 ============
 */
 extern float g_flWeaponCheat;
-#if defined ( HLINVASION_DLL )
 extern int g_testmode;	// modif de Julien
-#endif
 
 // Use CMD_ARGV,  CMD_ARGV, and CMD_ARGC to get pointers the character string command.
 void ClientCommand( edict_t *pEntity )
@@ -566,7 +563,6 @@ void ClientCommand( edict_t *pEntity )
 	{
 		GetClassPtr((CBasePlayer *)pev)->SelectLastItem();
 	}
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	else if (FStrEq(pcmd, "test" ))
 	{
@@ -721,7 +717,8 @@ void ClientCommand( edict_t *pEntity )
 		int commande = atoi(CMD_ARGV(1));
 		GetClassPtr((CBasePlayer *)pev)->UseBattery(commande);
 	}
-#endif // defined ( HLINVASION_DLL )
+
+
 	else if ( FStrEq( pcmd, "spectate" ) )	// clients wants to become a spectator
 	{
 			// always allow proxies to become a spectator
@@ -1074,16 +1071,17 @@ void ClientPrecache( void )
 	PRECACHE_SOUND("player/geiger2.wav");
 	PRECACHE_SOUND("player/geiger1.wav");
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 
 	PRECACHE_SOUND("items/smallmedkit2.wav");
 
-	UTIL_PrecacheOther("rpg_rocket");
-#endif
-
 	if (giPrecacheGrunt)
 		UTIL_PrecacheOther("monster_human_grunt");
+
+#if defined ( HLINVASION_DLL )
+	// HL: Invasion Steampipe patch - added precache for rpg_rocket.
+	UTIL_PrecacheOther("rpg_rocket");
+#endif
 }
 
 /*
@@ -1239,7 +1237,6 @@ void SetupVisibility( edict_t *pViewEntity, edict_t *pClient, unsigned char **pv
 		return;
 	}
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	// camera du tank
 
@@ -1253,7 +1250,6 @@ void SetupVisibility( edict_t *pViewEntity, edict_t *pClient, unsigned char **pv
 			pView = UTIL_FindEntityByClassname(NULL, "info_tank_camera" )->edict();
 		}
 	}
-#endif // defined ( HLINVASION_DLL )
 
 	org = pView->v.origin + pView->v.view_ofs;
 	if ( pView->v.flags & FL_DUCKING )
@@ -1303,12 +1299,8 @@ int AddToFullPack( struct entity_state_s *state, int e, edict_t *ent, edict_t *h
 	// If pSet is NULL, then the test will always succeed and the entity will be added to the update
 	if ( ent != host )
 	{
-#if defined ( HLINVASION_DLL )
 		// modif de Julien
 		if ( !ENGINE_CHECK_VISIBILITY( (const struct edict_s *)ent, pSet ) && !FClassnameIs ( ent, "info_tank_camera") )
-#else
-		if ( !ENGINE_CHECK_VISIBILITY( (const struct edict_s *)ent, pSet ) )
-#endif
 		{
 			return 0;
 		}
