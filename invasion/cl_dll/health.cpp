@@ -30,9 +30,7 @@
 
 DECLARE_MESSAGE(m_Health, Health )
 DECLARE_MESSAGE(m_Health, Damage )
-#if defined ( HLINVASION_CLIENT_DLL )
 DECLARE_MESSAGE(m_Health, Medkit)	// modif de Julien
-#endif
 
 #define PAIN_NAME "sprites/%d_pain.spr"
 #define DAMAGE_NAME "sprites/%d_dmg.spr"
@@ -59,9 +57,7 @@ int CHudHealth::Init(void)
 {
 	HOOK_MESSAGE(Health);
 	HOOK_MESSAGE(Damage);
-#if defined ( HLINVASION_CLIENT_DLL )
 	HOOK_MESSAGE(Medkit);		// modif de Julien
-#endif
 	m_iHealth = 100;
 	m_fFade = 0;
 	m_iFlags = 0;
@@ -72,7 +68,6 @@ int CHudHealth::Init(void)
 
 	memset(m_dmg, 0, sizeof(DAMAGE_IMAGE) * NUM_DMG_TYPES);
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	// modif de Julien
 	m_sprDisposition = SPR_Load("sprites/hud_health_dispostion.spr");
 	m_wrcDisposition = CreateWrect(2, 2, 174, 158);
@@ -82,7 +77,7 @@ int CHudHealth::Init(void)
 	m_sprMedkit = SPR_Load("sprites/hud_health_medkit.spr");
 	m_wrcMedkit = CreateWrect(0, 0, 104, 32);
 	m_iMedkit = m_iBattery = 0;
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
 
 	gHUD.AddHudElem(this);
 	return 1;
@@ -112,7 +107,6 @@ int CHudHealth::VidInit(void)
 	giDmgHeight = gHUD.GetSpriteRect(m_HUD_dmg_bio).right - gHUD.GetSpriteRect(m_HUD_dmg_bio).left;
 	giDmgWidth = gHUD.GetSpriteRect(m_HUD_dmg_bio).bottom - gHUD.GetSpriteRect(m_HUD_dmg_bio).top;
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	// modif de Julien
 	m_sprDisposition = SPR_Load("sprites/hud_health_dispostion.spr");
 	m_wrcDisposition = CreateWrect(2, 2, 174, 158);
@@ -122,12 +116,10 @@ int CHudHealth::VidInit(void)
 	m_sprMedkit = SPR_Load("sprites/hud_health_medkit.spr");
 	m_wrcMedkit = CreateWrect(0, 0, 104, 32);
 
-#endif // HLINVASION_CLIENT_DLL
-
 	return 1;
 }
 
-#if defined ( HLINVASION_CLIENT_DLL )
+
 int CHudHealth::MsgFunc_Medkit(const char *pszName, int iSize, void *pbuf)
 {
 	BEGIN_READ(pbuf, iSize);
@@ -137,7 +129,6 @@ int CHudHealth::MsgFunc_Medkit(const char *pszName, int iSize, void *pbuf)
 
 	return 1;
 }
-#endif // defined ( HLINVASION_CLIENT_DLL )
 
 int CHudHealth:: MsgFunc_Health(const char *pszName,  int iSize, void *pbuf )
 {
@@ -153,10 +144,9 @@ int CHudHealth:: MsgFunc_Health(const char *pszName,  int iSize, void *pbuf )
 		m_fFade = FADE_TIME;
 		m_iHealth = x;
 
-#if defined ( HLINVASION_CLIENT_DLL )
 		//modif de Julien
 		m_wrcVie = CreateWrect(1, 8 + (int)(144 * 0.01*(100 - m_iHealth)), 30, 158);
-#endif
+
 	}
 
 	return 1;
@@ -216,7 +206,7 @@ void CHudHealth::GetPainColor( int &r, int &g, int &b )
 
 int CHudHealth::Draw(float flTime)
 {
-#if defined ( HLINVASION_CLIENT_DLL )
+
 	// modif de juline
 	if ( !(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)))  )
 		return 1;
@@ -321,68 +311,6 @@ int CHudHealth::Draw(float flTime)
 	DrawPain(flTime);
 
 	return 1;
-#else
-	int r, g, b;
-	int a = 0, x, y;
-	int HealthWidth;
-
-	if ( (gHUD.m_iHideHUDDisplay & HIDEHUD_HEALTH) || gEngfuncs.IsSpectateOnly() )
-		return 1;
-
-	if ( !m_hSprite )
-		m_hSprite = LoadSprite(PAIN_NAME);
-	
-	// Has health changed? Flash the health #
-	if (m_fFade)
-	{
-		m_fFade -= (gHUD.m_flTimeDelta * 20);
-		if (m_fFade <= 0)
-		{
-			a = MIN_ALPHA;
-			m_fFade = 0;
-		}
-
-		// Fade the health number back to dim
-
-		a = MIN_ALPHA +  (m_fFade/FADE_TIME) * 128;
-
-	}
-	else
-		a = MIN_ALPHA;
-
-	// If health is getting low, make it bright red
-	if (m_iHealth <= 15)
-		a = 255;
-		
-	GetPainColor( r, g, b );
-	ScaleColors(r, g, b, a );
-
-	// Only draw health if we have the suit.
-	if (gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)))
-	{
-		HealthWidth = gHUD.GetSpriteRect(gHUD.m_HUD_number_0).right - gHUD.GetSpriteRect(gHUD.m_HUD_number_0).left;
-		int CrossWidth = gHUD.GetSpriteRect(m_HUD_cross).right - gHUD.GetSpriteRect(m_HUD_cross).left;
-
-		y = ScreenHeight - gHUD.m_iFontHeight - gHUD.m_iFontHeight / 2;
-		x = CrossWidth /2;
-
-		SPR_Set(gHUD.GetSprite(m_HUD_cross), r, g, b);
-		SPR_DrawAdditive(0, x, y, &gHUD.GetSpriteRect(m_HUD_cross));
-
-		x = CrossWidth + HealthWidth / 2;
-
-		x = gHUD.DrawHudNumber(x, y, DHN_3DIGITS | DHN_DRAWZERO, m_iHealth, r, g, b);
-
-		x += HealthWidth/2;
-
-		int iHeight = gHUD.m_iFontHeight;
-		int iWidth = HealthWidth/10;
-		FillRGBA(x, y, iWidth, iHeight, 255, 160, 0, a);
-	}
-
-	DrawDamage(flTime);
-	return DrawPain(flTime);
-#endif // defined ( HLINVASION_CLIENT_DLL ) 
 }
 
 void CHudHealth::CalcDamageDirection(vec3_t vecFrom)
