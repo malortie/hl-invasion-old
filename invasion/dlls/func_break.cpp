@@ -29,11 +29,13 @@
 
 extern DLL_GLOBAL Vector		g_vecAttackDir;
 
-#if defined ( HLINVASION_DLL )
+
 // modif de Julien
 #define SF_BREAKABLE_L2M6	512
 #define SF_BREAKABLE_L4M2	1024
-#endif // defined ( HLINVASION_DLL )
+
+
+
 
 // =================== FUNC_Breakable ==============================================
 
@@ -52,13 +54,8 @@ const char *CBreakable::pSpawnObjects[] =
 	"ammo_ARgrenades",	// 7
 	"weapon_shotgun",	// 8
 	"ammo_buckshot",	// 9
-#if defined ( HLINVASION_DLL )
 	"weapon_fsniper",	// 10	//modif de Julien
 	"ammo_fsniper",		// 11	//modif de Julien
-#else
-	"weapon_crossbow",	// 10
-	"ammo_crossbow",	// 11
-#endif // defined ( HLINVASION_DLL )
 	"weapon_357",		// 12
 	"ammo_357",			// 13
 	"weapon_rpg",		// 14
@@ -67,13 +64,8 @@ const char *CBreakable::pSpawnObjects[] =
 	"weapon_handgrenade",// 17
 	"weapon_tripmine",	// 18
 	"weapon_satchel",	// 19
-#if defined ( HLINVASION_DLL )
 	"weapon_satchel",		// 20
 	"weapon_satchel",	// 21
-#else
-	"weapon_snark",		// 20
-	"weapon_hornetgun",	// 21
-#endif // defined ( HLINVASION_DLL )
 };
 
 void CBreakable::KeyValue( KeyValueData* pkvd )
@@ -131,7 +123,7 @@ void CBreakable::KeyValue( KeyValueData* pkvd )
 	}
 	else if (FStrEq(pkvd->szKeyName, "lip") )
 		pkvd->fHandled = TRUE;
-#if defined ( HLINVASION_DLL )
+
 	// modif de Julien
 	else if (FStrEq(pkvd->szKeyName, "tankprev"))
 	{
@@ -139,7 +131,7 @@ void CBreakable::KeyValue( KeyValueData* pkvd )
 		pkvd->fHandled = TRUE;
 	}
 	//--------------
-#endif // HLINVASION_DLL
+
 	else
 		CBaseDelay::KeyValue( pkvd );
 }
@@ -161,10 +153,8 @@ TYPEDESCRIPTION CBreakable::m_SaveData[] =
 	DEFINE_FIELD( CBreakable, m_iszGibModel, FIELD_STRING ),
 	DEFINE_FIELD( CBreakable, m_iszSpawnObject, FIELD_STRING ),
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	DEFINE_FIELD( CBreakable, m_iszTankPrev, FIELD_STRING ),
-#endif // defined ( HLINVASION_DLL )
 
 	// Explosion magnitude is stored in pev->impulse
 };
@@ -558,7 +548,7 @@ void CBreakable::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vec
 //=========================================================
 int CBreakable :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType )
 {
-#if defined ( HLINVASION_DLL )
+
 	//modif de julien
 
 	if ( !CheckTankPrev() )
@@ -593,7 +583,6 @@ int CBreakable :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, f
 		return 0;
 
 	//----------
-#endif // defined ( HLINVASION_DLL )
 
 	Vector	vecTemp;
 
@@ -738,7 +727,6 @@ void CBreakable::Die( void )
 		vecVelocity = g_vecAttackDir * 200;
 	else
 	{
-#if defined ( HLINVASION_DLL )
 		// modif de julien
 
 		if ( pev->spawnflags & SF_BREAK_INTRO )
@@ -751,11 +739,6 @@ void CBreakable::Die( void )
 			vecVelocity.y = 0;
 			vecVelocity.z = 0;
 		}
-#else
-		vecVelocity.x = 0;
-		vecVelocity.y = 0;
-		vecVelocity.z = 0;
-#endif // defined ( HLINVASION_DLL )
 	}
 
 	vecSpot = pev->origin + (pev->mins + pev->maxs) * 0.5;
@@ -823,7 +806,7 @@ void CBreakable::Die( void )
 
 	pev->solid = SOLID_NOT;
 
-#if defined ( HLINVASION_DLL )
+
 	// modif de Julien
 
 	if ( pev->spawnflags & SF_BREAKABLE_L2M6 )
@@ -851,7 +834,7 @@ void CBreakable::Die( void )
 			ALERT ( at_console , "target : %s\n" , STRING(pev->target) );
 
 	}
-#endif // defined ( HLINVASION_DLL )
+
 
 	// Fire targets on break
 	SUB_UseTargets( NULL, USE_TOGGLE, 0 );
@@ -887,7 +870,6 @@ int	CBreakable :: DamageDecal( int bitsDamageType )
 	return CBaseEntity::DamageDecal( bitsDamageType );
 }
 
-#if defined ( HLINVASION_DLL )
 // modif de Julien
 // return true if it can be destroyed
 
@@ -906,7 +888,7 @@ BOOL CBreakable :: CheckTankPrev ( void )
 
 
 //-----------------------------
-#endif // defined ( HLINVASION_DLL )
+
 
 class CPushable : public CBreakable
 {
