@@ -85,16 +85,6 @@ int CHudBattery:: MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf )
 	BEGIN_READ( pbuf, iSize );
 	int x = READ_SHORT();
 
-#if defined( _TFC )
-	int y = READ_SHORT();
-
-	if ( x != m_iBat || y != m_iBatMax )
-	{
-		m_fFade = FADE_TIME;
-		m_iBat = x;
-		m_iBatMax = y;
-	}
-#else
 	if ( x != m_iBat )
 	{
 		m_fFade = FADE_TIME;
@@ -135,7 +125,6 @@ int CHudBattery:: MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf )
 		m_flArmor[i][2] = (int)(value < deuxTiers ? 0 : ((value - deuxTiers) / unTiers) * 255);
 
 	}
-#endif
 
 	return 1;
 }
