@@ -22,14 +22,14 @@
 #include "StudioModelRenderer.h"
 #include "GameStudioModelRenderer.h"
 
-#if defined ( HLINVASION_CLIENT_DLL )
 // modif de Julien
 #include "pm_defs.h"
 #include "event_api.h"
 extern vec3_t v_angles, v_origin;
 
 int g_modif = 0;	// horreur pour que les models ne se dessinent que deux fois
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
+
 
 extern cvar_t *tfc_newmodels;
 
@@ -710,7 +710,6 @@ void CStudioModelRenderer::StudioFxTransform( cl_entity_t *ent, float transform[
 
 	}
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	// -------------------------------
 	// modif de Julien
 	// vision infrarouge
@@ -735,7 +734,6 @@ void CStudioModelRenderer::StudioFxTransform( cl_entity_t *ent, float transform[
 		VectorScale( transform[1], scale, transform[1] );
 		VectorScale( transform[2], scale, transform[2] );
 	}
-#endif // defined ( HLINVASION_CLIENT_DLL )
 }
 
 /*
@@ -2120,7 +2118,6 @@ void CStudioModelRenderer::StudioRenderFinal_Hardware( void )
 			IEngineStudio.GL_StudioDrawShadow();
 		}
 
-#if defined ( HLINVASION_CLIENT_DLL )
 		//modifs de julien
 
 		nvg_ennemy_t *p = gHUD.m_NVG.IsEnnemy(m_pCurrentEntity->index);
@@ -2172,7 +2169,6 @@ void CStudioModelRenderer::StudioRenderFinal_Hardware( void )
 
 			}
 		}
-#endif // defined ( HLINVASION_CLIENT_DLL )
 	}
 
 	if ( m_pCvarDrawEntities->value == 4 )
