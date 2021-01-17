@@ -538,7 +538,6 @@ void IN_MLookUp (void)
 	}
 }
 
-#if defined ( HLINVASION_CLIENT_DLL )
 // modif de Julien
 
 void IN_BatteryDown ( void )
@@ -594,7 +593,7 @@ void IN_SoinUp ( void )
 		gViewPort->HideTopMenu();
 	}
 }
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
 
 /*
 ===============
@@ -1037,7 +1036,6 @@ void InitInput (void)
 	gEngfuncs.pfnAddCommand ("+break",IN_BreakDown);
 	gEngfuncs.pfnAddCommand ("-break",IN_BreakUp);
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	// modif de Julien
 
 	gEngfuncs.pfnAddCommand ("+medkit",IN_MedkitDown );
@@ -1046,7 +1044,6 @@ void InitInput (void)
 	gEngfuncs.pfnAddCommand ("-battery",IN_BatteryUp );
 	gEngfuncs.pfnAddCommand ("+soin",IN_SoinDown );
 	gEngfuncs.pfnAddCommand ("-soin",IN_SoinUp );
-#endif // defined ( HLINVASION_CLIENT_DLL )
 
 	lookstrafe			= gEngfuncs.pfnRegisterVariable ( "lookstrafe", "0", FCVAR_ARCHIVE );
 	lookspring			= gEngfuncs.pfnRegisterVariable ( "lookspring", "0", FCVAR_ARCHIVE );
