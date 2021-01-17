@@ -33,10 +33,8 @@ void CL_DLLEXPORT HUD_DrawNormalTriangles( void )
 {
 //	RecClDrawNormalTriangles();
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	// dessin du brouillard
 	gHUD.m_Fog.DrawFog();
-#endif
 
 	gHUD.m_Spectator.DrawOverview();
 }
@@ -60,12 +58,10 @@ void CL_DLLEXPORT HUD_DrawTransparentTriangles( void )
 	RunEventList();
 #endif
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	gHUD.m_Particules.DrawAll();	// affichage des particules et des decals
 	gHUD.m_LFlammes.DrawFlammes();	// lance flammes
 	gHUD.m_Briquet.DrawFlamme();	// briquet
 	gHUD.m_LensFlare.DrawLight();	// lensflare
-#endif // defined ( HLINVASION_CLIENT_DLL )
 
 	if ( g_pParticleMan )
 		 g_pParticleMan->Update();
