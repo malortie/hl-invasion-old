@@ -25,14 +25,13 @@
 #define RGB_REDISH 0x00FF1010 //255,160,0
 #define RGB_GREENISH 0x0000A000 //0,160,0
 
-#ifndef _WIN32
-#define _cdecl 
-#endif
-
-#if defined ( HLINVASION_CLIENT_DLL )
 //modif de Julien
 
 #define CONPRINTF		gEngfuncs.Con_Printf
+
+
+#ifndef _WIN32
+#define _cdecl 
 #endif
 
 #include "wrect.h"
@@ -61,9 +60,7 @@ typedef struct cvar_s cvar_t;
 
 #define HUD_ACTIVE	1
 #define HUD_INTERMISSION 2
-#if defined ( HLINVASION_CLIENT_DLL )
 #define HUD_ALWAYSDRAW		4
-#endif
 
 #define MAX_PLAYER_NAME_LENGTH		32
 
@@ -332,12 +329,11 @@ private:
 //-----------------------------------------------------
 //
 
-#if defined ( HLINVASION_CLIENT_DLL )
 #define MAX_NORMAL_BATTERY		100
 #define MAX_ARMOR_GROUP			7
 #define MAX_MEMBER_ARMOR		MAX_NORMAL_BATTERY / MAX_ARMOR_GROUP
 #define ARMOR_PAIN_TIME			0.2
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
 
 class CHudBattery: public CHudBase
 {
@@ -357,7 +353,6 @@ private:
 	float m_fFade;
 	int	  m_iHeight;		// width of the battery innards
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	// modif de Julien
 
 	int		m_flArmor[MAX_ARMOR_GROUP][3];
@@ -366,7 +361,7 @@ private:
 
 	HSPRITE m_sprCorps;
 	wrect_t m_wrcCorps;
-#endif
+
 };
 
 
@@ -468,7 +463,7 @@ private:
 	int m_HUD_title_half;
 };
 
-#if defined ( HLINVASION_CLIENT_DLL )
+
 
 // modif de Julien
 //
@@ -916,7 +911,7 @@ public:
 
 wrect_t CreateWrect(int left, int top, int right, int bottom);
 
-
+#if defined ( HLINVASION_CLIENT_DLL )
 //
 //-----------------------------------------------------
 //
@@ -934,6 +929,8 @@ private:
 };
 
 #endif // defined ( HLINVASION_CLIENT_DLL )
+
+
 
 //
 //-----------------------------------------------------
@@ -1107,7 +1104,6 @@ public:
 	CHudStatusIcons m_StatusIcons;
 	CHudBenchmark	m_Benchmark;
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	// modifs de Julien
 	CHudParticules m_Particules;
 	CHudSniper m_Sniper;
@@ -1119,6 +1115,7 @@ public:
 	CHudLensFlare m_LensFlare;
 	CHudTank m_HudTank;
 	CHudRadio m_HudRadio;
+#if defined ( HLINVASION_CLIENT_DLL )
 	CHudMusic m_Music;
 #endif // defined ( HLINVASION_CLIENT_DLL )
 
