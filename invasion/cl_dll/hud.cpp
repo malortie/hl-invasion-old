@@ -203,7 +203,6 @@ int __MsgFunc_VGUIMenu(const char *pszName, int iSize, void *pbuf)
 	return 0;
 }
 
-#if defined ( HLINVASION_CLIENT_DLL )
 //modif de Julien
 //permet de passer des paramètres au vgui qui s'affiche
 
@@ -227,7 +226,8 @@ int __MsgFunc_Conveyor(const char *pszName, int iSize, void *pbuf)
 		return gViewPort->MsgFunc_Conveyor(pszName, iSize, pbuf);
 	return 0;
 }
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
+
 
 int __MsgFunc_MOTD(const char *pszName, int iSize, void *pbuf)
 {
@@ -344,11 +344,10 @@ void CHud :: Init( void )
 
 	// VGUI Menus
 	HOOK_MESSAGE( VGUIMenu );
-#if defined ( HLINVASION_CLIENT_DLL )
 	HOOK_MESSAGE(VGUIordi);	//modif de Julien
 	HOOK_MESSAGE(Keypad);	//modif de Julien
 	HOOK_MESSAGE(Conveyor);	//modif de Julien
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
 
 	CVAR_CREATE( "hud_classautokill", "1", FCVAR_ARCHIVE | FCVAR_USERINFO );		// controls whether or not to suicide immediately on TF class switch
 	CVAR_CREATE( "hud_takesshots", "0", FCVAR_ARCHIVE );		// controls whether or not to automatically take screenshots at the end of a round
@@ -399,7 +398,6 @@ void CHud :: Init( void )
 
 	m_Menu.Init();
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	// modifs de Julien
 	m_Particules.Init();
 	m_Sniper.Init();
@@ -411,8 +409,10 @@ void CHud :: Init( void )
 	m_LensFlare.Init();
 	m_HudTank.Init();
 	m_HudRadio.Init();
+#if defined ( HLINVASION_CLIENT_DLL )
 	m_Music.Init();
 #endif // defined ( HLINVASION_CLIENT_DLL )
+
 	
 	ServersInit();
 
@@ -565,7 +565,6 @@ void CHud :: VidInit( void )
 	m_StatusIcons.VidInit();
 	GetClientVoiceMgr()->VidInit();
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	// modifs de Julien
 	m_Particules.VidInit();
 	m_Sniper.VidInit();
@@ -577,6 +576,7 @@ void CHud :: VidInit( void )
 	m_LensFlare.VidInit();
 	m_HudTank.VidInit();
 	m_HudRadio.VidInit();
+#if defined ( HLINVASION_CLIENT_DLL )
 	m_Music.VidInit();
 #endif // defined ( HLINVASION_CLIENT_DLL )
 }
