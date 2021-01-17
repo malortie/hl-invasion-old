@@ -1237,8 +1237,10 @@ int CStudioModelRenderer::StudioDrawModel( int flags )
 
 	if (flags & STUDIO_RENDER)
 	{
+		nvg_ennemy_t *p = gHUD.m_NVG.IsEnnemy ( m_pCurrentEntity->index );
+
 		// see if the bounding box lets us trivially reject, also sets
-		if (!IEngineStudio.StudioCheckBBox ())
+		if (!IEngineStudio.StudioCheckBBox () && p == NULL )
 			return 0;
 
 		(*m_pModelsDrawn)++;
