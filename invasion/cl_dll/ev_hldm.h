@@ -16,21 +16,17 @@ typedef	enum
 	BULLET_PLAYER_MP5, // mp5
 	BULLET_PLAYER_357, // python
 	BULLET_PLAYER_BUCKSHOT, // shotgun
-#if defined ( HLINVASION_CLIENT_DLL )
 	BULLET_PLAYER_BUCKSHOT_DOUBLE, // modif de Julien
-#endif
 	BULLET_PLAYER_CROWBAR, // crowbar swipe
 
 	BULLET_MONSTER_9MM,
 	BULLET_MONSTER_MP5,
 	BULLET_MONSTER_12MM,
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	//modif de Julien
 	BULLET_PLAYER_M16,
 	BULLET_PLAYER_SNIPER,
 	BULLET_PLAYER_IRGUN,
-#endif
 } Bullet;
 
 enum glock_e {
@@ -47,7 +43,6 @@ enum glock_e {
 };
 
 enum shotgun_e {
-#if defined ( HLINVASION_CLIENT_DLL )
 	SHOTGUN_IDLE = 0,
 	SHOTGUN_IDLE_DEEP,
 	SHOTGUN_DRAW,
@@ -56,18 +51,6 @@ enum shotgun_e {
 	SHOTGUN_START_RELOAD,
 	SHOTGUN_RELOAD,
 	SHOTGUN_PUMP
-#else
-	SHOTGUN_IDLE = 0,
-	SHOTGUN_FIRE,
-	SHOTGUN_FIRE2,
-	SHOTGUN_RELOAD,
-	SHOTGUN_PUMP,
-	SHOTGUN_START_RELOAD,
-	SHOTGUN_DRAW,
-	SHOTGUN_HOLSTER,
-	SHOTGUN_IDLE4,
-	SHOTGUN_IDLE_DEEP
-#endif // defined ( HLINVASION_CLIENT_DLL )
 };
 
 enum mp5_e
@@ -82,8 +65,9 @@ enum mp5_e
 	MP5_FIRE3,
 };
 
+//modif de Julien
+
 enum python_e {
-#if defined ( HLINVASION_CLIENT_DLL )
 	/*
 	PYTHON_IDLE1 = 0,
 	PYTHON_FIDGET,
@@ -102,16 +86,7 @@ enum python_e {
 	PYTHON_FIRE_EMPTY,
 	PYTHON_RELOAD_EMPTY,
 	PYTHON_RELOAD
-#else
-	PYTHON_IDLE1 = 0,
-	PYTHON_FIDGET,
-	PYTHON_FIRE1,
-	PYTHON_RELOAD,
-	PYTHON_HOLSTER,
-	PYTHON_DRAW,
-	PYTHON_IDLE2,
-	PYTHON_IDLE3
-#endif
+
 };
 
 #define	GAUSS_PRIMARY_CHARGE_VOLUME	256// how loud gauss is while charging
