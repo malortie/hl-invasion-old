@@ -21,13 +21,12 @@
 #include "hltv.h"
 #include "Exports.h"
 
-#if defined ( HLINVASION_CLIENT_DLL )
 // modif de Julien
 #include "vgui_TeamFortressViewport.h"
 
 // modif de Julien
 extern float in_fov;
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
 
 #ifndef M_PI
 #define M_PI		3.14159265358979323846	// matches value in gcc v2 math.h
@@ -638,7 +637,7 @@ void V_CalcNormalRefdef ( struct ref_params_s *pparams )
 
 		AngleVectors( camAngles, camForward, camRight, camUp );
 
-#if defined ( HLINVASION_CLIENT_DLL )
+
 /*		// modif de Julien
 		if ( gHUD.m_HudTank.m_iPlayerInTank == true )
 		{
@@ -653,12 +652,6 @@ void V_CalcNormalRefdef ( struct ref_params_s *pparams )
 				pparams->vieworg[ i ] += -ofs[2] * camForward[ i ];
 			}
 		}
-#else
-		for ( i = 0; i < 3; i++ )
-		{
-			pparams->vieworg[ i ] += -ofs[2] * camForward[ i ];
-		}
-#endif // defined ( HLINVASION_CLIENT_DLL )
 	}
 	
 	// Give gun our viewangles
@@ -853,21 +846,20 @@ void V_CalcNormalRefdef ( struct ref_params_s *pparams )
 
 	lasttime = pparams->time;
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	// modif de Julien
 	if (gHUD.m_HudTank.m_iPlayerInTank == true)
 		gHUD.m_HudTank.SetViewPos(pparams);
-#endif
+
 
 	v_origin = pparams->vieworg;
 
-#if defined ( HLINVASION_CLIENT_DLL )
+
 	// modif de Julien
 	// cache l'arme pendant le zoom
 
 	if (in_fov != 0 && in_fov != 90)
 		view->model = NULL;
-#endif
+
 }
 
 void V_SmoothInterpolateAngles( float * startAngle, float * endAngle, float * finalAngle, float degreesPerSec )
