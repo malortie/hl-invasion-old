@@ -153,14 +153,9 @@ int CHud :: Redraw( float flTime, int intermission )
 			{
 				if ( !intermission )
 				{
-#if defined ( HLINVASION_CLIENT_DLL )
 					if (((pList->p->m_iFlags & HUD_ACTIVE) && !(m_iHideHUDDisplay & HIDEHUD_ALL))
 						|| ( (pList->p->m_iFlags & HUD_ACTIVE) &&  (m_iHideHUDDisplay & HIDEHUD_ALL) && pList->p->m_iFlags & HUD_ALWAYSDRAW)) // modif de Julien
 						pList->p->Draw(flTime);
-#else
-					if ( (pList->p->m_iFlags & HUD_ACTIVE) && !(m_iHideHUDDisplay & HIDEHUD_ALL) )
-						pList->p->Draw(flTime);
-#endif // defined ( HLINVASION_CLIENT_DLL )
 				}
 				else
 				{  // it's an intermission,  so only draw hud elements that are set to draw during intermissions
