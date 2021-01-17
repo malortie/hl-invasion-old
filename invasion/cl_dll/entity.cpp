@@ -15,10 +15,8 @@
 #include "bench.h"
 #include "Exports.h"
 
-#if defined ( HLINVASION_CLIENT_DLL )
 //modif de Julien
 #include "eventscripts.h"	
-#endif
 
 #include "particleman.h"
 extern IParticleMan *g_pParticleMan;
