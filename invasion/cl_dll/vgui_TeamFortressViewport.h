@@ -648,6 +648,9 @@ public:
 	int MsgFunc_Feign(const char *pszName, int iSize, void *pbuf );
 	int MsgFunc_Detpack(const char *pszName, int iSize, void *pbuf );
 	int MsgFunc_VGUIMenu(const char *pszName, int iSize, void *pbuf );
+	int MsgFunc_VGUIordi(const char *pszName, int iSize, void *pbuf );//modif de Julien
+	int MsgFunc_Keypad(const char *pszName, int iSize, void *pbuf );//modif de Julien
+	int MsgFunc_Conveyor(const char *pszName, int iSize, void *pbuf );//modif de Julien
 	int MsgFunc_MOTD( const char *pszName, int iSize, void *pbuf );
 	int MsgFunc_BuildSt( const char *pszName, int iSize, void *pbuf );
 	int MsgFunc_RandomPC( const char *pszName, int iSize, void *pbuf );
@@ -659,11 +662,6 @@ public:
 	int MsgFunc_AllowSpec( const char *pszName, int iSize, void *pbuf );
 	int MsgFunc_SpecFade( const char *pszName, int iSize, void *pbuf );	
 	int MsgFunc_ResetFade( const char *pszName, int iSize, void *pbuf );	
-#if defined ( HLINVASION_CLIENT_DLL )
-	int MsgFunc_VGUIordi(const char *pszName, int iSize, void *pbuf);//modif de Julien
-	int MsgFunc_Keypad(const char *pszName, int iSize, void *pbuf);//modif de Julien
-	int MsgFunc_Conveyor(const char *pszName, int iSize, void *pbuf);//modif de Julien
-#endif // defined ( HLINVASION_CLIENT_DLL )
 
 	// Input
 	bool SlotInput( int iSlot );
