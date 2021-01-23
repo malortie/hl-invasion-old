@@ -548,14 +548,12 @@ TeamFortressViewport::TeamFortressViewport(int x,int y,int wide,int tall) : Pane
 	m_pSpectatorPanel = NULL;
 	m_pCurrentMenu = NULL;
 	m_pCurrentCommandMenu = NULL;
-#if defined ( HLINVASION_CLIENT_DLL )
 	//modif de Julien
 	m_pOrdiMenu = NULL;
 	m_pOrdiControl = NULL;
 	m_pKeypad = NULL;
 	m_pSoin = NULL;
 	m_pRadio = NULL;
-#endif // defined ( HLINVASION_CLIENT_DLL )
 
 	Initialize();
 	addInputSignal( new CViewPortInputHandler );
@@ -637,13 +635,11 @@ TeamFortressViewport::TeamFortressViewport(int x,int y,int wide,int tall) : Pane
 	UpdatePlayerMenu(m_PlayerMenu);
 
 	CreateServerBrowser();
-#if defined ( HLINVASION_CLIENT_DLL )
 	CreateOrdiMenu();		//modif de Julien
 	CreateOrdiControl();	//modif de Julien
 	CreateKeypad();	//modif de Julien
 	CreateSoin();	//modif de Julien
 	CreateRadio();	//modif de Julien
-#endif
 
 }
 
@@ -661,7 +657,7 @@ void TeamFortressViewport::Initialize( void )
 	{
 		m_pClassMenu->Initialize();
 	}
-#if defined ( HLINVASION_CLIENT_DLL )
+
 	//modif de JUlien
 	if (m_pOrdiMenu)
 	{
@@ -687,7 +683,7 @@ void TeamFortressViewport::Initialize( void )
 	{
 		m_pRadio->Initialize();
 	}
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
 	if (m_pScoreBoard)
 	{
 		m_pScoreBoard->Initialize();
@@ -1946,8 +1942,7 @@ void TeamFortressViewport::ShowVGUIMenu( int iMenu )
 		pNewMenu = ShowClassMenu();
 		break;
 
-#if defined ( HLINVASION_CLIENT_DLL )
-		//modif de Julien
+	//modif de Julien
 	case MENU_ORDIMENU:
 		pNewMenu = ShowOrdiMenu();
 		break;
@@ -1967,11 +1962,10 @@ void TeamFortressViewport::ShowVGUIMenu( int iMenu )
 		pNewMenu = ShowSoin();
 		break;
 
-		//modif de Julien
+	//modif de Julien
 	case MENU_RADIO:
 		pNewMenu = ShowRadio();
 		break;
-#endif // defined ( HLINVASION_CLIENT_DLL )
 
 	default:
 		break;
@@ -2094,7 +2088,6 @@ void TeamFortressViewport::CreateClassMenu()
 	m_pClassMenu->setVisible( false );
 }
 
-#if defined ( HLINVASION_CLIENT_DLL )
 //modif de Julien
 
 void TeamFortressViewport::CreateOrdiMenu()
@@ -2140,9 +2133,10 @@ CMenuPanel* TeamFortressViewport :: ShowKeypad()
     m_pKeypad->Reset();
     return m_pKeypad;
 }
-#endif // defined ( HLINVASION_CLIENT_DLL )
 
-//======================================================================================
+
+
+
 //======================================================================================
 // SPECTATOR MENU
 //======================================================================================
@@ -2500,7 +2494,6 @@ int TeamFortressViewport::MsgFunc_VGUIMenu(const char *pszName, int iSize, void 
 	return 1;
 }
 
-#if defined ( HLINVASION_CLIENT_DLL )
 //modif de Julien
 //permet de passer trois paramètres au vgui qui s'affiche
 
@@ -2736,7 +2729,7 @@ int TeamFortressViewport::MsgFunc_Keypad(const char *pszName, int iSize, void *p
 
 	return 1;
 }
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
 
 int TeamFortressViewport::MsgFunc_MOTD( const char *pszName, int iSize, void *pbuf )
 {
