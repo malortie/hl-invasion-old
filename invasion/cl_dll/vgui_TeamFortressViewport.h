@@ -40,21 +40,11 @@
 #define MENU_CLASSHELP2 			7
 #define MENU_REPEATHELP 			8
 #define MENU_SPECHELP				9
-#if defined ( HLINVASION_CLIENT_DLL )
-#if 1
 #define MENU_ORDIMENU				10	//modif de Julien
 #define MENU_ORDICONTROL			11	//modif de Julien
 #define MENU_KEYPAD					12	//modif de Julien
 #define MENU_SOIN					13	//modif de Julien
 #define MENU_RADIO					14	//modif de Julien
-#else
-#define MENU_ORDIMENU				9	//modif de Julien
-#define MENU_ORDICONTROL			10	//modif de Julien
-#define MENU_KEYPAD					11	//modif de Julien
-#define MENU_SOIN					12	//modif de Julien
-#define MENU_RADIO					13	//modif de Julien
-#endif
-#endif // defined ( HLINVASION_CLIENT_DLL )
 #endif
 using namespace vgui;
 
@@ -73,13 +63,12 @@ class CTransparentPanel;
 class CClassMenuPanel;
 class CTeamMenuPanel;
 class TeamFortressViewport;
-#if defined ( HLINVASION_CLIENT_DLL )
 class COrdiMenuPanel;	//modif de Julien
 class COrdiControlPanel;	//modif de Julien
 class CKeypad;	//modif de Julien
 class CSoin;	//modif de Julien
 class CRadio;	//modif de Julien
-#endif
+
 
 char* GetVGUITGAName(const char *pszName);
 BitmapTGA *LoadTGAForRes(const char* pImageName);
@@ -535,8 +524,6 @@ private:
 	void		 CreateClassMenu( void );
 	CMenuPanel*	 ShowClassMenu( void );
 	void		 CreateSpectatorMenu( void );
-
-#if defined ( HLINVASION_CLIENT_DLL )
 	//modif de Julien
 	void        CreateOrdiMenu( void );
 	CMenuPanel*    ShowOrdiMenu( void );
@@ -552,7 +539,9 @@ private:
 	//modif de Julien
 	void        CreateRadio( void );
 	CMenuPanel*    ShowRadio( void );
-#endif
+
+
+
 	
 	// Scheme handler
 	CSchemeManager m_SchemeManager;
@@ -673,12 +662,10 @@ public:
 
 	void *operator new( size_t stAllocateBlock );
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	// modif de Julien
 
 	CMenuPanel* OpenSoinMenu(void) { return ShowSoin(); };
 	CMenuPanel* OpenRadioMenu(void) { return ShowRadio(); };
-#endif // defined ( HLINVASION_CLIENT_DLL )
 
 public:
 	// VGUI Menus
@@ -689,13 +676,12 @@ public:
 	int						m_SpectatorCameraMenu;
 	int						m_PlayerMenu; // a list of current player
 	CClassMenuPanel	*m_pClassMenu;
-#if defined ( HLINVASION_CLIENT_DLL )
 	COrdiMenuPanel 	*m_pOrdiMenu;			//modif de Julien
 	COrdiControlPanel 	*m_pOrdiControl; 	//modif de Julien
 	CKeypad		 	*m_pKeypad;			 	//modif de Julien
 	CSoin		 	*m_pSoin;			 	//modif de Julien
 	CRadio		 	*m_pRadio;			 	//modif de Julien
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
 	ScorePanel		*m_pScoreBoard;
 	SpectatorPanel *		m_pSpectatorPanel;
 	char			m_szServerName[ MAX_SERVERNAME_LENGTH ];
@@ -705,7 +691,7 @@ public:
 // Command Menu Button Handlers
 #define MAX_COMMAND_SIZE	256
 
-#if defined ( HLINVASION_CLIENT_DLL )
+
 //modif de Julien
 
 class CMenuHandler_OrdiMenu : public ActionSignal
@@ -744,7 +730,7 @@ public:
 
 
 //=================
-#endif // defined ( HLINVASION_CLIENT_DLL ) 
+
 
 class CMenuHandler_StringCommand : public ActionSignal
 {
@@ -1913,12 +1899,11 @@ public:
 	}
 };
 
-#if defined ( HLINVASION_CLIENT_DLL )
 #include "vgui_OrdiMenu.h"
 #include "vgui_OrdiControl.h"
 #include "vgui_keypad.h"
 #include "vgui_soin.h"
 #include "vgui_radio.h"
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
 
 #endif
