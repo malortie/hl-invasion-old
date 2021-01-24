@@ -34,10 +34,8 @@ public:
 	static CGrenade *ShootContact( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity );
 	static CGrenade *ShootSatchelCharge( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity );
 	static void UseSatchelCharges( entvars_t *pevOwner, SATCHELCODE code );
+	static CGrenade *ShootFrag( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity, int mode );	//modif de Julien
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
-	static CGrenade *ShootFrag(entvars_t *pevOwner, Vector vecStart, Vector vecVelocity, int mode);	//modif de Julien
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 
 	void Explode( Vector vecSrc, Vector vecAim );
 	void Explode( TraceResult *pTrace, int bitsDamageType );
@@ -51,10 +49,9 @@ public:
 	void EXPORT Detonate( void );
 	void EXPORT DetonateUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	void EXPORT TumbleThink( void );
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
-	void EXPORT FragThink(void);	//modif de Julien
-	void EXPORT FragTouch(CBaseEntity *pOther);	//modif de Julien
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+	void EXPORT FragThink( void );	//modif de Julien
+	void EXPORT FragTouch( CBaseEntity *pOther );	//modif de Julien
+
 
 	virtual void BounceSound( void );
 	virtual int	BloodColor( void ) { return DONT_BLEED; }
@@ -62,11 +59,10 @@ public:
 
 	BOOL m_fRegisteredSound;// whether or not this grenade has issued its DANGER sound to the world sound list yet.
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	//modif de Julien
 	virtual BOOL IsInGaz(void);
 	int m_iSpriteTexture;
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+
 };
 
 
@@ -76,7 +72,6 @@ public:
 #define ITEM_SECURITY		3
 #define ITEM_BATTERY		4
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 #define WEAPON_NONE				0
 #define WEAPON_CROWBAR			1
 #define	WEAPON_GLOCK			2
@@ -102,24 +97,6 @@ public:
 #define WEAPON_BRIQUET			22
 #define WEAPON_SUPERGUN			5
 // fin modif.
-#else
-#define WEAPON_NONE				0
-#define WEAPON_CROWBAR			1
-#define	WEAPON_GLOCK			2
-#define WEAPON_PYTHON			3
-#define WEAPON_MP5				4
-#define WEAPON_CHAINGUN			5
-#define WEAPON_CROSSBOW			6
-#define WEAPON_SHOTGUN			7
-#define WEAPON_RPG				8
-#define WEAPON_GAUSS			9
-#define WEAPON_EGON				10
-#define WEAPON_HORNETGUN		11
-#define WEAPON_HANDGRENADE		12
-#define WEAPON_TRIPMINE			13
-#define	WEAPON_SATCHEL			14
-#define	WEAPON_SNARK			15
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 
 #define WEAPON_ALLWEAPONS		(~(1<<WEAPON_SUIT))
 
@@ -146,7 +123,6 @@ public:
 #define SNARK_WEIGHT		5
 #define SATCHEL_WEIGHT		-10
 #define TRIPMINE_WEIGHT		-10
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 // modif. de Julien
 #define M16_WEIGHT			20
 #define FSNIPER_WEIGHT		20
@@ -156,8 +132,6 @@ public:
 #define BRIQUET_WEIGHT		20
 #define SUPERGUN_WEIGHT		20
 //fin modif.
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
-
 
 // weapon clip/carry ammo capacities
 #define URANIUM_MAX_CARRY		100
@@ -172,7 +146,6 @@ public:
 #define SNARK_MAX_CARRY			15
 #define HORNET_MAX_CARRY		8
 #define M203_GRENADE_MAX_CARRY	10
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 // modif. de Julien
 #define M16_MAX_CARRY			200
 #define FSNIPER_MAX_CARRY		50
@@ -181,7 +154,6 @@ public:
 #define LFLAMMES_MAX_CARRY		200
 #define SUPERGUN_MAX_CARRY		100
 //fin modif.
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 
 // the maximum amount of ammo each weapon's clip can hold
 #define WEAPON_NOCLIP			-1
@@ -201,7 +173,6 @@ public:
 #define SATCHEL_MAX_CLIP		WEAPON_NOCLIP
 #define TRIPMINE_MAX_CLIP		WEAPON_NOCLIP
 #define SNARK_MAX_CLIP			WEAPON_NOCLIP
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 // modif. de Julien
 #define M16_MAX_CLIP			50
 #define FSNIPER_MAX_CLIP		5
@@ -210,8 +181,6 @@ public:
 #define LFLAMMES_MAX_CLIP		WEAPON_NOCLIP
 #define SUPERGUN_MAX_CLIP		25
 //fin modif.
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
-
 
 // the default amount of ammo that comes with each gun when it spawns
 #define GLOCK_DEFAULT_GIVE			17
@@ -229,7 +198,6 @@ public:
 #define TRIPMINE_DEFAULT_GIVE		1
 #define SNARK_DEFAULT_GIVE			5
 #define HIVEHAND_DEFAULT_GIVE		8
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 // modif. de Julien
 #define M16_DEFAULT_GIVE			25
 #define FSNIPER_DEFAULT_GIVE		3
@@ -238,7 +206,6 @@ public:
 #define LFLAMMES_DEFAULT_GIVE		30
 #define	SUPERGUN_DEFAULT_GIVE		40
 // fin modif.
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 
 // The amount of ammo given to a player by an ammo item.
 #define AMMO_URANIUMBOX_GIVE	20
@@ -252,7 +219,6 @@ public:
 #define AMMO_RPGCLIP_GIVE		RPG_MAX_CLIP
 #define AMMO_URANIUMBOX_GIVE	20
 #define AMMO_SNARKBOX_GIVE		5
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 // modif. de Julien
 #define AMMO_M16CLIP_GIVE		50
 #define AMMO_FSNIPERCLIP_GIVE	5
@@ -260,7 +226,6 @@ public:
 #define AMMO_LFLAMMESCLIPGIVE	30
 #define AMMO_SUPERGUNCLIPGIVE	20
 //fin modif
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 
 // bullet types
 typedef	enum
@@ -270,17 +235,13 @@ typedef	enum
 	BULLET_PLAYER_MP5, // mp5
 	BULLET_PLAYER_357, // python
 	BULLET_PLAYER_BUCKSHOT, // shotgun
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	BULLET_PLAYER_BUCKSHOT_DOUBLE, // modif de Julien
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	BULLET_PLAYER_CROWBAR, // crowbar swipe
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	// modif. de Julien
 	BULLET_PLAYER_M16,
 	BULLET_PLAYER_SNIPER,
 	BULLET_PLAYER_IRGUN,
 	// fin modif.
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 
 	BULLET_MONSTER_9MM,
 	BULLET_MONSTER_MP5,
@@ -333,10 +294,8 @@ public:
 	void EXPORT DestroyItem( void );
 	void EXPORT DefaultTouch( CBaseEntity *pOther );	// default weapon touch
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	// modif de Julien
 	virtual void ItemTouch(CBaseEntity *pOther) {};
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 
 	void EXPORT FallThink ( void );// when an item is first spawned, this think is run to determine when the object has hit the ground.
 	void EXPORT Materialize( void );// make a weapon visible and tangible
