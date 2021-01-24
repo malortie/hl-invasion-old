@@ -479,18 +479,19 @@ void W_Precache(void)
 	UTIL_PrecacheOtherWeapon( "weapon_rpg" );
 	UTIL_PrecacheOther( "ammo_rpgclip" );
 #endif
-
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD ) && !defined ( HLINVASION_DLL )
+/*
+#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// crossbow
 	UTIL_PrecacheOtherWeapon( "weapon_crossbow" );
 	UTIL_PrecacheOther( "ammo_crossbow" );
 #endif
-
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD ) && !defined ( HLINVASION_DLL )
+*/
+	/*
+#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// egon
 	UTIL_PrecacheOtherWeapon( "weapon_egon" );
 #endif
-
+*/
 	// tripmine
 	UTIL_PrecacheOtherWeapon( "weapon_tripmine" );
 
@@ -501,17 +502,17 @@ void W_Precache(void)
 
 	// hand grenade
 	UTIL_PrecacheOtherWeapon("weapon_handgrenade");
-
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD ) && !defined ( HLINVASION_DLL )
+/*
+#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// squeak grenade
 	UTIL_PrecacheOtherWeapon( "weapon_snark" );
 #endif
 
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD ) && !defined ( HLINVASION_DLL )
+#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// hornetgun
 	UTIL_PrecacheOtherWeapon( "weapon_hornetgun" );
 #endif
-
+*/
 
 #if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	if ( g_pGameRules->IsDeathmatch() )
