@@ -47,10 +47,8 @@ DLL_GLOBAL	short	g_sModelIndexBubbles;// holds the index for the bubbles model
 DLL_GLOBAL	short	g_sModelIndexBloodDrop;// holds the sprite index for the initial blood
 DLL_GLOBAL	short	g_sModelIndexBloodSpray;// holds the sprite index for splattered blood
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 //modif de Julien
 DLL_GLOBAL	short	g_sModelIndexBlastCircle; // sprite de l'onde de choc
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 
 ItemInfo CBasePlayerItem::ItemInfoArray[MAX_WEAPONS];
 AmmoInfo CBasePlayerItem::AmmoInfoArray[MAX_AMMO_SLOTS];
@@ -183,13 +181,12 @@ void DecalGunshot( TraceResult *pTrace, int iBulletType )
 		case BULLET_PLAYER_BUCKSHOT:
 		case BULLET_PLAYER_BUCKSHOT_DOUBLE:
 		case BULLET_PLAYER_357:
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
-	// modif. de Julien
+			// modif. de Julien
 		case BULLET_PLAYER_M16:
 		case BULLET_PLAYER_SNIPER:
 		case BULLET_PLAYER_IRGUN:
 		//fin modif.	
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+
 		default:
 			// smoke and decal
 			UTIL_GunshotDecalTrace( pTrace, DamageDecal( pEntity, DMG_BULLET ) );
@@ -206,7 +203,7 @@ void DecalGunshot( TraceResult *pTrace, int iBulletType )
 	}
 }
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+
 //
 // modif de Julien
 //
@@ -286,7 +283,8 @@ void ClientDecal ( TraceResult *pTrace, Vector vecSrc, Vector vecEnd, int crowba
 		}
 	}
 }
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+
+
 
 //
 // EjectBrass - tosses a brass shell from passed origin at passed velocity
@@ -407,9 +405,7 @@ void W_Precache(void)
 	// common world objects
 	UTIL_PrecacheOther( "item_suit" );
 	UTIL_PrecacheOther( "item_battery" );
-#if defined ( HLINVASION_DLL )
-	UTIL_PrecacheOther("item_healthkit");	// modif de Julien
-#endif // defined ( HLINVASION_DLL )
+	UTIL_PrecacheOther( "item_healthkit" );	// modif de Julien
 	UTIL_PrecacheOther( "item_antidote" );
 	UTIL_PrecacheOther( "item_security" );
 	UTIL_PrecacheOther( "item_longjump" );
@@ -430,7 +426,6 @@ void W_Precache(void)
 	UTIL_PrecacheOther( "ammo_9mmAR" );
 	UTIL_PrecacheOther( "ammo_ARgrenades" );
 
-#if defined ( HLINVASION_DLL )
 	// modif. de Julien
 	//m16
 	UTIL_PrecacheOtherWeapon( "weapon_m16" );
@@ -460,7 +455,7 @@ void W_Precache(void)
 
 
 	//fin modif.
-#endif // defined ( HLINVASION_DLL )
+
 
 #if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// python
@@ -468,7 +463,7 @@ void W_Precache(void)
 	UTIL_PrecacheOther( "ammo_357" );
 #endif
 	
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD ) && !defined ( HLINVASION_DLL )
+#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// gauss
 	UTIL_PrecacheOtherWeapon( "weapon_gauss" );
 	UTIL_PrecacheOther( "ammo_gaussclip" );
@@ -531,7 +526,6 @@ void W_Precache(void)
 	g_sModelIndexLaser = PRECACHE_MODEL( (char *)g_pModelNameLaser );
 	g_sModelIndexLaserDot = PRECACHE_MODEL("sprites/laserdot.spr");
 
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	//modif de Julien
 	g_sModelIndexBlastCircle = PRECACHE_MODEL("sprites/white.spr");
 	PRECACHE_MODEL ("sprites/stmbal1.spr");
@@ -599,7 +593,7 @@ void W_Precache(void)
 	PRECACHE_MODEL ("sprites/decals/decal_concrete03.spr");
 
 	PRECACHE_MODEL ("sprites/decals/decal_crowbar01.spr");
-#endif // defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
+
 
 	// used by explosions
 	PRECACHE_MODEL ("models/grenade.mdl");
@@ -618,10 +612,8 @@ void W_Precache(void)
 	
 	PRECACHE_SOUND ("items/weapondrop1.wav");// weapon falls to the ground
 
-#if defined ( HLINVASION_DLL )
 	PRECACHE_SOUND("sentences/blip.wav");// modif de Julien
 	PRECACHE_SOUND("buttons/blip2.wav");// modif de Julien
-#endif
 }
 
 
@@ -801,10 +793,8 @@ CBaseEntity* CBasePlayerItem::Respawn( void )
 
 void CBasePlayerItem::DefaultTouch( CBaseEntity *pOther )
 {
-#if defined ( HLINVASION_DLL ) || defined ( HLINVASION_CLIENT_DLL )
 	// modif de Julien - la fonction think ne peut etre declaree virtuelle
 	ItemTouch(pOther);
-#endif
 
 	// if it's not a player, ignore
 	if ( !pOther->IsPlayer() )
