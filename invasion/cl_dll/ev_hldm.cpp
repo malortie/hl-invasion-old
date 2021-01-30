@@ -813,7 +813,6 @@ void EV_HLDM_FireBullets( int idx, float *forward, float *right, float *up, int 
 					EV_HLDM_DecalGunshot( &tr, iBulletType );
 				}
 				break;
-#if defined ( HLINVASION_CLIENT_DLL )
 			case BULLET_PLAYER_SNIPER:	//modif de Julien
 				if (!tracer)
 				{
@@ -836,7 +835,6 @@ void EV_HLDM_FireBullets( int idx, float *forward, float *right, float *up, int 
 				}
 				break;
 			case BULLET_PLAYER_BUCKSHOT_DOUBLE:
-#endif // defined ( HLINVASION_CLIENT_DLL )
 			case BULLET_PLAYER_BUCKSHOT:
 				
 				EV_HLDM_DecalGunshot( &tr, iBulletType );
