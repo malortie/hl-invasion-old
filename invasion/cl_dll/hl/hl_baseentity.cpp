@@ -96,10 +96,10 @@ void CGrenade::Spawn( void ) { }
 CGrenade * CGrenade:: ShootTimed( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity, float time ){ return 0; }
 CGrenade *CGrenade::ShootContact( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity ){ return 0; }
 void CGrenade::DetonateUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ){ }
-#if defined ( HLINVASION_CLIENT_DLL )
-BOOL CGrenade::IsInGaz(void) { return FALSE; }
-CGrenade *CGrenade::ShootFrag(entvars_t *pevOwner, Vector vecStart, Vector vecVelocity, int mode) { return 0; }
-#endif
+
+// HL: Invasion Steampipe patch - Required since weapons are compiled client side.
+BOOL CGrenade::IsInGaz( void ) { return FALSE; }
+CGrenade* CGrenade::ShootFrag( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity, int mode ) { return 0; }
 
 void UTIL_Remove( CBaseEntity *pEntity ){ }
 struct skilldata_t  gSkillData;
@@ -240,13 +240,15 @@ int CBaseMonster :: TakeHealth (float flHealth, int bitsDamageType) { return 0; 
 int CBaseMonster :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) { return 0; }
 int CBaseMonster::Restore( class CRestore & ) { return 1; }
 int CBaseMonster::Save( class CSave & ) { return 1; }
-#if defined ( HLINVASION_CLIENT_DLL )
-//modif de Julien 7/7/01
-BOOL CBasePlayer::IsInGaz() { return FALSE; }
-void CBasePlayer::NVGTurnOn() { }
-void CBasePlayer::NVGTurnOff() { }
-void CBasePlayer::TextAmmo(TEXT_AMMMO ta_text) {}
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
+// modif de Julien
+void CBaseMonster :: Gunflash ( void ) {};
+void CBasePlayer :: TextAmmo ( TEXT_AMMMO ta_text ) {};
+
+// HL: Invasion Steampipe patch - Required since weapons are compiled client side.
+void CBasePlayer :: NVGTurnOn ( void ) {}
+void CBasePlayer :: NVGTurnOff ( void ) {}
+
 int TrainSpeed(int iSpeed, int iMax) { 	return 0; }
 void CBasePlayer :: DeathSound( void ) { }
 int CBasePlayer :: TakeHealth( float flHealth, int bitsDamageType ) { return 0; }
@@ -284,6 +286,8 @@ void CBasePlayer :: FlashlightTurnOn( void ) { }
 void CBasePlayer :: FlashlightTurnOff( void ) { }
 void CBasePlayer :: ForceClientDllUpdate( void ) { }
 void CBasePlayer::ImpulseCommands( ) { }
+//modif de Julien 7/7/01
+BOOL CBasePlayer::IsInGaz( ) { return FALSE; }
 void CBasePlayer::CheatImpulseCommands( int iImpulse ) { }
 int CBasePlayer::AddPlayerItem( CBasePlayerItem *pItem ) { return FALSE; }
 int CBasePlayer::RemovePlayerItem( CBasePlayerItem *pItem ) { return FALSE; }
