@@ -47,11 +47,10 @@ extern "C"
 void V_PunchAxis( int axis, float punch );
 void VectorAngles( const float *forward, float *angles );
 
-#if defined ( HLINVASION_CLIENT_DLL )
 // modif de julien
 // nouveau matériel - xeno
 #define CHAR_TEX_XENO		'X'
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
 
 extern cvar_t *cl_lw;
 
@@ -108,8 +107,6 @@ void EV_RpgReload(struct event_args_s *args);
 #define VECTOR_CONE_15DEGREES Vector( 0.13053, 0.13053, 0.13053 )
 #define VECTOR_CONE_20DEGREES Vector( 0.17365, 0.17365, 0.17365 )
 
-
-#if defined ( HLINVASION_CLIENT_DLL )
 
 #define PARTICULES_PRECISION	40
 #define ETINCELLES_PRECISION	250
@@ -470,7 +467,7 @@ void EV_HLDM_BulletImpact(pmtrace_t *pTrace, float *vecSrc, float *vecEnd, int i
 
 }
 
-#endif // defined ( HLINVASION_CLIENT_DLL )
+
 
 // play a strike sound based on the texture that was hit by the attack traceline.  VecSrc/VecEnd are the
 // original traceline endpoints used by the attacker, iBulletType is the type of bullet that hit the texture.
@@ -647,10 +644,8 @@ void EV_HLDM_GunshotDecalTrace( pmtrace_t *pTrace, char *decalName )
 		}
 	}
 
-#if defined ( HLINVASION_CLIENT_DLL )
 	//modif de Julien
 	return;
-#endif
 
 	pe = gEngfuncs.pEventAPI->EV_GetPhysent( pTrace->ent );
 
@@ -679,16 +674,12 @@ void EV_HLDM_DecalGunshot( pmtrace_t *pTrace, int iBulletType )
 		case BULLET_PLAYER_9MM:
 		case BULLET_MONSTER_9MM:
 		case BULLET_PLAYER_MP5:
-#if defined ( HLINVASION_CLIENT_DLL )
 		case BULLET_PLAYER_SNIPER:	//modif de Julien
 		case BULLET_PLAYER_M16:	//modif de Julien
 		case BULLET_PLAYER_IRGUN:	//modif de Julien
-#endif // defined ( HLINVASION_CLIENT_DLL )
 		case BULLET_MONSTER_MP5:
 		case BULLET_PLAYER_BUCKSHOT:
-#if defined ( HLINVASION_CLIENT_DLL )
 		case BULLET_PLAYER_BUCKSHOT_DOUBLE:
-#endif // defined ( HLINVASION_CLIENT_DLL )
 		case BULLET_PLAYER_357:
 		default:
 			// smoke and decal
@@ -730,11 +721,9 @@ int EV_HLDM_CheckTracer( int idx, float *vecSrc, float *end, float *forward, flo
 		{
 		case BULLET_PLAYER_MP5:
 		case BULLET_MONSTER_MP5:
-#if defined ( HLINVASION_CLIENT_DLL )
 		case BULLET_PLAYER_SNIPER:	//modif de Julien
 		case BULLET_PLAYER_M16:	//modif de Julien
 		case BULLET_PLAYER_IRGUN:	//modif de Julien
-#endif // defined ( HLINVASION_CLIENT_DLL )
 		case BULLET_MONSTER_9MM:
 		case BULLET_MONSTER_12MM:
 		default:
