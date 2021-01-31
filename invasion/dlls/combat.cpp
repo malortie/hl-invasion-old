@@ -35,10 +35,9 @@ extern DLL_GLOBAL int			g_iSkillLevel;
 
 extern Vector VecBModelOrigin( entvars_t* pevBModel );
 extern entvars_t *g_pevLastInflictor;
-#if defined ( HLINVASION_DLL )
 //modif de Julien
 extern void ClientDecal(TraceResult *pTrace, Vector vecSrc, Vector vecEnd, int crowbar = 0);
-#endif
+
 
 #define GERMAN_GIB_COUNT		4
 #define	HUMAN_GIB_COUNT			6
@@ -597,14 +596,12 @@ void CBaseMonster :: Killed( entvars_t *pevAttacker, int iGib )
 	unsigned int	cCount = 0;
 	BOOL			fDone = FALSE;
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien - lance flammes
 
 	if ( pev->renderfx == kRenderFxGlowShell )
 		pev->renderfx = kRenderFxNone;
 	
 	//----
-#endif // defined ( HLINVASION_DLL )
 
 	if ( HasMemory( bits_MEMORY_KILLED ) )
 	{
@@ -649,10 +646,8 @@ void CBaseMonster :: Killed( entvars_t *pevAttacker, int iGib )
 	
 	m_IdealMonsterState = MONSTERSTATE_DEAD;
 
-#if defined ( HLINVASION_DLL )
 	// modif de Julien
 	pev->solid = SOLID_BBOX;	// ne pas bloquer les gibs
-#endif
 }
 
 //
@@ -935,19 +930,11 @@ int CBaseMonster :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker,
 	{
 		g_pevLastInflictor = pevInflictor;
 
-#if defined ( HLINVASION_DLL )
 		if ( bitsDamageType & DMG_ALWAYSGIB && !(bitsDamageType & DMG_BULLET) )	// modif de Julien
-#else
-		if ( bitsDamageType & DMG_ALWAYSGIB )
-#endif
 		{
 			Killed( pevAttacker, GIB_ALWAYS );
 		}
-#if defined ( HLINVASION_DLL )
 		else if ( bitsDamageType & DMG_NEVERGIB || bitsDamageType & DMG_BULLET )	// modif de Julien
-#else
-		else if ( bitsDamageType & DMG_NEVERGIB )
-#endif
 		{
 			Killed( pevAttacker, GIB_NEVER );
 		}
@@ -1108,12 +1095,11 @@ void RadiusDamage( Vector vecSrc, entvars_t *pevInflictor, entvars_t *pevAttacke
 			
 			UTIL_TraceLine ( vecSrc, vecSpot, dont_ignore_monsters, ENT(pevInflictor), &tr );
 
-#if defined ( HLINVASION_DLL )
+
 			if ( tr.flFraction == 1.0 || tr.pHit == pEntity->edict() || FClassnameIs(tr.pHit, "info_tank_model") )	// modif de Julien
-#else
-			if ( tr.flFraction == 1.0 || tr.pHit == pEntity->edict() )
-#endif
-			{// the explosion can 'see' this entity, so hurt them!
+			{
+
+				// the explosion can 'see' this entity, so hurt them!
 				if (tr.fStartSolid)
 				{
 					// if we're stuck inside them, fixup the position and distance
@@ -1275,11 +1261,11 @@ BOOL CBaseEntity :: FVisible ( CBaseEntity *pEntity )
 
 	UTIL_TraceLine(vecLookerOrigin, vecTargetOrigin, ignore_monsters, ignore_glass, ENT(pev)/*pentIgnore*/, &tr);
 	
-#if defined ( HLINVASION_DLL )
+
 	//modif de Julien pour le tank
 	if (FClassnameIs(pEntity->pev, "vehicle_tank"))
 		UTIL_TraceLine(vecLookerOrigin, vecTargetOrigin, ignore_monsters, ignore_glass, ENT(pEntity->pev), &tr);
-#endif
+
 
 	if (tr.flFraction != 1.0)
 	{
@@ -1690,14 +1676,12 @@ Vector CBaseEntity::FireBulletsPlayer ( ULONG cShots, Vector vecSrc, Vector vecD
 	}
 	ApplyMultiDamage(pev, pevAttacker);
 
-#if defined ( HLINVASION_DLL )
 	//modif de Julien
 	if (IsPlayer())
 	{
 		if (IsInGaz() == TRUE)
 			m_bFireInGaz = TRUE;
 	}
-#endif
 
 	return Vector( x * vecSpread.x, y * vecSpread.y, 0.0 );
 }
