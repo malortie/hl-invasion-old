@@ -709,7 +709,7 @@ void CGib :: WaitTillLand ( void )
 		if ( m_instant == 1 )
 		{
 			pev->nextthink = gpGlobals->time + m_lifeTime;
-			SetThink ( &CBaseEntity::SUB_Remove );
+			SetThink ( &CGib::SUB_Remove );
 			return;
 		}
 
