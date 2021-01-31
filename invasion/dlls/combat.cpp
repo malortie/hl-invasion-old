@@ -706,6 +706,13 @@ void CGib :: WaitTillLand ( void )
 
 	if ( pev->velocity == g_vecZero )
 	{
+		if ( m_instant == 1 )
+		{
+			pev->nextthink = gpGlobals->time + m_lifeTime;
+			SetThink ( &CBaseEntity::SUB_Remove );
+			return;
+		}
+
 		SetThink (&CGib::SUB_StartFadeOut);
 		pev->nextthink = gpGlobals->time + m_lifeTime;
 
